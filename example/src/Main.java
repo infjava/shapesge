@@ -1,7 +1,7 @@
+import fri.shapesge.Square;
+
 public class Main {
     public static void main(String[] args) {
-        Rectangle rectangle = new Rectangle();
-
-        System.out.println("Hello world!");
+        Square square = new Square();
     }
 }
