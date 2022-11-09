@@ -1,6 +1,8 @@
 package fri.shapesge;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Polygon;
 
 /**
  * A triangle that can be manipulated and that draws itself on a canvas.
@@ -99,6 +101,21 @@ public class Triangle {
      * "magenta" and "black".
      */
     public void changeColor(String newColor) {
-        this.color = ColorParser.parse(newColor);
+        this.color = Parser.parseColor(newColor);
+    }
+
+    private class TriangleShape extends DrawableShape {
+        @Override
+        public void draw(Graphics2D canvas) {
+            if (!Triangle.this.isVisible) {
+                return;
+            }
+
+            var xpoints = new int[]{Triangle.this.xPosition, Triangle.this.xPosition + (Triangle.this.width / 2), Triangle.this.xPosition - Triangle.this.width / 2};
+            var ypoints = new int[]{Triangle.this.yPosition, Triangle.this.yPosition + Triangle.this.height, Triangle.this.yPosition + Triangle.this.height};
+            var shape = new Polygon(xpoints, ypoints, 3);
+            canvas.setColor(Triangle.this.color);
+            canvas.fill(shape);
+        }
     }
 }

@@ -1,5 +1,9 @@
 package fri.shapesge;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
+
 /**
  * A circle that can be manipulated and that draws itself on a canvas.
  *
@@ -94,6 +98,19 @@ public class Circle {
      * "magenta" and "black".
      */
     public void changeColor(String newColor) {
-        this.color = ColorParser.parse(newColor);
+        this.color = Parser.parseColor(newColor);
+    }
+
+    private class CircleShape extends DrawableShape {
+        @Override
+        public void draw(Graphics2D canvas) {
+            if (!Circle.this.isVisible) {
+                return;
+            }
+
+            var shape = new Ellipse2D.Double(Circle.this.xPosition, Circle.this.yPosition, Circle.this.diameter, Circle.this.diameter);
+            canvas.setColor(Circle.this.color);
+            canvas.fill(shape);
+        }
     }
 }

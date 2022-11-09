@@ -1,9 +1,8 @@
 package fri.shapesge;
 
-import javax.imageio.ImageIO;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 /**
  * The Image class represents a bitmap image that can be drawn on the canvas.
@@ -15,7 +14,7 @@ import java.io.IOException;
 public class Image {
     private int xPosition;
     private int yPosition;
-    private int angle;
+    private AffineTransform transform;
     private BufferedImage image;
     private boolean isVisible;
 
@@ -25,8 +24,8 @@ public class Image {
     public Image(String imagePath) {
         this.xPosition = 100;
         this.yPosition = 100;
-        this.image = this.loadImageFromFile(imagePath);
-        this.angle = 0;
+        this.image = Parser.parseImage(imagePath);
+        this.transform = Parser.parseAngle(0);
         this.isVisible = false;
     }
 
@@ -90,26 +89,24 @@ public class Image {
      * Change the drawn image. Image must exist.
      */
     public void changeImage(String imagePath) {
-        this.image = this.loadImageFromFile(imagePath);
+        this.image = Parser.parseImage(imagePath);
     }
 
     /**
      * Change the image rotation angle according to the parameter. North = 0.
      */
     public void changeAngle(int angle) {
-        this.angle = angle;
+        this.transform = Parser.parseAngle(angle);
     }
 
-    private BufferedImage loadImageFromFile(String imagePath) {
-        BufferedImage loadedImage;
+    private class ImageShape extends DrawableShape {
+        @Override
+        public void draw(Graphics2D canvas) {
+            if (!Image.this.isVisible) {
+                return;
+            }
 
-        try {
-            loadedImage = ImageIO.read(new File(imagePath));
-        } catch (IOException e) {
-            loadedImage = null;
-            javax.swing.JOptionPane.showMessageDialog(null, "File " + imagePath + " was not found.");
+            canvas.drawImage(Image.this.image, Image.this.transform, null);
         }
-
-        return loadedImage;
     }
 }

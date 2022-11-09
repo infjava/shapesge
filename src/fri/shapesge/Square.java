@@ -1,6 +1,8 @@
 package fri.shapesge;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
 
 /**
  * A square that can be manipulated and that draws itself on a canvas.
@@ -95,6 +97,19 @@ public class Square {
      * "magenta" and "black".
      */
     public void changeColor(String newColor) {
-        this.color = ColorParser.parse(newColor);
+        this.color = Parser.parseColor(newColor);
+    }
+
+    private class SquareShape extends DrawableShape {
+        @Override
+        public void draw(Graphics2D canvas) {
+            if (!Square.this.isVisible) {
+                return;
+            }
+
+            var shape = new Rectangle2D.Double(Square.this.xPosition, Square.this.yPosition, Square.this.size, Square.this.size);
+            canvas.setColor(Square.this.color);
+            canvas.fill(shape);
+        }
     }
 }
