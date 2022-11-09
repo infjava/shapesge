@@ -1,5 +1,7 @@
 package fri.shapesge;
 
+import java.awt.Color;
+
 /**
  * A circle that can be manipulated and that draws itself on a canvas.
  *
@@ -13,7 +15,7 @@ public class Ellipse {
     private int diameterY;
     private int xPosition;
     private int yPosition;
-    private String color;
+    private Color color;
     private boolean isVisible;
 
     /**
@@ -24,7 +26,7 @@ public class Ellipse {
         this.diameterY = 30;
         this.xPosition = 20;
         this.yPosition = 60;
-        this.color = "blue";
+        this.color = Color.blue;
         this.isVisible = false;
     }
 
@@ -97,6 +99,6 @@ public class Ellipse {
      * "magenta" and "black".
      */
     public void changeColor(String newColor) {
-        this.color = newColor;
+        this.color = ColorParser.parse(newColor);
     }
 }

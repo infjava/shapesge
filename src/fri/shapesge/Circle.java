@@ -12,7 +12,7 @@ public class Circle {
     private int diameter;
     private int xPosition;
     private int yPosition;
-    private String color;
+    private Color color;
     private boolean isVisible;
 
     /**
@@ -22,7 +22,7 @@ public class Circle {
         this.diameter = 30;
         this.xPosition = 20;
         this.yPosition = 60;
-        this.color = "blue";
+        this.color = Color.blue;
         this.isVisible = false;
     }
 
@@ -94,6 +94,6 @@ public class Circle {
      * "magenta" and "black".
      */
     public void changeColor(String newColor) {
-        this.color = newColor;
+        this.color = ColorParser.parse(newColor);
     }
 }

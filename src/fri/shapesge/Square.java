@@ -1,5 +1,7 @@
 package fri.shapesge;
 
+import java.awt.Color;
+
 /**
  * A square that can be manipulated and that draws itself on a canvas.
  *
@@ -11,7 +13,7 @@ public class Square {
     private int size;
     private int xPosition;
     private int yPosition;
-    private String color;
+    private Color color;
     private boolean isVisible;
 
     /**
@@ -21,7 +23,7 @@ public class Square {
         this.size = 30;
         this.xPosition = 60;
         this.yPosition = 50;
-        this.color = "red";
+        this.color = Color.red;
         this.isVisible = false;
     }
 
@@ -93,6 +95,6 @@ public class Square {
      * "magenta" and "black".
      */
     public void changeColor(String newColor) {
-        this.color = newColor;
+        this.color = ColorParser.parse(newColor);
     }
 }

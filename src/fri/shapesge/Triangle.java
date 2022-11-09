@@ -1,5 +1,7 @@
 package fri.shapesge;
 
+import java.awt.Color;
+
 /**
  * A triangle that can be manipulated and that draws itself on a canvas.
  *
@@ -13,7 +15,7 @@ public class Triangle {
     private int width;
     private int xPosition;
     private int yPosition;
-    private String color;
+    private Color color;
     private boolean isVisible;
 
     /**
@@ -24,7 +26,7 @@ public class Triangle {
         this.width = 40;
         this.xPosition = 50;
         this.yPosition = 15;
-        this.color = "green";
+        this.color = Color.green;
         this.isVisible = false;
     }
 
@@ -97,6 +99,6 @@ public class Triangle {
      * "magenta" and "black".
      */
     public void changeColor(String newColor) {
-        this.color = newColor;
+        this.color = ColorParser.parse(newColor);
     }
 }
