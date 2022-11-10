@@ -1,11 +1,20 @@
 package fri.shapesge;
 
+import java.awt.Color;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 
 class GameConfig {
+    public static final String WINDOW_SECTION = "Window";
+    public static final String WINDOW_TITLE = "Title";
+    public static final String WINDOW_WIDTH = "Width";
+    public static final String WINDOW_HEIGHT = "Height";
+    public static final String CANVAS_BACKGROUND = "Background";
+    public static final String FPS = "FPS";
+    public static final String SHOW_INFO = "ShowInfo";
+
     private final HashMap<String, HashMap<String, String>> values;
 
     public GameConfig() {
@@ -69,6 +78,10 @@ class GameConfig {
     public boolean getBoolean(String section, String option) {
         var value = this.get(section, option).toLowerCase();
         return value.equals("yes") || value.equals("true");
+    }
+
+    public Color getColor(String section, String option) {
+        return Parser.parseColor(this.get(section, option));
     }
 
     public Iterable<String> getOptions(String section) {

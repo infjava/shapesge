@@ -9,10 +9,15 @@ class Game {
 
     private final GameConfig gameConfig;
     private final GameObjects gameObjects;
+    private final GameWindow gameWindow;
 
     private Game() {
         this.gameConfig = new GameConfig();
         this.gameObjects = new GameObjects();
+        this.gameWindow = new GameWindow(
+                this.gameObjects,
+                this.gameConfig
+        );
     }
 
     public void registerShape(DrawableShape drawableShape) {

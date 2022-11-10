@@ -1,7 +1,7 @@
 package fri.shapesge;
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.util.function.Consumer;
 
 class GameObjects {
     private final ArrayList<DrawableShape> shapes;
@@ -14,7 +14,9 @@ class GameObjects {
         this.shapes.add(drawableShape);
     }
 
-    public synchronized void forEachShape(Consumer<DrawableShape> consumer) {
-        this.shapes.forEach(consumer);
+    public synchronized void drawAll(Graphics2D canvas) {
+        for (DrawableShape shape : this.shapes) {
+            shape.draw(canvas);
+        }
     }
 }
