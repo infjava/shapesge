@@ -7,9 +7,11 @@ class Game {
         return Game.INSTANCE;
     }
 
+    private final GameConfig gameConfig;
     private final GameObjects gameObjects;
 
     private Game() {
+        this.gameConfig = new GameConfig();
         this.gameObjects = new GameObjects();
     }
 
