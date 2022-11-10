@@ -9,7 +9,7 @@ class GameConfig {
     private final HashMap<String, HashMap<String, String>> values;
 
     public GameConfig() {
-        var appConfig = ClassLoader.getSystemResourceAsStream("/sbge.ini");
+        var appConfig = ClassLoader.getSystemResourceAsStream("sbge.ini");
         if (appConfig != null) {
             this.values = this.loadConfigFrom(appConfig);
         } else {
