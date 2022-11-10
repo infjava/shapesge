@@ -2,6 +2,7 @@ package fri.shapesge;
 
 class Game {
     private static final Game INSTANCE = new Game();
+    private final GameLoop gameLoop;
 
     public static Game getGame() {
         return Game.INSTANCE;
@@ -18,6 +19,10 @@ class Game {
                 this.gameObjects,
                 this.gameConfig
         );
+        this.gameLoop = new GameLoop(this.gameConfig, this.gameWindow);
+
+        this.gameWindow.show();
+        this.gameLoop.start();
     }
 
     public void registerShape(DrawableShape drawableShape) {
