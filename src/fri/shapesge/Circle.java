@@ -28,6 +28,8 @@ public class Circle {
         this.yPosition = 60;
         this.color = Color.blue;
         this.isVisible = false;
+
+        Game.getGame().registerShape(new CircleShape());
     }
 
     /**

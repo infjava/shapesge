@@ -27,6 +27,8 @@ public class Square {
         this.yPosition = 50;
         this.color = Color.red;
         this.isVisible = false;
+
+        Game.getGame().registerShape(new SquareShape());
     }
 
     /**

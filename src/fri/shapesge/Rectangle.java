@@ -29,6 +29,8 @@ public class Rectangle {
         this.yPosition = 50;
         this.color = Color.red;
         this.isVisible = false;
+
+        Game.getGame().registerShape(new RectangleShape());
     }
 
     /**

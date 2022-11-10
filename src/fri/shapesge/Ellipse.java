@@ -30,6 +30,8 @@ public class Ellipse {
         this.yPosition = 60;
         this.color = Color.blue;
         this.isVisible = false;
+
+        Game.getGame().registerShape(new EllipseShape());
     }
 
     /**

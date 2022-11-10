@@ -27,6 +27,8 @@ public class Image {
         this.image = Parser.parseImage(imagePath);
         this.transform = Parser.parseAngle(0);
         this.isVisible = false;
+
+        Game.getGame().registerShape(new ImageShape());
     }
 
     /**

@@ -30,6 +30,8 @@ public class Triangle {
         this.yPosition = 15;
         this.color = Color.green;
         this.isVisible = false;
+
+        Game.getGame().registerShape(new TriangleShape());
     }
 
     /**
