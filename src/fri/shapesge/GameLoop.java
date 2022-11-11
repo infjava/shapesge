@@ -4,25 +4,24 @@ class GameLoop implements Runnable {
     private final static long SECOND = 1_000_000_000; // in nanoseconds
 
     private final int fpsCaps;
+    private final GameFPSCounter fpsCounter;
     private final GameWindow gameWindow;
     private final GameTimerProcessor timerProcessor;
     private final GameEventDispatcher eventDispatcher;
-    private int fps;
 
-    public GameLoop(GameWindow gameWindow, GameTimerProcessor timerProcessor, GameEventDispatcher eventDispatcher, GameConfig gameConfig) {
+    public GameLoop(GameWindow gameWindow, GameTimerProcessor timerProcessor, GameEventDispatcher eventDispatcher, GameFPSCounter fpsCounter, GameConfig gameConfig) {
         this.gameWindow = gameWindow;
         this.timerProcessor = timerProcessor;
         this.eventDispatcher = eventDispatcher;
+        this.fpsCounter = fpsCounter;
 
         this.fpsCaps = gameConfig.getInt(GameConfig.WINDOW_SECTION, GameConfig.FPS);
-        this.fps = 0;
     }
 
     @Override
     public void run() {
         var frameTimes = this.initialFrameTimes();
         var frameNo = 0;
-        var fpsCounter = 0;
 
         for (;;) {
             var currentNanos = System.nanoTime();
@@ -42,6 +41,7 @@ class GameLoop implements Runnable {
 
             this.timerProcessor.processTimers();
             this.eventDispatcher.doEvents();
+            this.fpsCounter.countFrame();
 
             try {
                 this.gameWindow.redraw();
@@ -51,13 +51,6 @@ class GameLoop implements Runnable {
 
             frameTimes[frameNo] = currentNanos + SECOND;
             frameNo = (frameNo + 1) % frameTimes.length;
-
-            fpsCounter++;
-            if (frameNo == 0) {
-                this.fps = fpsCounter;
-                this.gameWindow.notifyFPS(fpsCounter);
-                fpsCounter = 0;
-            }
         }
     }
 

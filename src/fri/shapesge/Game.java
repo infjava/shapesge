@@ -8,6 +8,7 @@ class Game {
     }
 
     private final GameConfig gameConfig;
+    private final GameFPSCounter gameFPSCounter;
     private final GameLoop gameLoop;
     private final GameEventDispatcher gameEventDispatcher;
     private final GameInputProcessor gameInputProcessor;
@@ -27,15 +28,18 @@ class Game {
                 this.gameEventDispatcher,
                 this.gameConfig
         );
+        this.gameFPSCounter = new GameFPSCounter();
         this.gameWindow = new GameWindow(
                 this.gameObjects,
                 this.gameInputProcessor,
+                this.gameFPSCounter,
                 this.gameConfig
         );
         this.gameLoop = new GameLoop(
                 this.gameWindow,
                 this.gameTimerProcessor,
                 this.gameEventDispatcher,
+                this.gameFPSCounter,
                 this.gameConfig
         );
 

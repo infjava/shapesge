@@ -10,15 +10,16 @@ class GameWindow {
     private final GamePanel gamePanel;
     private final GameObjects gameObjects;
     private final GameInputProcessor gameInputProcessor;
+    private final GameFPSCounter fpsCounter;
     private final int width;
     private final int height;
     private final Color backgroundColor;
     private final boolean showInfo;
-    private int currentFPS;
 
-    public GameWindow(GameObjects gameObjects, GameInputProcessor gameInputProcessor, GameConfig gameConfig) {
+    public GameWindow(GameObjects gameObjects, GameInputProcessor gameInputProcessor, GameFPSCounter fpsCounter, GameConfig gameConfig) {
         this.gameObjects = gameObjects;
         this.gameInputProcessor = gameInputProcessor;
+        this.fpsCounter = fpsCounter;
         this.width = gameConfig.getInt(GameConfig.WINDOW_SECTION, GameConfig.WINDOW_WIDTH);
         this.height = gameConfig.getInt(GameConfig.WINDOW_SECTION, GameConfig.WINDOW_HEIGHT);
         this.backgroundColor = gameConfig.getColor(GameConfig.WINDOW_SECTION, GameConfig.CANVAS_BACKGROUND);
@@ -39,10 +40,6 @@ class GameWindow {
 
     public void redraw() {
         this.gamePanel.repaint();
-    }
-
-    public void notifyFPS(int fps) {
-        this.currentFPS = fps;
     }
 
     private class GamePanel extends JPanel {
@@ -66,7 +63,7 @@ class GameWindow {
                 canvas.setXORMode(Color.white);
 
                 canvas.setFont(new Font("Serif", Font.PLAIN, 12 ));
-                canvas.drawString(String.format("FPS: %d", GameWindow.this.currentFPS), 1, 12);
+                canvas.drawString(String.format("FPS: %d", GameWindow.this.fpsCounter.getFPS()), 1, 12);
 
                 canvas.setPaintMode();
             }
