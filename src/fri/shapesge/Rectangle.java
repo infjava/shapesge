@@ -30,7 +30,7 @@ public class Rectangle {
         this.color = Color.red;
         this.isVisible = false;
 
-        Game.getGame().registerShape(new RectangleShape());
+        Game.getGame().registerDrawable(new RectangleDrawable());
     }
 
     /**
@@ -105,7 +105,7 @@ public class Rectangle {
         this.color = Parser.parseColor(newColor);
     }
 
-    private class RectangleShape extends DrawableShape {
+    private class RectangleDrawable extends GameDrawable {
         @Override
         public void draw(Graphics2D canvas) {
             if (!Rectangle.this.isVisible) {

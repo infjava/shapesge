@@ -4,19 +4,19 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 class GameObjects {
-    private final ArrayList<DrawableShape> shapes;
+    private final ArrayList<GameDrawable> drawables;
 
     public GameObjects() {
-        this.shapes = new ArrayList<>();
+        this.drawables = new ArrayList<>();
     }
 
-    public synchronized void registerShape(DrawableShape drawableShape) {
-        this.shapes.add(drawableShape);
+    public synchronized void registerDrawable(GameDrawable drawable) {
+        this.drawables.add(drawable);
     }
 
     public synchronized void drawAll(Graphics2D canvas) {
-        for (DrawableShape shape : this.shapes) {
-            shape.draw(canvas);
+        for (GameDrawable drawable : this.drawables) {
+            drawable.draw(canvas);
         }
     }
 }

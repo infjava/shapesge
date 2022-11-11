@@ -31,7 +31,7 @@ public class Triangle {
         this.color = Color.green;
         this.isVisible = false;
 
-        Game.getGame().registerShape(new TriangleShape());
+        Game.getGame().registerDrawable(new TriangleDrawable());
     }
 
     /**
@@ -106,7 +106,7 @@ public class Triangle {
         this.color = Parser.parseColor(newColor);
     }
 
-    private class TriangleShape extends DrawableShape {
+    private class TriangleDrawable extends GameDrawable {
         @Override
         public void draw(Graphics2D canvas) {
             if (!Triangle.this.isVisible) {

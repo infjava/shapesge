@@ -47,8 +47,8 @@ class Game {
         this.gameLoop.start();
     }
 
-    public void registerShape(DrawableShape drawableShape) {
-        this.gameObjects.registerShape(drawableShape);
+    public void registerDrawable(GameDrawable drawable) {
+        this.gameObjects.registerDrawable(drawable);
     }
 
     public void registerEventTarget(Object target) {

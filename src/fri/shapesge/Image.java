@@ -28,7 +28,7 @@ public class Image {
         this.transform = Parser.parseAngle(0);
         this.isVisible = false;
 
-        Game.getGame().registerShape(new ImageShape());
+        Game.getGame().registerDrawable(new ImageDrawable());
     }
 
     /**
@@ -101,7 +101,7 @@ public class Image {
         this.transform = Parser.parseAngle(angle);
     }
 
-    private class ImageShape extends DrawableShape {
+    private class ImageDrawable extends GameDrawable {
         @Override
         public void draw(Graphics2D canvas) {
             if (!Image.this.isVisible) {

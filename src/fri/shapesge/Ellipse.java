@@ -31,7 +31,7 @@ public class Ellipse {
         this.color = Color.blue;
         this.isVisible = false;
 
-        Game.getGame().registerShape(new EllipseShape());
+        Game.getGame().registerDrawable(new EllipseDrawable());
     }
 
     /**
@@ -106,7 +106,7 @@ public class Ellipse {
         this.color = Parser.parseColor(newColor);
     }
 
-    private class EllipseShape extends DrawableShape {
+    private class EllipseDrawable extends GameDrawable {
         @Override
         public void draw(Graphics2D canvas) {
             if (!Ellipse.this.isVisible) {

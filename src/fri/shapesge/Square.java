@@ -28,7 +28,7 @@ public class Square {
         this.color = Color.red;
         this.isVisible = false;
 
-        Game.getGame().registerShape(new SquareShape());
+        Game.getGame().registerDrawable(new SquareDrawable());
     }
 
     /**
@@ -102,7 +102,7 @@ public class Square {
         this.color = Parser.parseColor(newColor);
     }
 
-    private class SquareShape extends DrawableShape {
+    private class SquareDrawable extends GameDrawable {
         @Override
         public void draw(Graphics2D canvas) {
             if (!Square.this.isVisible) {

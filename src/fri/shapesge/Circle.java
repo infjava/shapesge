@@ -29,7 +29,7 @@ public class Circle {
         this.color = Color.blue;
         this.isVisible = false;
 
-        Game.getGame().registerShape(new CircleShape());
+        Game.getGame().registerDrawable(new CircleDrawable());
     }
 
     /**
@@ -103,7 +103,7 @@ public class Circle {
         this.color = Parser.parseColor(newColor);
     }
 
-    private class CircleShape extends DrawableShape {
+    private class CircleDrawable extends GameDrawable {
         @Override
         public void draw(Graphics2D canvas) {
             if (!Circle.this.isVisible) {
