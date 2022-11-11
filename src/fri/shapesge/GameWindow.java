@@ -63,7 +63,15 @@ class GameWindow {
                 canvas.setXORMode(Color.white);
 
                 canvas.setFont(new Font("Serif", Font.PLAIN, 12 ));
-                canvas.drawString(String.format("FPS: %d", GameWindow.this.fpsCounter.getFPS()), 1, 12);
+                canvas.drawString(
+                        String.format(
+                                "FPS: %d, Objects: %d",
+                                GameWindow.this.fpsCounter.getFPS(),
+                                GameWindow.this.gameObjects.getCount()
+                        ),
+                        1,
+                        12
+                );
 
                 canvas.setPaintMode();
             }

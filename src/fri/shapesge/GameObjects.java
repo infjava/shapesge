@@ -19,4 +19,8 @@ class GameObjects {
             drawable.draw(canvas);
         }
     }
+
+    public synchronized int getCount() {
+        return this.drawables.size();
+    }
 }
