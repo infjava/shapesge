@@ -7,10 +7,10 @@ import java.util.ArrayList;
 class GameInputProcessor {
     private final ArrayList<GameKeyEvent> keyEvents;
     private final ArrayList<GameMouseEvent> mouseEvents;
-    private final GameEventDispatcher eventQueue;
+    private final GameEventDispatcher eventDispatcher;
 
-    public GameInputProcessor(GameEventDispatcher eventQueue, GameConfig gameConfig) {
-        this.eventQueue = eventQueue;
+    public GameInputProcessor(GameEventDispatcher eventDispatcher, GameConfig gameConfig) {
+        this.eventDispatcher = eventDispatcher;
         this.keyEvents = new ArrayList<>();
         this.mouseEvents = new ArrayList<>();
 
@@ -42,7 +42,7 @@ class GameInputProcessor {
     public synchronized void processKeyEvent(KeyEvent awtEvent) {
         for (GameKeyEvent event : this.keyEvents) {
             if (event.matches(awtEvent)) {
-                this.eventQueue.dispatchStandard(event.getMessage());
+                this.eventDispatcher.dispatchStandard(event.getMessage());
             }
         }
     }
@@ -50,7 +50,7 @@ class GameInputProcessor {
     public synchronized void processMouseEvent(MouseEvent awtEvent) {
         for (GameMouseEvent event : this.mouseEvents) {
             if (event.matches(awtEvent)) {
-                this.eventQueue.dispatchMouse(event.getMessage(), awtEvent.getX(), awtEvent.getY());
+                this.eventDispatcher.dispatchMouse(event.getMessage(), awtEvent.getX(), awtEvent.getY());
             }
         }
     }

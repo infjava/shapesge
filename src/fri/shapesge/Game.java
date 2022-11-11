@@ -9,7 +9,7 @@ class Game {
 
     private final GameConfig gameConfig;
     private final GameLoop gameLoop;
-    private final GameEventDispatcher gameEventQueue;
+    private final GameEventDispatcher gameEventDispatcher;
     private final GameInputProcessor gameInputProcessor;
     private final GameObjects gameObjects;
     private final GameWindow gameWindow;
@@ -17,9 +17,9 @@ class Game {
     private Game() {
         this.gameConfig = new GameConfig();
         this.gameObjects = new GameObjects();
-        this.gameEventQueue = new GameEventDispatcher();
+        this.gameEventDispatcher = new GameEventDispatcher();
         this.gameInputProcessor = new GameInputProcessor(
-                this.gameEventQueue,
+                this.gameEventDispatcher,
                 this.gameConfig
         );
         this.gameWindow = new GameWindow(
@@ -29,7 +29,7 @@ class Game {
         );
         this.gameLoop = new GameLoop(
                 this.gameWindow,
-                this.gameEventQueue,
+                this.gameEventDispatcher,
                 this.gameConfig
         );
 
@@ -42,6 +42,6 @@ class Game {
     }
 
     public void registerEventTarget(Object target) {
-        this.gameEventQueue.registerTarget(target);
+        this.gameEventDispatcher.registerTarget(target);
     }
 }
