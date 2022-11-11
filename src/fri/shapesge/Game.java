@@ -10,7 +10,7 @@ class Game {
     private final GameConfig gameConfig;
     private final GameLoop gameLoop;
     private final GameEventDispatcher gameEventQueue;
-    private final GameEvents gameEvents;
+    private final GameInputProcessor gameInputProcessor;
     private final GameObjects gameObjects;
     private final GameWindow gameWindow;
 
@@ -18,13 +18,13 @@ class Game {
         this.gameConfig = new GameConfig();
         this.gameObjects = new GameObjects();
         this.gameEventQueue = new GameEventDispatcher();
-        this.gameEvents = new GameEvents(
+        this.gameInputProcessor = new GameInputProcessor(
                 this.gameEventQueue,
                 this.gameConfig
         );
         this.gameWindow = new GameWindow(
                 this.gameObjects,
-                this.gameEvents,
+                this.gameInputProcessor,
                 this.gameConfig
         );
         this.gameLoop = new GameLoop(

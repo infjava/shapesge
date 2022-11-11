@@ -8,16 +8,16 @@ class GameWindow {
     private final JFrame frame;
     private final GamePanel gamePanel;
     private final GameObjects gameObjects;
-    private final GameEvents gameEvents;
+    private final GameInputProcessor gameInputProcessor;
     private final int width;
     private final int height;
     private final Color backgroundColor;
     private final boolean showInfo;
     private int currentFPS;
 
-    public GameWindow(GameObjects gameObjects, GameEvents gameEvents, GameConfig gameConfig) {
+    public GameWindow(GameObjects gameObjects, GameInputProcessor gameInputProcessor, GameConfig gameConfig) {
         this.gameObjects = gameObjects;
-        this.gameEvents = gameEvents;
+        this.gameInputProcessor = gameInputProcessor;
         this.width = gameConfig.getInt(GameConfig.WINDOW_SECTION, GameConfig.WINDOW_WIDTH);
         this.height = gameConfig.getInt(GameConfig.WINDOW_SECTION, GameConfig.WINDOW_HEIGHT);
         this.backgroundColor = gameConfig.getColor(GameConfig.WINDOW_SECTION, GameConfig.CANVAS_BACKGROUND);
@@ -73,7 +73,7 @@ class GameWindow {
         @Override
         protected void processKeyEvent(KeyEvent e) {
             super.processKeyEvent(e);
-            GameWindow.this.gameEvents.processKeyEvent(e);
+            GameWindow.this.gameInputProcessor.processKeyEvent(e);
         }
     }
 }

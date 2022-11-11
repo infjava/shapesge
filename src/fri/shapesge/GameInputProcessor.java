@@ -3,11 +3,11 @@ package fri.shapesge;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-class GameEvents {
+class GameInputProcessor {
     private final ArrayList<GameKeyEvent> keyEvents;
     private final GameEventDispatcher eventQueue;
 
-    public GameEvents(GameEventDispatcher eventQueue, GameConfig gameConfig) {
+    public GameInputProcessor(GameEventDispatcher eventQueue, GameConfig gameConfig) {
         this.eventQueue = eventQueue;
         this.keyEvents = new ArrayList<>();
 
