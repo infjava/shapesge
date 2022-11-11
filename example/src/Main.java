@@ -1,4 +1,5 @@
 import fri.shapesge.Circle;
+import fri.shapesge.Manager;
 import fri.shapesge.Square;
 import fri.shapesge.Triangle;
 
@@ -12,5 +13,8 @@ public class Main {
 
         Triangle triangle = new Triangle();
         triangle.makeVisible();
+
+        Manager manager = new Manager();
+        manager.manageObject(triangle);
     }
 }

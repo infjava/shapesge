@@ -15,6 +15,8 @@ class GameConfig {
     public static final String FPS = "FPS";
     public static final String SHOW_INFO = "ShowInfo";
 
+    public static final String KEYBOARD_SECTION = "Keyboard";
+
     private final HashMap<String, HashMap<String, String>> values;
 
     public GameConfig() {

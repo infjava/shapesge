@@ -2,26 +2,28 @@ package fri.shapesge;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 class GameWindow {
     private final JFrame frame;
     private final GamePanel gamePanel;
     private final GameObjects gameObjects;
+    private final GameEvents gameEvents;
     private final int width;
     private final int height;
     private final Color backgroundColor;
     private final boolean showInfo;
     private int currentFPS;
 
-    public GameWindow(GameObjects gameObjects, GameConfig gameConfig) {
+    public GameWindow(GameObjects gameObjects, GameEvents gameEvents, GameConfig gameConfig) {
         this.gameObjects = gameObjects;
+        this.gameEvents = gameEvents;
         this.width = gameConfig.getInt(GameConfig.WINDOW_SECTION, GameConfig.WINDOW_WIDTH);
         this.height = gameConfig.getInt(GameConfig.WINDOW_SECTION, GameConfig.WINDOW_HEIGHT);
         this.backgroundColor = gameConfig.getColor(GameConfig.WINDOW_SECTION, GameConfig.CANVAS_BACKGROUND);
         this.showInfo = gameConfig.getBoolean(GameConfig.WINDOW_SECTION, GameConfig.SHOW_INFO);
 
         this.gamePanel = new GamePanel();
-        this.gamePanel.setPreferredSize(new Dimension(this.width, this.height));
 
         var windowTitle = gameConfig.get(GameConfig.WINDOW_SECTION, GameConfig.WINDOW_TITLE);
         this.frame = new JFrame(windowTitle);
@@ -43,6 +45,11 @@ class GameWindow {
     }
 
     private class GamePanel extends JPanel {
+        public GamePanel() {
+            this.setPreferredSize(new Dimension(GameWindow.this.width, GameWindow.this.height));
+            this.setFocusable(true);
+        }
+
         @Override
         public void paint(Graphics g) {
             final var canvas = (Graphics2D)g;
@@ -61,6 +68,12 @@ class GameWindow {
 
                 canvas.setPaintMode();
             }
+        }
+
+        @Override
+        protected void processKeyEvent(KeyEvent e) {
+            super.processKeyEvent(e);
+            GameWindow.this.gameEvents.processKeyEvent(e);
         }
     }
 }
