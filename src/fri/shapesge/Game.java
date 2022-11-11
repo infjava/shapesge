@@ -9,6 +9,7 @@ class Game {
 
     private final GameConfig gameConfig;
     private final GameLoop gameLoop;
+    private final GameEventDispatcher gameEventQueue;
     private final GameEvents gameEvents;
     private final GameObjects gameObjects;
     private final GameWindow gameWindow;
@@ -16,16 +17,20 @@ class Game {
     private Game() {
         this.gameConfig = new GameConfig();
         this.gameObjects = new GameObjects();
-        this.gameEvents = new GameEvents(this.gameConfig);
+        this.gameEventQueue = new GameEventDispatcher();
+        this.gameEvents = new GameEvents(
+                this.gameEventQueue,
+                this.gameConfig
+        );
         this.gameWindow = new GameWindow(
                 this.gameObjects,
                 this.gameEvents,
                 this.gameConfig
         );
         this.gameLoop = new GameLoop(
-                this.gameConfig,
                 this.gameWindow,
-                this.gameEvents
+                this.gameEventQueue,
+                this.gameConfig
         );
 
         this.gameWindow.show();
@@ -37,6 +42,6 @@ class Game {
     }
 
     public void registerEventTarget(Object target) {
-        this.gameEvents.registerTarget(target);
+        this.gameEventQueue.registerTarget(target);
     }
 }

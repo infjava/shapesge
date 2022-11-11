@@ -5,12 +5,12 @@ class GameLoop implements Runnable {
 
     private final int fpsCaps;
     private final GameWindow gameWindow;
-    private final GameEvents gameEvents;
+    private final GameEventDispatcher gameEventQueue;
     private int fps;
 
-    public GameLoop(GameConfig gameConfig, GameWindow gameWindow, GameEvents gameEvents) {
+    public GameLoop(GameWindow gameWindow, GameEventDispatcher gameEventQueue, GameConfig gameConfig) {
         this.gameWindow = gameWindow;
-        this.gameEvents = gameEvents;
+        this.gameEventQueue = gameEventQueue;
 
         this.fpsCaps = gameConfig.getInt(GameConfig.WINDOW_SECTION, GameConfig.FPS);
         this.fps = 0;
@@ -38,7 +38,7 @@ class GameLoop implements Runnable {
                 return;
             }
 
-            this.gameEvents.doEvents();
+            this.gameEventQueue.doEvents();
 
             try {
                 this.gameWindow.redraw();
