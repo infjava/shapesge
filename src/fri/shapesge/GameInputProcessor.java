@@ -17,7 +17,7 @@ class GameInputProcessor {
         for (String message : gameConfig.getOptions(GameConfig.KEYBOARD_SECTION)) {
             var eventDefinitions = gameConfig.get(GameConfig.KEYBOARD_SECTION, message).split(",");
             for (String eventDefinition : eventDefinitions) {
-                var keyEvent = Parser.parseKeyEvent(eventDefinition, message);
+                var keyEvent = GameParser.parseKeyEvent(eventDefinition, message);
                 this.registerKeyEvent(keyEvent);
             }
         }
@@ -25,7 +25,7 @@ class GameInputProcessor {
         for (String message : gameConfig.getOptions(GameConfig.MOUSE_SECTION)) {
             var eventDefinitions = gameConfig.get(GameConfig.MOUSE_SECTION, message).split(",");
             for (String eventDefinition : eventDefinitions) {
-                var mouseEvent = Parser.parseMouseEvent(eventDefinition, message);
+                var mouseEvent = GameParser.parseMouseEvent(eventDefinition, message);
                 this.registerMouseEvent(mouseEvent);
             }
         }

@@ -110,7 +110,7 @@ public class Square {
      * "magenta" and "black".
      */
     public void changeColor(String newColor) {
-        this.color = Parser.parseColor(newColor);
+        this.color = GameParser.parseColor(newColor);
     }
 
     private class SquareDrawable extends GameDrawable {

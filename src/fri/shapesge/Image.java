@@ -32,7 +32,7 @@ public class Image {
 
         this.computeTransformation();
 
-        this.image = Parser.parseImage(imagePath);
+        this.image = GameParser.parseImage(imagePath);
         this.isVisible = false;
 
         this.drawable = new ImageDrawable();
@@ -110,7 +110,7 @@ public class Image {
      * Change the drawn image. Image must exist.
      */
     public void changeImage(String imagePath) {
-        this.image = Parser.parseImage(imagePath);
+        this.image = GameParser.parseImage(imagePath);
     }
 
     /**

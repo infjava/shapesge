@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-class Parser {
+class GameParser {
     private static final Color BROWN = new Color(102, 51, 0);
 
     private static final Map<String, Integer> KEY_MAP = Arrays.stream(KeyEvent.class
@@ -57,7 +57,7 @@ class Parser {
             case "white":
                 return Color.white;
             case "brown":
-                return Parser.BROWN;
+                return GameParser.BROWN;
             default:
                 return Color.black;
         }

@@ -114,7 +114,7 @@ public class Triangle {
      * "magenta" and "black".
      */
     public void changeColor(String newColor) {
-        this.color = Parser.parseColor(newColor);
+        this.color = GameParser.parseColor(newColor);
     }
 
     private class TriangleDrawable extends GameDrawable {

@@ -87,7 +87,7 @@ class GameConfig {
     }
 
     public Color getColor(String section, String option) {
-        return Parser.parseColor(this.get(section, option));
+        return GameParser.parseColor(this.get(section, option));
     }
 
     public Iterable<String> getOptions(String section) {
