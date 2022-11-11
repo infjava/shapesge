@@ -12,9 +12,12 @@ import java.awt.image.BufferedImage;
  * @version 1.0
  */
 public class Image {
+    private static final AffineTransform IDENTITY_TRANSFORM = new AffineTransform();
+
     private final ImageDrawable drawable;
     private int xPosition;
     private int yPosition;
+    private int angle;
     private AffineTransform transform;
     private BufferedImage image;
     private boolean isVisible;
@@ -25,8 +28,11 @@ public class Image {
     public Image(String imagePath) {
         this.xPosition = 100;
         this.yPosition = 100;
+        this.angle = 0;
+
+        this.computeTransformation();
+
         this.image = Parser.parseImage(imagePath);
-        this.transform = Parser.parseAngle(0);
         this.isVisible = false;
 
         this.drawable = new ImageDrawable();
@@ -89,6 +95,7 @@ public class Image {
      */
     public void moveHorizontal(int distance) {
         this.xPosition += distance;
+        this.computeTransformation();
     }
 
     /**
@@ -96,6 +103,7 @@ public class Image {
      */
     public void moveVertical(int distance) {
         this.yPosition += distance;
+        this.computeTransformation();
     }
 
     /**
@@ -109,7 +117,24 @@ public class Image {
      * Change the image rotation angle according to the parameter. North = 0.
      */
     public void changeAngle(int angle) {
-        this.transform = Parser.parseAngle(angle);
+        this.angle = angle;
+        this.computeTransformation();
+    }
+
+    private void computeTransformation() {
+        if (this.angle == 0 && this.xPosition == 0 && this.yPosition == 0) {
+            this.transform = IDENTITY_TRANSFORM;
+        } else if (this.angle == 0) {
+            this.transform = AffineTransform.getTranslateInstance(this.xPosition, this.yPosition);
+        } else {
+            var centerX = this.image.getWidth() / 2.0;
+            var centerY = this.image.getHeight() / 2.0;
+            var transformation = new AffineTransform();
+            transformation.translate(this.xPosition + centerX, this.yPosition + centerY);
+            transformation.rotate(Math.toRadians(this.angle));
+            transformation.translate(-centerX, -centerY);
+            this.transform = transformation;
+        }
     }
 
     private class ImageDrawable extends GameDrawable {

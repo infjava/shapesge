@@ -4,7 +4,6 @@ import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -14,8 +13,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 class Parser {
-    private static final AffineTransform IDENTITY_TRANSFORM = new AffineTransform();
-
     private static final Color BROWN = new Color(102, 51, 0);
 
     private static final Map<String, Integer> KEY_MAP = Arrays.stream(KeyEvent.class
@@ -63,14 +60,6 @@ class Parser {
                 return Parser.BROWN;
             default:
                 return Color.black;
-        }
-    }
-
-    public static AffineTransform parseAngle(int angle) {
-        if (angle == 0) {
-            return Parser.IDENTITY_TRANSFORM;
-        } else {
-            return AffineTransform.getRotateInstance(Math.toRadians(angle));
         }
     }
 
