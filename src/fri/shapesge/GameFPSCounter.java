@@ -1,6 +1,6 @@
 package fri.shapesge;
 
-public class GameFPSCounter {
+class GameFPSCounter {
     private static final long SECOND = 1_000_000_000; // in ns
     private long lastSecondNanotime;
     private int fps;

@@ -3,7 +3,7 @@ package fri.shapesge;
 import java.util.ArrayList;
 
 
-public class GameTimerProcessor {
+class GameTimerProcessor {
     private static final long MILLISECONDS = 1_000_000; // in nanoseconds
     private final GameEventDispatcher eventDispatcher;
     private final ArrayList<TimerDetail> timers;

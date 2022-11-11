@@ -100,7 +100,7 @@ public class Circle {
     }
 
     /**
-     * Change the size to the new size (in pixels). Size must be >= 0.
+     * Change the size to the new size (in pixels). Size must be greater or equal 0.
      */
     public void changeSize(int newDiameter) {
         this.diameter = newDiameter;

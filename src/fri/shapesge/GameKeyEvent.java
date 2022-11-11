@@ -2,7 +2,7 @@ package fri.shapesge;
 
 import java.awt.event.KeyEvent;
 
-public class GameKeyEvent {
+class GameKeyEvent {
     private static final int MODIFIER_MASK = KeyEvent.SHIFT_DOWN_MASK | KeyEvent.CTRL_DOWN_MASK | KeyEvent.ALT_DOWN_MASK | KeyEvent.META_DOWN_MASK;
 
     private final int eventType;
