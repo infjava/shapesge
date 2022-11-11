@@ -13,6 +13,7 @@ import java.awt.Polygon;
  */
 
 public class Triangle {
+    private final TriangleDrawable drawable;
     private int height;
     private int width;
     private int xPosition;
@@ -31,13 +32,18 @@ public class Triangle {
         this.color = Color.green;
         this.isVisible = false;
 
-        Game.getGame().registerDrawable(new TriangleDrawable());
+        this.drawable = new TriangleDrawable();
     }
 
     /**
      * Make this triangle visible. If it was already visible, do nothing.
      */
     public void makeVisible() {
+        if (this.isVisible) {
+            return;
+        }
+
+        Game.getGame().registerDrawable(this.drawable);
         this.isVisible = true;
     }
 
@@ -45,7 +51,12 @@ public class Triangle {
      * Make this triangle invisible. If it was already invisible, do nothing.
      */
     public void makeInvisible() {
-        this.isVisible = false;
+        if (!this.isVisible) {
+            return;
+        }
+
+        Game.getGame().unregisterDrawable(this.drawable);
+        this.isVisible = true;
     }
 
     /**

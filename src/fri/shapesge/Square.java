@@ -12,6 +12,7 @@ import java.awt.geom.Rectangle2D;
  * @version 1.0  (9.11.2022)
  */
 public class Square {
+    private final SquareDrawable drawable;
     private int size;
     private int xPosition;
     private int yPosition;
@@ -28,13 +29,18 @@ public class Square {
         this.color = Color.red;
         this.isVisible = false;
 
-        Game.getGame().registerDrawable(new SquareDrawable());
+        this.drawable = new SquareDrawable();
     }
 
     /**
      * Make this square visible. If it was already visible, do nothing.
      */
     public void makeVisible() {
+        if (this.isVisible) {
+            return;
+        }
+
+        Game.getGame().registerDrawable(this.drawable);
         this.isVisible = true;
     }
 
@@ -42,7 +48,12 @@ public class Square {
      * Make this square invisible. If it was already invisible, do nothing.
      */
     public void makeInvisible() {
-        this.isVisible = false;
+        if (!this.isVisible) {
+            return;
+        }
+
+        Game.getGame().unregisterDrawable(this.drawable);
+        this.isVisible = true;
     }
 
     /**

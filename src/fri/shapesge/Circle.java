@@ -13,6 +13,7 @@ import java.awt.geom.Ellipse2D;
  */
 
 public class Circle {
+    private final CircleDrawable drawable;
     private int diameter;
     private int xPosition;
     private int yPosition;
@@ -29,13 +30,18 @@ public class Circle {
         this.color = Color.blue;
         this.isVisible = false;
 
-        Game.getGame().registerDrawable(new CircleDrawable());
+        this.drawable = new CircleDrawable();
     }
 
     /**
      * Make this circle visible. If it was already visible, do nothing.
      */
     public void makeVisible() {
+        if (this.isVisible) {
+            return;
+        }
+
+        Game.getGame().registerDrawable(this.drawable);
         this.isVisible = true;
     }
 
@@ -43,7 +49,12 @@ public class Circle {
      * Make this circle invisible. If it was already invisible, do nothing.
      */
     public void makeInvisible() {
-        this.isVisible = false;
+        if (!this.isVisible) {
+            return;
+        }
+
+        Game.getGame().unregisterDrawable(this.drawable);
+        this.isVisible = true;
     }
 
     /**

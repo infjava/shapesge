@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
  * @version 1.0
  */
 public class Image {
+    private final ImageDrawable drawable;
     private int xPosition;
     private int yPosition;
     private AffineTransform transform;
@@ -28,13 +29,18 @@ public class Image {
         this.transform = Parser.parseAngle(0);
         this.isVisible = false;
 
-        Game.getGame().registerDrawable(new ImageDrawable());
+        this.drawable = new ImageDrawable();
     }
 
     /**
      * Make this image visible. If it was already visible, do nothing.
      */
     public void makeVisible() {
+        if (this.isVisible) {
+            return;
+        }
+
+        Game.getGame().registerDrawable(this.drawable);
         this.isVisible = true;
     }
 
@@ -42,7 +48,12 @@ public class Image {
      * Make this image invisible. If it was already invisible, do nothing.
      */
     public void makeInvisible() {
-        this.isVisible = false;
+        if (!this.isVisible) {
+            return;
+        }
+
+        Game.getGame().unregisterDrawable(this.drawable);
+        this.isVisible = true;
     }
 
     /**

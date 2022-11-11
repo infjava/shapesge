@@ -51,6 +51,10 @@ class Game {
         this.gameObjects.registerDrawable(drawable);
     }
 
+    public void unregisterDrawable(GameDrawable drawable) {
+        this.gameObjects.unregisterDrawable(drawable);
+    }
+
     public void registerEventTarget(Object target) {
         this.gameEventDispatcher.registerTarget(target);
     }

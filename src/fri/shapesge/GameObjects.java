@@ -14,6 +14,10 @@ class GameObjects {
         this.drawables.add(drawable);
     }
 
+    public synchronized void unregisterDrawable(GameDrawable drawable) {
+        this.drawables.remove(drawable);
+    }
+
     public synchronized void drawAll(Graphics2D canvas) {
         for (GameDrawable drawable : this.drawables) {
             drawable.draw(canvas);
