@@ -3,15 +3,18 @@ package fri.shapesge;
 import java.awt.event.KeyEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 class GameEvents {
     private final ArrayList<Object> targets;
     private final ArrayList<GameKeyEvent> keyEvents;
+    private final ArrayDeque<QueuedEvent> eventQueue;
 
     public GameEvents(GameConfig gameConfig) {
         this.targets = new ArrayList<>();
         this.keyEvents = new ArrayList<>();
+        this.eventQueue = new ArrayDeque<>();
 
         for (String message : gameConfig.getOptions(GameConfig.KEYBOARD_SECTION)) {
             var eventDefinitions = gameConfig.get(GameConfig.KEYBOARD_SECTION, message).split(",");
@@ -22,19 +25,26 @@ class GameEvents {
         }
     }
 
-    public void registerTarget(Object target) {
+    public synchronized void registerTarget(Object target) {
         this.targets.add(target);
     }
 
-    public void registerKeyEvent(GameKeyEvent keyEvent) {
+    public synchronized void registerKeyEvent(GameKeyEvent keyEvent) {
         this.keyEvents.add(keyEvent);
     }
 
-    public void processKeyEvent(KeyEvent awtEvent) {
+    public synchronized void processKeyEvent(KeyEvent awtEvent) {
         for (GameKeyEvent event : this.keyEvents) {
             if (event.matches(awtEvent)) {
-                this.sendMessage(event.getMessage());
+                this.eventQueue.add(new QueuedEvent(event.getMessage()));
             }
+        }
+    }
+
+    public synchronized void doEvents() {
+        while (!this.eventQueue.isEmpty()) {
+            var event = this.eventQueue.pop();
+            this.sendMessage(event.message);
         }
     }
 
@@ -49,6 +59,14 @@ class GameEvents {
                      InvocationTargetException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private static class QueuedEvent {
+        public final String message;
+
+        public QueuedEvent(String message) {
+            this.message = message;
         }
     }
 }

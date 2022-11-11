@@ -22,7 +22,11 @@ class Game {
                 this.gameEvents,
                 this.gameConfig
         );
-        this.gameLoop = new GameLoop(this.gameConfig, this.gameWindow);
+        this.gameLoop = new GameLoop(
+                this.gameConfig,
+                this.gameWindow,
+                this.gameEvents
+        );
 
         this.gameWindow.show();
         this.gameLoop.start();
