@@ -11,6 +11,7 @@ class Game {
     private final GameLoop gameLoop;
     private final GameEventDispatcher gameEventDispatcher;
     private final GameInputProcessor gameInputProcessor;
+    private final GameTimerProcessor gameTimerProcessor;
     private final GameObjects gameObjects;
     private final GameWindow gameWindow;
 
@@ -22,6 +23,10 @@ class Game {
                 this.gameEventDispatcher,
                 this.gameConfig
         );
+        this.gameTimerProcessor = new GameTimerProcessor(
+                this.gameEventDispatcher,
+                this.gameConfig
+        );
         this.gameWindow = new GameWindow(
                 this.gameObjects,
                 this.gameInputProcessor,
@@ -29,6 +34,7 @@ class Game {
         );
         this.gameLoop = new GameLoop(
                 this.gameWindow,
+                this.gameTimerProcessor,
                 this.gameEventDispatcher,
                 this.gameConfig
         );

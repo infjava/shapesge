@@ -19,6 +19,8 @@ class GameConfig {
 
     public static final String MOUSE_SECTION = "Mouse";
 
+    public static final String TIMER_SECTION = "Timers";
+
     private final HashMap<String, HashMap<String, String>> values;
 
     public GameConfig() {

@@ -4,11 +4,12 @@ import fri.shapesge.Square;
 import fri.shapesge.Triangle;
 
 public class Main {
+    private static final Circle circle = new Circle();
+
     public static void main(String[] args) {
         Square square = new Square();
         square.makeVisible();
 
-        Circle circle = new Circle();
         circle.makeVisible();
 
         Triangle triangle = new Triangle();
@@ -27,6 +28,11 @@ public class Main {
 
         public void chooseCoordinates(int x, int y) {
             System.out.format("Choose %d,%d%n", x, y);
+        }
+
+        public void tick() {
+            System.out.println("Tick - tack");
+            circle.moveRight();
         }
     }
 }
