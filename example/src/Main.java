@@ -16,5 +16,17 @@ public class Main {
 
         Manager manager = new Manager();
         manager.manageObject(triangle);
+        manager.manageObject(new ManagedTest());
+    }
+
+    @SuppressWarnings("unused")
+    public static class ManagedTest {
+        public void moveRight() {
+            System.out.println("Move right");
+        }
+
+        public void chooseCoordinates(int x, int y) {
+            System.out.format("Choose %d,%d%n", x, y);
+        }
     }
 }

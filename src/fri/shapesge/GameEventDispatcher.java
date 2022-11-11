@@ -18,22 +18,26 @@ class GameEventDispatcher {
         this.targets.add(target);
     }
 
-    public void dispatch(String message) {
+    public void dispatchStandard(String message) {
         this.eventQueue.add(new QueuedEvent(message));
+    }
+
+    public void dispatchMouse(String message, int x, int y) {
+        this.eventQueue.add(new QueuedEvent(message, new Class[] {Integer.TYPE, Integer.TYPE}, new Object[] {x, y}));
     }
 
     public synchronized void doEvents() {
         while (!this.eventQueue.isEmpty()) {
             var event = this.eventQueue.pop();
-            this.sendMessage(event.message);
+            this.sendMessage(event);
         }
     }
 
-    private void sendMessage(String message) {
+    private void sendMessage(QueuedEvent event) {
         for (Object target : this.targets) {
             try {
-                Method method = target.getClass().getMethod(message);
-                method.invoke(target);
+                Method method = target.getClass().getMethod(event.message, event.parameterTypes);
+                method.invoke(target, event.parameterValues);
             } catch (NoSuchMethodException e) {
                 // do nothing here
             } catch (SecurityException | IllegalArgumentException | IllegalAccessException |
@@ -44,10 +48,23 @@ class GameEventDispatcher {
     }
 
     private static class QueuedEvent {
+        private static final Class<?>[] EMPTY_PARAMETER_TYPES = new Class<?>[0];
+        private static final Object[] EMPTY_PARAMETER_VALUES = new Object[0];
+
         public final String message;
+        public final Class<?>[] parameterTypes;
+        public final Object[] parameterValues;
 
         public QueuedEvent(String message) {
             this.message = message;
+            this.parameterTypes = EMPTY_PARAMETER_TYPES;
+            this.parameterValues = EMPTY_PARAMETER_VALUES;
+        }
+
+        public QueuedEvent(String message, Class<?>[] parameterTypes, Object[] parameterValues) {
+            this.message = message;
+            this.parameterTypes = parameterTypes;
+            this.parameterValues = parameterValues;
         }
     }
 }

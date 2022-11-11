@@ -3,6 +3,7 @@ package fri.shapesge;
 import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -33,6 +34,12 @@ class Parser {
                             }
                     )
             );
+
+    private static final Map<String, Integer> MOUSE_BUTTON_MAP = Map.of(
+            "left", MouseEvent.BUTTON1,
+            "right", MouseEvent.BUTTON2,
+            "middle", MouseEvent.BUTTON3
+    );
 
     public static Color parseColor(String colorString) {
         if (colorString.startsWith("#")) {
@@ -123,11 +130,51 @@ class Parser {
             }
         }
 
-        var keyCode = KEY_MAP.get(keyShortcut[keyShortcut.length - 1].toLowerCase());
+        final var keyName = keyShortcut[keyShortcut.length - 1].toLowerCase();
+        final var keyCode = KEY_MAP.get(keyName);
         if (keyCode == null) {
             throw new RuntimeException(String.format("Cannot parse keyevent %s", keyEvent));
         }
 
         return new GameKeyEvent(eventType, modifiers, keyCode, message);
+    }
+
+    public static GameMouseEvent parseMouseEvent(String mouseEvent, String message) {
+        var eventTypeAndButton = mouseEvent.strip().split("\\p{javaWhitespace}+", 2);
+
+        if (eventTypeAndButton[0].equals("move") && eventTypeAndButton.length == 1) {
+            return new GameMouseEvent(MouseEvent.MOUSE_MOVED, 0, message);
+        } else {
+            if (eventTypeAndButton.length != 2) {
+                throw new RuntimeException(String.format("Cannot parse mouseevent %s", mouseEvent));
+            }
+
+            int eventType;
+            switch (eventTypeAndButton[0]) {
+                case "pressed":
+                    eventType = MouseEvent.MOUSE_PRESSED;
+                    break;
+                case "released":
+                    eventType = MouseEvent.MOUSE_RELEASED;
+                    break;
+                case "clicked":
+                    eventType = MouseEvent.MOUSE_CLICKED;
+                    break;
+                default:
+                    throw new RuntimeException(String.format("Cannot parse mouseevent %s", mouseEvent));
+            }
+
+            final var buttonName = eventTypeAndButton[1].toLowerCase();
+            if (buttonName.startsWith("button")) {
+                var button = Integer.parseInt(buttonName.substring(6));
+                return new GameMouseEvent(eventType, button, message);
+            } else {
+                var button = MOUSE_BUTTON_MAP.get(buttonName);
+                if (button == null) {
+                    throw new RuntimeException(String.format("Cannot parse mouseevent %s", mouseEvent));
+                }
+                return new GameMouseEvent(eventType, button, message);
+            }
+        }
     }
 }

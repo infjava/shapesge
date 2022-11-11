@@ -3,6 +3,7 @@ package fri.shapesge;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 class GameWindow {
     private final JFrame frame;
@@ -48,6 +49,7 @@ class GameWindow {
         public GamePanel() {
             this.setPreferredSize(new Dimension(GameWindow.this.width, GameWindow.this.height));
             this.setFocusable(true);
+            this.enableEvents(AWTEvent.MOUSE_EVENT_MASK);
         }
 
         @Override
@@ -74,6 +76,18 @@ class GameWindow {
         protected void processKeyEvent(KeyEvent e) {
             super.processKeyEvent(e);
             GameWindow.this.gameInputProcessor.processKeyEvent(e);
+        }
+
+        @Override
+        protected void processMouseEvent(MouseEvent e) {
+            super.processMouseEvent(e);
+            GameWindow.this.gameInputProcessor.processMouseEvent(e);
+        }
+
+        @Override
+        protected void processMouseMotionEvent(MouseEvent e) {
+            super.processMouseMotionEvent(e);
+            GameWindow.this.gameInputProcessor.processMouseEvent(e);
         }
     }
 }

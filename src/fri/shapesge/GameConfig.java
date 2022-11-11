@@ -17,6 +17,8 @@ class GameConfig {
 
     public static final String KEYBOARD_SECTION = "Keyboard";
 
+    public static final String MOUSE_SECTION = "Mouse";
+
     private final HashMap<String, HashMap<String, String>> values;
 
     public GameConfig() {
