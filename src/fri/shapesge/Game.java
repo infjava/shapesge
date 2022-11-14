@@ -7,6 +7,10 @@ class Game {
         return Game.INSTANCE;
     }
 
+    static {
+        Game.INSTANCE.start();
+    }
+
     private final GameConfig gameConfig;
     private final GameFPSCounter gameFPSCounter;
     private final GameLoop gameLoop;
@@ -42,7 +46,9 @@ class Game {
                 this.gameFPSCounter,
                 this.gameConfig
         );
+    }
 
+    private void start() {
         this.gameWindow.show();
         this.gameLoop.start();
     }
