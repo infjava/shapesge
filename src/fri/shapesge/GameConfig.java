@@ -1,10 +1,6 @@
 package fri.shapesge;
 
 import java.awt.Color;
-import java.io.InputStream;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Scanner;
 
 class GameConfig {
     public static final String WINDOW_SECTION = "Window";
@@ -21,80 +17,61 @@ class GameConfig {
 
     public static final String TIMER_SECTION = "Timers";
 
-    private final HashMap<String, HashMap<String, String>> values;
+    private final GameConfigFile appConfig;
+    private final GameConfigFile defaultConfig;
 
     public GameConfig() {
-        var appConfig = ClassLoader.getSystemResourceAsStream("sbge.ini");
-        if (appConfig != null) {
-            this.values = this.loadConfigFrom(appConfig);
+        var appConfigStream = ClassLoader.getSystemResourceAsStream("sbge.ini");
+        if (appConfigStream != null) {
+            this.appConfig = new GameConfigFile(appConfigStream);
         } else {
-            var defaultConfig = GameConfig.class.getResourceAsStream("sbge-defaults.ini");
-            if (defaultConfig != null) {
-                this.values = this.loadConfigFrom(defaultConfig);
-            } else {
-                throw new RuntimeException("Internal SPGE error - missing config");
-            }
+            this.appConfig = new GameConfigFile();
         }
-    }
 
-    private HashMap<String, HashMap<String, String>> loadConfigFrom(InputStream config) {
-        try (var configReader = new Scanner(config)) {
-            var ret = new HashMap<String, HashMap<String, String>>();
-            String section = "default";
-
-            while (configReader.hasNextLine()) {
-                var configLine = configReader.nextLine().strip();
-
-                if (configLine.isEmpty() || configLine.startsWith(";")) {
-                    continue;
-                }
-
-                if (configLine.startsWith("[") && configLine.endsWith("]")) {
-                    section = configLine.substring(1, configLine.length() - 1).strip();
-                    continue;
-                }
-
-                String[] optionAndValue = configLine.split("=", 2);
-                if (optionAndValue.length != 2) {
-                    throw new RuntimeException("Invalid SPGE config");
-                }
-
-                String option = optionAndValue[0].strip();
-                String value = optionAndValue[1].strip();
-
-                if (!ret.containsKey(section)) {
-                    ret.put(section, new HashMap<>());
-                }
-
-                ret.get(section).put(option, value);
-            }
-
-            return ret;
+        var defaultConfigStream = GameConfig.class.getResourceAsStream("sbge-defaults.ini");
+        if (defaultConfigStream == null) {
+            throw new RuntimeException("Internal SPGE error - missing config");
         }
+        this.defaultConfig = new GameConfigFile(defaultConfigStream);
     }
 
     public String get(String section, String option) {
-        return this.values.get(section).get(option);
+        if (this.appConfig.contains(section, option)) {
+            return this.appConfig.get(section, option);
+        } else {
+            return this.defaultConfig.get(section, option);
+        }
     }
 
     public int getInt(String section, String option) {
-        return Integer.parseInt(this.get(section, option));
+        if (this.appConfig.contains(section, option)) {
+            return this.appConfig.getInt(section, option);
+        } else {
+            return this.defaultConfig.getInt(section, option);
+        }
     }
 
     public boolean getBoolean(String section, String option) {
-        var value = this.get(section, option).toLowerCase();
-        return value.equals("yes") || value.equals("true");
+        if (this.appConfig.contains(section, option)) {
+            return this.appConfig.getBoolean(section, option);
+        } else {
+            return this.defaultConfig.getBoolean(section, option);
+        }
     }
 
     public Color getColor(String section, String option) {
-        return GameParser.parseColor(this.get(section, option));
+        if (this.appConfig.contains(section, option)) {
+            return this.appConfig.getColor(section, option);
+        } else {
+            return this.defaultConfig.getColor(section, option);
+        }
     }
 
     public Iterable<String> getOptions(String section) {
-        if (this.values.containsKey(section)) {
-            return this.values.get(section).keySet();
+        if (this.appConfig.contains(section)) {
+            return this.appConfig.getOptions(section);
         } else {
-            return Collections.emptyList();
+            return this.defaultConfig.getOptions(section);
         }
     }
 }
