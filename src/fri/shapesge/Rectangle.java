@@ -24,10 +24,14 @@ public class Rectangle {
      * Create a new square at default position with default color.
      */
     public Rectangle() {
+        this(60, 50);
+    }
+
+    public Rectangle(int x, int y) {
         this.width = 30;
         this.height = 60;
-        this.xPosition = 60;
-        this.yPosition = 50;
+        this.xPosition = x;
+        this.yPosition = y;
         this.color = Color.red;
         this.isVisible = false;
 

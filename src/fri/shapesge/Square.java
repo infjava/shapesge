@@ -23,9 +23,13 @@ public class Square {
      * Create a new square at default position with default color.
      */
     public Square() {
+        this(60, 50);
+    }
+
+    public Square(int x, int y) {
         this.size = 30;
-        this.xPosition = 60;
-        this.yPosition = 50;
+        this.xPosition = x;
+        this.yPosition = y;
         this.color = Color.red;
         this.isVisible = false;
 

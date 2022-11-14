@@ -25,10 +25,14 @@ public class Ellipse {
      * Create a new circle at default position with default color.
      */
     public Ellipse() {
+        this(20, 60);
+    }
+
+    public Ellipse(int x, int y) {
         this.diameterX = 60;
         this.diameterY = 30;
-        this.xPosition = 20;
-        this.yPosition = 60;
+        this.xPosition = x;
+        this.yPosition = y;
         this.color = Color.blue;
         this.isVisible = false;
 

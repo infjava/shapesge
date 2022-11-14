@@ -26,8 +26,12 @@ public class Image {
      * Create a new image at default position with default color.
      */
     public Image(String imagePath) {
-        this.xPosition = 100;
-        this.yPosition = 100;
+        this(imagePath, 100, 100);
+    }
+
+    public Image(String imagePath, int x, int y) {
+        this.xPosition = x;
+        this.yPosition = y;
         this.angle = 0;
 
         this.computeTransformation();

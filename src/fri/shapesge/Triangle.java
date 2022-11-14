@@ -25,10 +25,14 @@ public class Triangle {
      * Create a new triangle at default position with default color.
      */
     public Triangle() {
+        this(50, 15);
+    }
+
+    public Triangle(int x, int y) {
         this.height = 30;
         this.width = 40;
-        this.xPosition = 50;
-        this.yPosition = 15;
+        this.xPosition = x;
+        this.yPosition = y;
         this.color = Color.green;
         this.isVisible = false;
 

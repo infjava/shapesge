@@ -24,9 +24,13 @@ public class Circle {
      * Create a new circle at default position with default color.
      */
     public Circle() {
+        this(20, 60);
+    }
+
+    public Circle(int x, int y) {
         this.diameter = 30;
-        this.xPosition = 20;
-        this.yPosition = 60;
+        this.xPosition = x;
+        this.yPosition = y;
         this.color = Color.blue;
         this.isVisible = false;
 
