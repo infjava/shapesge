@@ -28,6 +28,9 @@ class GameConfigFile {
 
                 if (configLine.startsWith("[") && configLine.endsWith("]")) {
                     section = configLine.substring(1, configLine.length() - 1).strip();
+                    if (!this.values.containsKey(section)) {
+                        this.values.put(section, new HashMap<>());
+                    }
                     continue;
                 }
 
@@ -38,10 +41,6 @@ class GameConfigFile {
 
                 String option = optionAndValue[0].strip();
                 String value = optionAndValue[1].strip();
-
-                if (!this.values.containsKey(section)) {
-                    this.values.put(section, new HashMap<>());
-                }
 
                 this.values.get(section).put(option, value);
             }
