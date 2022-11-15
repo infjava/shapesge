@@ -18,6 +18,10 @@ class GameEventDispatcher {
         this.targets.add(target);
     }
 
+    public void deregisterTarget(Object target) {
+        this.targets.remove(target);
+    }
+
     public void dispatchStandard(String message) {
         this.eventQueue.add(new QueuedEvent(message));
     }

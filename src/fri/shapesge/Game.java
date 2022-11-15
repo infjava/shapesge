@@ -68,4 +68,8 @@ class Game {
     public void registerEventTarget(Object target) {
         this.gameEventDispatcher.registerTarget(target);
     }
+
+    public void deregisterEventTarget(Object target) {
+        this.gameEventDispatcher.deregisterTarget(target);
+    }
 }
