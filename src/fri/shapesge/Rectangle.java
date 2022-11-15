@@ -11,6 +11,7 @@ import java.awt.geom.Rectangle2D;
  * @author engine: Ján Janech
  * @version 1.0  (9.11.2022)
  */
+@SuppressWarnings("unused")
 public class Rectangle {
     private final RectangleDrawable drawable;
     private int width;
@@ -23,10 +24,12 @@ public class Rectangle {
     /**
      * Create a new square at default position with default color.
      */
+    @SuppressWarnings("unused")
     public Rectangle() {
         this(60, 50);
     }
 
+    @SuppressWarnings("unused")
     public Rectangle(int x, int y) {
         this.width = 30;
         this.height = 60;
@@ -41,6 +44,7 @@ public class Rectangle {
     /**
      * Make this square visible. If it was already visible, do nothing.
      */
+    @SuppressWarnings("unused")
     public void makeVisible() {
         if (this.isVisible) {
             return;
@@ -53,6 +57,7 @@ public class Rectangle {
     /**
      * Make this square invisible. If it was already invisible, do nothing.
      */
+    @SuppressWarnings("unused")
     public void makeInvisible() {
         if (!this.isVisible) {
             return;
@@ -65,6 +70,7 @@ public class Rectangle {
     /**
      * Move the square a few pixels to the right.
      */
+    @SuppressWarnings("unused")
     public void moveRight() {
         this.moveHorizontal(20);
     }
@@ -72,6 +78,7 @@ public class Rectangle {
     /**
      * Move the square a few pixels to the left.
      */
+    @SuppressWarnings("unused")
     public void moveLeft() {
         this.moveHorizontal(-20);
     }
@@ -79,6 +86,7 @@ public class Rectangle {
     /**
      * Move the square a few pixels up.
      */
+    @SuppressWarnings("unused")
     public void moveUp() {
         this.moveVertical(-20);
     }
@@ -86,6 +94,7 @@ public class Rectangle {
     /**
      * Move the square a few pixels down.
      */
+    @SuppressWarnings("unused")
     public void moveDown() {
         this.moveVertical(20);
     }
@@ -93,6 +102,7 @@ public class Rectangle {
     /**
      * Move the square horizontally by 'distance' pixels.
      */
+    @SuppressWarnings("unused")
     public void moveHorizontal(int distance) {
         this.xPosition += distance;
     }
@@ -100,6 +110,7 @@ public class Rectangle {
     /**
      * Move the square vertically by 'distance' pixels.
      */
+    @SuppressWarnings("unused")
     public void moveVertical(int distance) {
         this.yPosition += distance;
     }
@@ -107,6 +118,7 @@ public class Rectangle {
     /**
      * Change the size to the new size (in pixels). Size must be greater or equal 0.
      */
+    @SuppressWarnings("unused")
     public void changeSize(int newWidth, int newHeight) {
         this.width = newWidth;
         this.height = newHeight;
@@ -116,6 +128,7 @@ public class Rectangle {
      * Change the color. Valid colors are "red", "yellow", "blue", "green",
      * "magenta" and "black".
      */
+    @SuppressWarnings("unused")
     public void changeColor(String newColor) {
         this.color = GameParser.parseColor(newColor);
     }

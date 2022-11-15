@@ -11,11 +11,15 @@ class Game {
         Game.INSTANCE.start();
     }
 
+    @SuppressWarnings("FieldCanBeLocal")
     private final GameConfig gameConfig;
+    @SuppressWarnings("FieldCanBeLocal")
     private final GameFPSCounter gameFPSCounter;
     private final GameLoop gameLoop;
     private final GameEventDispatcher gameEventDispatcher;
+    @SuppressWarnings("FieldCanBeLocal")
     private final GameInputProcessor gameInputProcessor;
+    @SuppressWarnings("FieldCanBeLocal")
     private final GameTimerProcessor gameTimerProcessor;
     private final GameObjects gameObjects;
     private final GameWindow gameWindow;

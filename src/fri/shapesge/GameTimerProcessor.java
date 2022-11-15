@@ -28,7 +28,7 @@ class GameTimerProcessor {
 
         for (var timer : this.timers) {
             if (timer.match(currentTime)) {
-                timer.advance(currentTime);
+                timer.advance();
                 this.eventDispatcher.dispatchStandard(timer.getMessage());
             }
         }
@@ -49,7 +49,7 @@ class GameTimerProcessor {
             return currentTime >= this.nextInvocation;
         }
 
-        public void advance(long currentTime) {
+        public void advance() {
             this.nextInvocation += this.nsInterval;
         }
 

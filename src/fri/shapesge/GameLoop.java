@@ -2,7 +2,7 @@ package fri.shapesge;
 
 class GameLoop implements Runnable {
     private final static long SECOND = 1_000_000_000; // in nanoseconds
-    private final static long MILISECOND = 1_000_000; // in nanoseconds
+    private final static long MILLISECOND = 1_000_000; // in nanoseconds
 
     private final int fpsCaps;
     private final GameFPSCounter fpsCounter;
@@ -40,13 +40,13 @@ class GameLoop implements Runnable {
             var endNanoseconds = System.nanoTime();
 
             var sleepTime = SECOND / this.fpsCaps - (endNanoseconds - lastNanoseconds) - inaccuracy;
-            if (sleepTime < MILISECOND) {
-                sleepTime = MILISECOND;
+            if (sleepTime < MILLISECOND) {
+                sleepTime = MILLISECOND;
             }
 
             try {
                 //noinspection BusyWait
-                Thread.sleep(sleepTime / MILISECOND, (int) (sleepTime % MILISECOND));
+                Thread.sleep(sleepTime / MILLISECOND, (int) (sleepTime % MILLISECOND));
             } catch (InterruptedException e) {
                 return;
             }

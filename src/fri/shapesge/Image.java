@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
  * @author engine: Ján Janech
  * @version 1.0
  */
+@SuppressWarnings("unused")
 public class Image {
     private static final AffineTransform IDENTITY_TRANSFORM = new AffineTransform();
 
@@ -25,10 +26,12 @@ public class Image {
     /**
      * Create a new image at default position with default color.
      */
+    @SuppressWarnings("unused")
     public Image(String imagePath) {
         this(imagePath, 100, 100);
     }
 
+    @SuppressWarnings("unused")
     public Image(String imagePath, int x, int y) {
         this.xPosition = x;
         this.yPosition = y;
@@ -45,6 +48,7 @@ public class Image {
     /**
      * Make this image visible. If it was already visible, do nothing.
      */
+    @SuppressWarnings("unused")
     public void makeVisible() {
         if (this.isVisible) {
             return;
@@ -57,6 +61,7 @@ public class Image {
     /**
      * Make this image invisible. If it was already invisible, do nothing.
      */
+    @SuppressWarnings("unused")
     public void makeInvisible() {
         if (!this.isVisible) {
             return;
@@ -69,6 +74,7 @@ public class Image {
     /**
      * Move the image a few pixels to the right.
      */
+    @SuppressWarnings("unused")
     public void moveRight() {
         this.moveHorizontal(20);
     }
@@ -76,6 +82,7 @@ public class Image {
     /**
      * Move the image a few pixels to the left.
      */
+    @SuppressWarnings("unused")
     public void moveLeft() {
         this.moveHorizontal(-20);
     }
@@ -83,6 +90,7 @@ public class Image {
     /**
      * Move the image a few pixels up.
      */
+    @SuppressWarnings("unused")
     public void moveUp() {
         this.moveVertical(-20);
     }
@@ -90,6 +98,7 @@ public class Image {
     /**
      * Move the image a few pixels down.
      */
+    @SuppressWarnings("unused")
     public void moveDown() {
         this.moveVertical(20);
     }
@@ -97,6 +106,7 @@ public class Image {
     /**
      * Move the image horizontally by 'distance' pixels.
      */
+    @SuppressWarnings("unused")
     public void moveHorizontal(int distance) {
         this.xPosition += distance;
         this.computeTransformation();
@@ -105,6 +115,7 @@ public class Image {
     /**
      * Move the image vertically by 'distance' pixels.
      */
+    @SuppressWarnings("unused")
     public void moveVertical(int distance) {
         this.yPosition += distance;
         this.computeTransformation();
@@ -113,6 +124,7 @@ public class Image {
     /**
      * Change the drawn image. Image must exist.
      */
+    @SuppressWarnings("unused")
     public void changeImage(String imagePath) {
         this.image = GameParser.parseImage(imagePath);
     }
@@ -120,6 +132,7 @@ public class Image {
     /**
      * Change the image rotation angle according to the parameter. North = 0.
      */
+    @SuppressWarnings("unused")
     public void changeAngle(int angle) {
         this.angle = angle;
         this.computeTransformation();

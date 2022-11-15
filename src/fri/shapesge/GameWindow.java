@@ -204,6 +204,7 @@ class GameWindow {
             );
         }
 
+        @SuppressWarnings("BooleanMethodIsAlwaysInverted")
         private boolean isOnCanvas(MouseEvent e) {
             return e.getX() >= 0
                     && e.getY() >= 0

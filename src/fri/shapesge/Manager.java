@@ -1,10 +1,11 @@
 package fri.shapesge;
 
 /**
- * Sends messages to a managed objects as defined in shapesge.ini
+ * Sends messages to a managed objects as defined in spge.ini
  * @author Ján Janech
  * @version 1.0  (9.11.2022)
  */
+@SuppressWarnings("unused")
 public class Manager {
     /**
      * Create a new manager that manages no objects yet.

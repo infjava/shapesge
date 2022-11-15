@@ -79,7 +79,7 @@ class GameParser {
     public static GameKeyEvent parseKeyEvent(String keyEvent, String message) {
         var eventTypeAndKey = keyEvent.strip().split("\\p{javaWhitespace}+", 2);
         if (eventTypeAndKey.length != 2) {
-            throw new RuntimeException(String.format("Cannot parse keyevent %s", keyEvent));
+            throw new RuntimeException(String.format("Cannot parse key event %s", keyEvent));
         }
 
         int eventType;
@@ -94,7 +94,7 @@ class GameParser {
                 eventType = KeyEvent.KEY_TYPED;
                 break;
             default:
-                throw new RuntimeException(String.format("Cannot parse keyevent %s", keyEvent));
+                throw new RuntimeException(String.format("Cannot parse key event %s", keyEvent));
         }
 
         var keyShortcut = eventTypeAndKey[1].split("\\+");
@@ -115,14 +115,14 @@ class GameParser {
                     modifiers |= KeyEvent.META_DOWN_MASK;
                     break;
                 default:
-                    throw new RuntimeException(String.format("Cannot parse keyevent %s", keyEvent));
+                    throw new RuntimeException(String.format("Cannot parse key event %s", keyEvent));
             }
         }
 
         final var keyName = keyShortcut[keyShortcut.length - 1].toLowerCase();
         final var keyCode = KEY_MAP.get(keyName);
         if (keyCode == null) {
-            throw new RuntimeException(String.format("Cannot parse keyevent %s", keyEvent));
+            throw new RuntimeException(String.format("Cannot parse key event %s", keyEvent));
         }
 
         return new GameKeyEvent(eventType, modifiers, keyCode, message);
@@ -135,7 +135,7 @@ class GameParser {
             return new GameMouseEvent(MouseEvent.MOUSE_MOVED, 0, message);
         } else {
             if (eventTypeAndButton.length != 2) {
-                throw new RuntimeException(String.format("Cannot parse mouseevent %s", mouseEvent));
+                throw new RuntimeException(String.format("Cannot parse mouse event %s", mouseEvent));
             }
 
             int eventType;
@@ -150,7 +150,7 @@ class GameParser {
                     eventType = MouseEvent.MOUSE_CLICKED;
                     break;
                 default:
-                    throw new RuntimeException(String.format("Cannot parse mouseevent %s", mouseEvent));
+                    throw new RuntimeException(String.format("Cannot parse mouse event %s", mouseEvent));
             }
 
             final var buttonName = eventTypeAndButton[1].toLowerCase();
@@ -160,7 +160,7 @@ class GameParser {
             } else {
                 var button = MOUSE_BUTTON_MAP.get(buttonName);
                 if (button == null) {
-                    throw new RuntimeException(String.format("Cannot parse mouseevent %s", mouseEvent));
+                    throw new RuntimeException(String.format("Cannot parse mouse event %s", mouseEvent));
                 }
                 return new GameMouseEvent(eventType, button, message);
             }
