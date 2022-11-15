@@ -6,6 +6,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
 
 class GameWindow {
     private static final GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
@@ -56,9 +57,7 @@ class GameWindow {
     }
 
     private class GamePanel extends JPanel {
-        private int translateX;
-        private int translateY;
-        private double scale;
+        private AffineTransform canvasTransform;
         private boolean covered;
 
         public GamePanel() {
@@ -78,9 +77,13 @@ class GameWindow {
 
         private void resized() {
             if (!GameWindow.this.isFullscreen) {
-                this.translateX = 0;
-                this.translateY = 0;
-                this.scale = 1;
+                this.canvasTransform = new AffineTransform();
+                this.covered = true;
+                return;
+            }
+
+            if (this.getWidth() == GameWindow.this.width && this.getHeight() == GameWindow.this.height) {
+                this.canvasTransform = new AffineTransform();
                 this.covered = true;
                 return;
             }
@@ -90,15 +93,16 @@ class GameWindow {
 
             this.covered = widthAspectRatio == heightAspectRatio;
 
+            var transform = new AffineTransform();
             if (widthAspectRatio < heightAspectRatio) {
-                this.translateX = 0;
-                this.translateY = (this.getHeight() - GameWindow.this.height) / 2;
-                this.scale = widthAspectRatio;
+                transform.translate(0, (this.getHeight() - GameWindow.this.height) / 2.0);
+                transform.scale(widthAspectRatio, widthAspectRatio);
             } else {
-                this.translateX = (this.getWidth() - GameWindow.this.width) / 2;
-                this.translateY = 0;
-                this.scale = heightAspectRatio;
+                transform.translate((this.getWidth() - GameWindow.this.width) / 2.0, 0);
+                transform.scale(heightAspectRatio, heightAspectRatio);
             }
+
+            this.canvasTransform = transform;
         }
 
         @Override
@@ -110,12 +114,8 @@ class GameWindow {
                 canvas.clearRect(0, 0, this.getWidth(), this.getHeight());
             }
 
-            if (this.translateX != 0 || this.translateY != 0) {
-                canvas.translate(this.translateX, this.translateY);
-            }
-
-            if (this.scale != 1) {
-                canvas.scale(this.scale, this.scale);
+            if (!this.canvasTransform.isIdentity()) {
+                canvas.transform(this.canvasTransform);
             }
 
             canvas.setBackground(GameWindow.this.backgroundColor);
