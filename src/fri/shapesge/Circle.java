@@ -123,8 +123,7 @@ public class Circle {
     }
 
     /**
-     * Change the color. Valid colors are "red", "yellow", "blue", "green",
-     * "magenta" and "black".
+     * Change the color.
      */
     @SuppressWarnings("unused")
     public void changeColor(String newColor) {
