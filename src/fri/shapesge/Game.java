@@ -11,8 +11,6 @@ class Game {
         Game.INSTANCE.start();
     }
 
-    @SuppressWarnings("FieldCanBeLocal")
-    private final GameConfig gameConfig;
     private final GameParser gameParser;
     @SuppressWarnings("FieldCanBeLocal")
     private final GameFPSCounter gameFPSCounter;
@@ -26,25 +24,26 @@ class Game {
     private final GameWindow gameWindow;
 
     private Game() {
-        this.gameConfig = new GameConfig();
-        this.gameParser = new GameParser(this.gameConfig);
+        var gameConfig = new GameConfig();
+
+        this.gameParser = new GameParser(gameConfig);
         this.gameObjects = new GameObjects();
         this.gameEventDispatcher = new GameEventDispatcher();
         this.gameInputProcessor = new GameInputProcessor(
                 this.gameEventDispatcher,
-                this.gameConfig,
+                gameConfig,
                 this.gameParser
         );
         this.gameTimerProcessor = new GameTimerProcessor(
                 this.gameEventDispatcher,
-                this.gameConfig
+                gameConfig
         );
         this.gameFPSCounter = new GameFPSCounter();
         this.gameWindow = new GameWindow(
                 this.gameObjects,
                 this.gameInputProcessor,
                 this.gameFPSCounter,
-                this.gameConfig,
+                gameConfig,
                 this.gameParser
         );
         this.gameLoop = new GameLoop(
@@ -52,7 +51,7 @@ class Game {
                 this.gameTimerProcessor,
                 this.gameEventDispatcher,
                 this.gameFPSCounter,
-                this.gameConfig
+                gameConfig
         );
     }
 
