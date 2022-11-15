@@ -1,5 +1,10 @@
 package fri.shapesge;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+
 class GameConfig {
     public static final String WINDOW_SECTION = "Window";
     public static final String WINDOW_TITLE = "Title";
@@ -18,53 +23,68 @@ class GameConfig {
     public static final String TIMER_SECTION = "Timers";
     public static final String COLORS_SECTION = "Colors";
 
-    private final GameConfigFile appConfig;
-    private final GameConfigFile defaultConfig;
+    private final ArrayList<GameConfigFile> configFiles;
 
     public GameConfig() {
+        this.configFiles = new ArrayList<>();
+
         var appConfigStream = ClassLoader.getSystemResourceAsStream("sbge.ini");
         if (appConfigStream != null) {
-            this.appConfig = new GameConfigFile(appConfigStream);
+            this.configFiles.add(new GameConfigFile(appConfigStream));
         } else {
-            this.appConfig = new GameConfigFile();
+            var localConfig = new File("sbge.ini");
+            try {
+                var localConfigStream = new FileInputStream(localConfig);
+                this.configFiles.add(new GameConfigFile(localConfigStream));
+            } catch (IOException e) {
+                // do nothing
+            }
         }
 
         var defaultConfigStream = GameConfig.class.getResourceAsStream("sbge-defaults.ini");
         if (defaultConfigStream == null) {
             throw new RuntimeException("Internal SPGE error - missing config");
         }
-        this.defaultConfig = new GameConfigFile(defaultConfigStream);
+        this.configFiles.add(new GameConfigFile(defaultConfigStream));
     }
 
     public String get(String section, String option) {
-        if (this.appConfig.contains(section, option)) {
-            return this.appConfig.get(section, option);
-        } else {
-            return this.defaultConfig.get(section, option);
+        for (GameConfigFile configFile : this.configFiles) {
+            if (configFile.contains(section, option)) {
+                return configFile.get(section, option);
+            }
         }
+
+        throw new RuntimeException(String.format("Config %s/%s missing", section, option));
     }
 
     public int getInt(String section, String option) {
-        if (this.appConfig.contains(section, option)) {
-            return this.appConfig.getInt(section, option);
-        } else {
-            return this.defaultConfig.getInt(section, option);
+        for (GameConfigFile configFile : this.configFiles) {
+            if (configFile.contains(section, option)) {
+                return configFile.getInt(section, option);
+            }
         }
+
+        throw new RuntimeException(String.format("Config %s/%s missing", section, option));
     }
 
     public boolean getBoolean(String section, String option) {
-        if (this.appConfig.contains(section, option)) {
-            return this.appConfig.getBoolean(section, option);
-        } else {
-            return this.defaultConfig.getBoolean(section, option);
+        for (GameConfigFile configFile : this.configFiles) {
+            if (configFile.contains(section, option)) {
+                return configFile.getBoolean(section, option);
+            }
         }
+
+        throw new RuntimeException(String.format("Config %s/%s missing", section, option));
     }
 
     public Iterable<String> getOptions(String section) {
-        if (this.appConfig.contains(section)) {
-            return this.appConfig.getOptions(section);
-        } else {
-            return this.defaultConfig.getOptions(section);
+        for (GameConfigFile configFile : this.configFiles) {
+            if (configFile.contains(section)) {
+                return configFile.getOptions(section);
+            }
         }
+
+        throw new RuntimeException(String.format("Config section %s missing", section));
     }
 }
