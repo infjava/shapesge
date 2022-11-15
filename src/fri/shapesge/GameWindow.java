@@ -7,6 +7,8 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.NoninvertibleTransformException;
+import java.awt.geom.Point2D;
 
 class GameWindow {
     private static final GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
@@ -58,6 +60,7 @@ class GameWindow {
 
     private class GamePanel extends JPanel {
         private AffineTransform canvasTransform;
+        private AffineTransform invertedCanvasTransform;
         private boolean covered;
 
         public GamePanel() {
@@ -76,14 +79,12 @@ class GameWindow {
         }
 
         private void resized() {
-            if (!GameWindow.this.isFullscreen) {
-                this.canvasTransform = new AffineTransform();
-                this.covered = true;
-                return;
-            }
+            var correctSize = this.getWidth() == GameWindow.this.width && this.getHeight() == GameWindow.this.height;
+            var invalidSize = this.getWidth() == 0 || this.getHeight() == 0;
 
-            if (this.getWidth() == GameWindow.this.width && this.getHeight() == GameWindow.this.height) {
+            if (!GameWindow.this.isFullscreen || correctSize || invalidSize) {
                 this.canvasTransform = new AffineTransform();
+                this.invertedCanvasTransform = this.canvasTransform;
                 this.covered = true;
                 return;
             }
@@ -103,6 +104,12 @@ class GameWindow {
             }
 
             this.canvasTransform = transform;
+
+            try {
+                this.invertedCanvasTransform = transform.createInverse();
+            } catch (NoninvertibleTransformException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         @Override
@@ -152,13 +159,49 @@ class GameWindow {
         @Override
         protected void processMouseEvent(MouseEvent e) {
             super.processMouseEvent(e);
-            GameWindow.this.gameInputProcessor.processMouseEvent(e);
+
+            var transformedEvent = this.transformMouseEvent(e);
+            if (!this.isOnCanvas(transformedEvent)) {
+                return;
+            }
+            GameWindow.this.gameInputProcessor.processMouseEvent(transformedEvent);
         }
 
         @Override
         protected void processMouseMotionEvent(MouseEvent e) {
             super.processMouseMotionEvent(e);
-            GameWindow.this.gameInputProcessor.processMouseEvent(e);
+
+            var transformedEvent = this.transformMouseEvent(e);
+            if (!this.isOnCanvas(transformedEvent)) {
+                return;
+            }
+            GameWindow.this.gameInputProcessor.processMouseEvent(transformedEvent);
+        }
+
+        private MouseEvent transformMouseEvent(MouseEvent e) {
+            var xy = new Point2D.Double(e.getX(), e.getY());
+            this.invertedCanvasTransform.transform(xy, xy);
+
+            return new MouseEvent(
+                    e.getComponent(),
+                    e.getID(),
+                    e.getWhen(),
+                    e.getModifiersEx(),
+                    (int) Math.round(xy.getX()),
+                    (int) Math.round(xy.getY()),
+                    e.getXOnScreen(),
+                    e.getYOnScreen(),
+                    e.getClickCount(),
+                    e.isPopupTrigger(),
+                    e.getButton()
+            );
+        }
+
+        private boolean isOnCanvas(MouseEvent e) {
+            return e.getX() >= 0
+                    && e.getY() >= 0
+                    && e.getX() < GameWindow.this.width
+                    && e.getY() < GameWindow.this.height;
         }
     }
 }
