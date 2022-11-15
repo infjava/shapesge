@@ -5,9 +5,9 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 /**
- * The Image class represents a bitmap image that can be drawn on the canvas.
+ * Trieda Obrazok, reprezentuje bitmapový obrázok, ktorý môže byť vykreslený na plátno.
  *
- * @author original: Miroslav Kvaššay and Michal Varga
+ * @author originál: Miroslav Kvaššay and Michal Varga
  * @author engine: Ján Janech
  * @version 1.0
  */
@@ -24,11 +24,11 @@ public class Obrazok {
     private boolean isVisible;
 
     /**
-     * Create a new image at default position with default color.
+     * Vytvor nový obrázok s danou cestou na preddefinovanej pozícii.
      */
     @SuppressWarnings("unused")
-    public Obrazok(String imagePath) {
-        this(imagePath, 100, 100);
+    public Obrazok(String suborSObrazkom) {
+        this(suborSObrazkom, 100, 100);
     }
 
     @SuppressWarnings("unused")
@@ -46,10 +46,10 @@ public class Obrazok {
     }
 
     /**
-     * Make this image visible. If it was already visible, do nothing.
+     * Zobraz sa.
      */
     @SuppressWarnings("unused")
-    public void makeVisible() {
+    public void zobraz() {
         if (this.isVisible) {
             return;
         }
@@ -59,10 +59,10 @@ public class Obrazok {
     }
 
     /**
-     * Make this image invisible. If it was already invisible, do nothing.
+     * Skry sa.
      */
     @SuppressWarnings("unused")
-    public void makeInvisible() {
+    public void skry() {
         if (!this.isVisible) {
             return;
         }
@@ -72,69 +72,70 @@ public class Obrazok {
     }
 
     /**
-     * Move the image a few pixels to the right.
+     * Posuň sa vpravo o pevnú dĺžku.
      */
     @SuppressWarnings("unused")
-    public void moveRight() {
-        this.moveHorizontal(20);
+    public void posunVpravo() {
+        this.posunVodorovne(20);
     }
 
     /**
-     * Move the image a few pixels to the left.
+     * Posuň sa vľavo o pevnú dĺžku.
      */
     @SuppressWarnings("unused")
-    public void moveLeft() {
-        this.moveHorizontal(-20);
+    public void posunVlavo() {
+        this.posunVodorovne(-20);
     }
 
     /**
-     * Move the image a few pixels up.
+     * Posuň sa hore o pevnú dĺžku.
      */
     @SuppressWarnings("unused")
-    public void moveUp() {
-        this.moveVertical(-20);
+    public void posunHore() {
+        this.posunZvisle(-20);
     }
 
     /**
-     * Move the image a few pixels down.
+     * Posuň sa dole o pevnú dĺžku.
      */
     @SuppressWarnings("unused")
-    public void moveDown() {
-        this.moveVertical(20);
+    public void posunDole() {
+        this.posunZvisle(20);
     }
 
     /**
-     * Move the image horizontally by 'distance' pixels.
+     * Posuň sa zvisle o dĺžku danú parametrom.
      */
     @SuppressWarnings("unused")
-    public void moveHorizontal(int distance) {
-        this.xPosition += distance;
+    public void posunVodorovne(int vzdialenost) {
+        this.xPosition += vzdialenost;
         this.computeTransformation();
     }
 
     /**
-     * Move the image vertically by 'distance' pixels.
+     * Posuň sa pomaly vodorovne o dĺžku danú parametrom.
      */
     @SuppressWarnings("unused")
-    public void moveVertical(int distance) {
-        this.yPosition += distance;
+    public void posunZvisle(int vzdialenost) {
+        this.yPosition += vzdialenost;
         this.computeTransformation();
     }
 
     /**
-     * Change the drawn image. Image must exist.
+     * Zmeň obrázok.
+     * Súbor s obrázkom musí existovať.
      */
     @SuppressWarnings("unused")
-    public void changeImage(String imagePath) {
-        this.image = Game.getGame().getParser().parseImage(imagePath);
+    public void zmenObrazok(String suborSObrazkom) {
+        this.image = Game.getGame().getParser().parseImage(suborSObrazkom);
     }
 
     /**
-     * Change the image rotation angle according to the parameter. North = 0.
+     * Zmeň uhol natočenia obrázku podľa parametra. Sever = 0.
      */
     @SuppressWarnings("unused")
-    public void changeAngle(int angle) {
-        this.angle = angle;
+    public void zmenUhol(int uhol) {
+        this.angle = uhol;
         this.computeTransformation();
     }
 

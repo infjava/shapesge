@@ -5,9 +5,9 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 
 /**
- * A triangle that can be manipulated and that draws itself on a canvas.
+ * Rovnoramenný trojuholník, s ktorým možno pohybovať a nakreslí sa na plátno.
  *
- * @author original: Michael Kölling and David J. Barnes
+ * @author originál: Michael Kölling and David J. Barnes
  * @author engine: Ján Janech
  * @version 1.0  (9.11.2022)
  */
@@ -23,7 +23,7 @@ public class Trojuholnik {
     private boolean isVisible;
 
     /**
-     * Create a new triangle at default position with default color.
+     * Vytvor nový rovnoramenný trojuholník preddefinovanej farby na preddefinovanej pozícii.
      */
     @SuppressWarnings("unused")
     public Trojuholnik() {
@@ -43,10 +43,10 @@ public class Trojuholnik {
     }
 
     /**
-     * Make this triangle visible. If it was already visible, do nothing.
+     * Zobraz sa.
      */
     @SuppressWarnings("unused")
-    public void makeVisible() {
+    public void zobraz() {
         if (this.isVisible) {
             return;
         }
@@ -56,10 +56,10 @@ public class Trojuholnik {
     }
 
     /**
-     * Make this triangle invisible. If it was already invisible, do nothing.
+     * Skry sa.
      */
     @SuppressWarnings("unused")
-    public void makeInvisible() {
+    public void skry() {
         if (!this.isVisible) {
             return;
         }
@@ -69,68 +69,69 @@ public class Trojuholnik {
     }
 
     /**
-     * Move the triangle a few pixels to the right.
+     * Posuň sa vpravo o pevnú dĺžku.
      */
     @SuppressWarnings("unused")
-    public void moveRight() {
-        this.moveHorizontal(20);
+    public void posunVpravo() {
+        this.posunVodorovne(20);
     }
 
     /**
-     * Move the triangle a few pixels to the left.
+     * Posuň sa vľavo o pevnú dĺžku.
      */
     @SuppressWarnings("unused")
-    public void moveLeft() {
-        this.moveHorizontal(-20);
+    public void posunVlavo() {
+        this.posunVodorovne(-20);
     }
 
     /**
-     * Move the triangle a few pixels up.
+     * Posuň sa hore o pevnú dĺžku.
      */
     @SuppressWarnings("unused")
-    public void moveUp() {
-        this.moveVertical(-20);
+    public void posunHore() {
+        this.posunZvisle(-20);
     }
 
     /**
-     * Move the triangle a few pixels down.
+     * Posuň sa dole o pevnú dĺžku.
      */
     @SuppressWarnings("unused")
-    public void moveDown() {
-        this.moveVertical(20);
+    public void posunDole() {
+        this.posunZvisle(20);
     }
 
     /**
-     * Move the triangle horizontally by 'distance' pixels.
+     * Posuň sa vodorovne o dĺžku danú parametrom.
      */
     @SuppressWarnings("unused")
-    public void moveHorizontal(int distance) {
-        this.xPosition += distance;
+    public void posunVodorovne(int vzdialenost) {
+        this.xPosition += vzdialenost;
     }
 
     /**
-     * Move the triangle vertically by 'distance' pixels.
+     * Posuň sa zvisle o dĺžku danú parametrom.
      */
     @SuppressWarnings("unused")
-    public void moveVertical(int distance) {
-        this.yPosition += distance;
+    public void posunZvisle(int vzdialenost) {
+        this.yPosition += vzdialenost;
     }
 
     /**
-     * Change the size to the new size (in pixels). Size must be greater or equal 0.
+     * Zmeň rozmery výšky a základne na hodnoty dané parametrami.
+     * Obe hodnoty musia byť nezáporné celé čísla.
      */
     @SuppressWarnings("unused")
-    public void changeSize(int newHeight, int newWidth) {
-        this.height = newHeight;
-        this.width = newWidth;
+    public void zmenRozmery(int vyska, int zakladna) {
+        this.height = vyska;
+        this.width = zakladna;
     }
 
     /**
-     * Change the color.
+     * Zmeň farbu na hodnotu danú parametrom.
      */
     @SuppressWarnings("unused")
-    public void changeColor(String newColor) {
-        this.color = Game.getGame().getParser().parseColor(newColor);
+    public void zmenFarbu(String farba) {
+        this.color = Game.getGame().getParser().parseColor(farba);
     }
 
     private class TriangleDrawable extends GameDrawable {

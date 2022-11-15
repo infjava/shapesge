@@ -8,31 +8,31 @@ public class Main {
 
     public static void main(String[] args) {
         Stvorec square = new Stvorec();
-        square.makeVisible();
+        square.zobraz();
 
-        circle.makeVisible();
+        circle.zobraz();
 
         Trojuholnik triangle = new Trojuholnik();
-        triangle.makeVisible();
+        triangle.zobraz();
 
         Manazer manager = new Manazer();
-        manager.manageObject(triangle);
-        manager.manageObject(new ManagedTest());
+        manager.spravujObjekt(triangle);
+        manager.spravujObjekt(new ManagedTest());
     }
 
     @SuppressWarnings("unused")
     public static class ManagedTest {
-        public void moveRight() {
+        public void posunVpravo() {
             System.out.println("Move right");
         }
 
-        public void chooseCoordinates(int x, int y) {
+        public void vyberSuradnice(int x, int y) {
             System.out.format("Choose %d,%d%n", x, y);
         }
 
-        public void tick() {
+        public void tik() {
             System.out.println("Tick - tack");
-            circle.moveRight();
+            circle.posunVpravo();
         }
     }
 }

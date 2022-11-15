@@ -1,30 +1,30 @@
 package fri.shapesge;
 
 /**
- * Sends messages to a managed objects as defined in spge.ini
+ * Automaticky posiela správy daným objektom ako je definované v spge.ini
  * @author Ján Janech
  * @version 1.0  (9.11.2022)
  */
 @SuppressWarnings("unused")
 public class Manazer {
     /**
-     * Create a new manager that manages no objects yet.
+     * Vytvorí nového manažéra, ktorý nespravuje zatiať žiadne objekty.
      */
     public Manazer() {
 
     }
 
     /**
-     * Set `object` to be managed by the manager.
+     * Manažér bude spravovať daný objekt.
      */
-    public void manageObject(Object object) {
-        Game.getGame().registerEventTarget(object);
+    public void spravujObjekt(Object objekt) {
+        Game.getGame().registerEventTarget(objekt);
     }
 
     /**
-     * Set `object` to be managed by the manager.
+     * Manažér prestane spravovať daný objekt.
      */
-    public void stopManagingObject(Object object) {
-        Game.getGame().deregisterEventTarget(object);
+    public void prestanSpravovatObjekt(Object objekt) {
+        Game.getGame().deregisterEventTarget(objekt);
     }
 }

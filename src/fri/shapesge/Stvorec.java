@@ -5,9 +5,9 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
 /**
- * A square that can be manipulated and that draws itself on a canvas.
+ * Štvorec, s ktorým možno pohybovať a nakreslí sa na plátno.
  *
- * @author original: Michael Kölling and David J. Barnes
+ * @author originál: Michael Kölling and David J. Barnes
  * @author engine: Ján Janech
  * @version 1.0  (9.11.2022)
  */
@@ -21,7 +21,7 @@ public class Stvorec {
     private boolean isVisible;
 
     /**
-     * Create a new square at default position with default color.
+     * Vytvor nový štvorec preddefinovanej farby na preddefinovanej pozícii.
      */
     @SuppressWarnings("unused")
     public Stvorec() {
@@ -40,10 +40,10 @@ public class Stvorec {
     }
 
     /**
-     * Make this square visible. If it was already visible, do nothing.
+     * Zobraz sa.
      */
     @SuppressWarnings("unused")
-    public void makeVisible() {
+    public void zobraz() {
         if (this.isVisible) {
             return;
         }
@@ -53,10 +53,10 @@ public class Stvorec {
     }
 
     /**
-     * Make this square invisible. If it was already invisible, do nothing.
+     * Skry sa.
      */
     @SuppressWarnings("unused")
-    public void makeInvisible() {
+    public void skry() {
         if (!this.isVisible) {
             return;
         }
@@ -66,67 +66,68 @@ public class Stvorec {
     }
 
     /**
-     * Move the square a few pixels to the right.
+     * Posuň sa vpravo o pevnú dĺžku.
      */
     @SuppressWarnings("unused")
-    public void moveRight() {
-        this.moveHorizontal(20);
+    public void posunVpravo() {
+        this.posunVodorovne(20);
     }
 
     /**
-     * Move the square a few pixels to the left.
+     * Posuň sa vľavo o pevnú dĺžku.
      */
     @SuppressWarnings("unused")
-    public void moveLeft() {
-        this.moveHorizontal(-20);
+    public void posunVlavo() {
+        this.posunVodorovne(-20);
     }
 
     /**
-     * Move the square a few pixels up.
+     * Posuň sa hore o pevnú dĺžku.
      */
     @SuppressWarnings("unused")
-    public void moveUp() {
-        this.moveVertical(-20);
+    public void posunHore() {
+        this.posunZvisle(-20);
     }
 
     /**
-     * Move the square a few pixels down.
+     * Posuň sa dole o pevnú dĺžku.
      */
     @SuppressWarnings("unused")
-    public void moveDown() {
-        this.moveVertical(20);
+    public void posunDole() {
+        this.posunZvisle(20);
     }
 
     /**
-     * Move the square horizontally by 'distance' pixels.
+     * Posuň sa vodorovne o dĺžku danú parametrom.
      */
     @SuppressWarnings("unused")
-    public void moveHorizontal(int distance) {
-        this.xPosition += distance;
+    public void posunVodorovne(int vzdialenost) {
+        this.xPosition += vzdialenost;
     }
 
     /**
-     * Move the square vertically by 'distance' pixels.
+     * Posuň sa zvisle o dĺžku danú parametrom.
      */
     @SuppressWarnings("unused")
-    public void moveVertical(int distance) {
-        this.yPosition += distance;
+    public void posunZvisle(int vzdialenost) {
+        this.yPosition += vzdialenost;
     }
 
     /**
-     * Change the size to the new size (in pixels). Size must be greater or equal 0.
+     * Zmeň dĺžku strany na hodnotu danú parametrom.
+     * Dĺžka strany musí byť nezáporné celé číslo.
      */
     @SuppressWarnings("unused")
-    public void changeSize(int newSize) {
-        this.size = newSize;
+    public void zmenStranu(int dlzka) {
+        this.size = dlzka;
     }
 
     /**
-     * Change the color.
+     * Zmeň farbu na hodnotu danú parametrom.
      */
     @SuppressWarnings("unused")
-    public void changeColor(String newColor) {
-        this.color = Game.getGame().getParser().parseColor(newColor);
+    public void zmenFarbu(String farba) {
+        this.color = Game.getGame().getParser().parseColor(farba);
     }
 
     private class SquareDrawable extends GameDrawable {
