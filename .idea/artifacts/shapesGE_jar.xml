@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="shapesGE:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/shapesGE_jar</output-path>
-    <root id="archive" name="shapesGE.jar">
-      <element id="module-output" name="shapesGE" />
-    </root>
-  </artifact>
-</component>
