@@ -2,10 +2,10 @@ package fri.shapesge;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.Ellipse2D;
+import java.awt.Polygon;
 
 /**
- * A circle that can be manipulated and that draws itself on a canvas.
+ * A triangle that can be manipulated and that draws itself on a canvas.
  *
  * @author original: Michael Kölling and David J. Barnes
  * @author engine: Ján Janech
@@ -13,37 +13,37 @@ import java.awt.geom.Ellipse2D;
  */
 
 @SuppressWarnings("unused")
-public class Ellipse {
-    private final EllipseDrawable drawable;
-    private int diameterX;
-    private int diameterY;
+public class Trojuholnik {
+    private final TriangleDrawable drawable;
+    private int height;
+    private int width;
     private int xPosition;
     private int yPosition;
     private Color color;
     private boolean isVisible;
 
     /**
-     * Create a new circle at default position with default color.
+     * Create a new triangle at default position with default color.
      */
     @SuppressWarnings("unused")
-    public Ellipse() {
-        this(20, 60);
+    public Trojuholnik() {
+        this(50, 15);
     }
 
     @SuppressWarnings("unused")
-    public Ellipse(int x, int y) {
-        this.diameterX = 60;
-        this.diameterY = 30;
+    public Trojuholnik(int x, int y) {
+        this.height = 30;
+        this.width = 40;
         this.xPosition = x;
         this.yPosition = y;
-        this.color = Color.blue;
+        this.color = Color.green;
         this.isVisible = false;
 
-        this.drawable = new EllipseDrawable();
+        this.drawable = new TriangleDrawable();
     }
 
     /**
-     * Make this circle visible. If it was already visible, do nothing.
+     * Make this triangle visible. If it was already visible, do nothing.
      */
     @SuppressWarnings("unused")
     public void makeVisible() {
@@ -56,7 +56,7 @@ public class Ellipse {
     }
 
     /**
-     * Make this circle invisible. If it was already invisible, do nothing.
+     * Make this triangle invisible. If it was already invisible, do nothing.
      */
     @SuppressWarnings("unused")
     public void makeInvisible() {
@@ -69,7 +69,7 @@ public class Ellipse {
     }
 
     /**
-     * Move the circle a few pixels to the right.
+     * Move the triangle a few pixels to the right.
      */
     @SuppressWarnings("unused")
     public void moveRight() {
@@ -77,7 +77,7 @@ public class Ellipse {
     }
 
     /**
-     * Move the circle a few pixels to the left.
+     * Move the triangle a few pixels to the left.
      */
     @SuppressWarnings("unused")
     public void moveLeft() {
@@ -85,7 +85,7 @@ public class Ellipse {
     }
 
     /**
-     * Move the circle a few pixels up.
+     * Move the triangle a few pixels up.
      */
     @SuppressWarnings("unused")
     public void moveUp() {
@@ -93,7 +93,7 @@ public class Ellipse {
     }
 
     /**
-     * Move the circle a few pixels down.
+     * Move the triangle a few pixels down.
      */
     @SuppressWarnings("unused")
     public void moveDown() {
@@ -101,7 +101,7 @@ public class Ellipse {
     }
 
     /**
-     * Move the circle horizontally by 'distance' pixels.
+     * Move the triangle horizontally by 'distance' pixels.
      */
     @SuppressWarnings("unused")
     public void moveHorizontal(int distance) {
@@ -109,7 +109,7 @@ public class Ellipse {
     }
 
     /**
-     * Move the circle vertically by 'distance' pixels.
+     * Move the triangle vertically by 'distance' pixels.
      */
     @SuppressWarnings("unused")
     public void moveVertical(int distance) {
@@ -120,9 +120,9 @@ public class Ellipse {
      * Change the size to the new size (in pixels). Size must be greater or equal 0.
      */
     @SuppressWarnings("unused")
-    public void changeSize(int newDiameterX, int newDiameterY) {
-        this.diameterX = newDiameterX;
-        this.diameterY = newDiameterY;
+    public void changeSize(int newHeight, int newWidth) {
+        this.height = newHeight;
+        this.width = newWidth;
     }
 
     /**
@@ -133,15 +133,17 @@ public class Ellipse {
         this.color = Game.getGame().getParser().parseColor(newColor);
     }
 
-    private class EllipseDrawable extends GameDrawable {
+    private class TriangleDrawable extends GameDrawable {
         @Override
         public void draw(Graphics2D canvas) {
-            if (!Ellipse.this.isVisible) {
+            if (!Trojuholnik.this.isVisible) {
                 return;
             }
 
-            var shape = new Ellipse2D.Double(Ellipse.this.xPosition, Ellipse.this.yPosition, Ellipse.this.diameterX, Ellipse.this.diameterY);
-            canvas.setColor(Ellipse.this.color);
+            var xPoints = new int[]{Trojuholnik.this.xPosition, Trojuholnik.this.xPosition + (Trojuholnik.this.width / 2), Trojuholnik.this.xPosition - Trojuholnik.this.width / 2};
+            var yPoints = new int[]{Trojuholnik.this.yPosition, Trojuholnik.this.yPosition + Trojuholnik.this.height, Trojuholnik.this.yPosition + Trojuholnik.this.height};
+            var shape = new Polygon(xPoints, yPoints, 3);
+            canvas.setColor(Trojuholnik.this.color);
             canvas.fill(shape);
         }
     }

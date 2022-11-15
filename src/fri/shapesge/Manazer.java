@@ -6,11 +6,11 @@ package fri.shapesge;
  * @version 1.0  (9.11.2022)
  */
 @SuppressWarnings("unused")
-public class Manager {
+public class Manazer {
     /**
      * Create a new manager that manages no objects yet.
      */
-    public Manager() {
+    public Manazer() {
 
     }
 

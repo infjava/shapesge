@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
  * @version 1.0
  */
 @SuppressWarnings("unused")
-public class Image {
+public class Obrazok {
     private static final AffineTransform IDENTITY_TRANSFORM = new AffineTransform();
 
     private final ImageDrawable drawable;
@@ -27,12 +27,12 @@ public class Image {
      * Create a new image at default position with default color.
      */
     @SuppressWarnings("unused")
-    public Image(String imagePath) {
+    public Obrazok(String imagePath) {
         this(imagePath, 100, 100);
     }
 
     @SuppressWarnings("unused")
-    public Image(String imagePath, int x, int y) {
+    public Obrazok(String imagePath, int x, int y) {
         this.xPosition = x;
         this.yPosition = y;
         this.angle = 0;
@@ -157,11 +157,11 @@ public class Image {
     private class ImageDrawable extends GameDrawable {
         @Override
         public void draw(Graphics2D canvas) {
-            if (!Image.this.isVisible) {
+            if (!Obrazok.this.isVisible) {
                 return;
             }
 
-            canvas.drawImage(Image.this.image, Image.this.transform, null);
+            canvas.drawImage(Obrazok.this.image, Obrazok.this.transform, null);
         }
     }
 }

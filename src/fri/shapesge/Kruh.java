@@ -2,47 +2,46 @@ package fri.shapesge;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
+import java.awt.geom.Ellipse2D;
 
 /**
- * A square that can be manipulated and that draws itself on a canvas.
+ * A circle that can be manipulated and that draws itself on a canvas.
  *
  * @author original: Michael Kölling and David J. Barnes
  * @author engine: Ján Janech
  * @version 1.0  (9.11.2022)
  */
+
 @SuppressWarnings("unused")
-public class Rectangle {
-    private final RectangleDrawable drawable;
-    private int width;
-    private int height;
+public class Kruh {
+    private final CircleDrawable drawable;
+    private int diameter;
     private int xPosition;
     private int yPosition;
     private Color color;
     private boolean isVisible;
 
     /**
-     * Create a new square at default position with default color.
+     * Create a new circle at default position with default color.
      */
     @SuppressWarnings("unused")
-    public Rectangle() {
-        this(60, 50);
+    public Kruh() {
+        this(20, 60);
     }
 
     @SuppressWarnings("unused")
-    public Rectangle(int x, int y) {
-        this.width = 30;
-        this.height = 60;
+    public Kruh(int x, int y) {
+        this.diameter = 30;
         this.xPosition = x;
         this.yPosition = y;
-        this.color = Color.red;
+        this.color = Color.blue;
         this.isVisible = false;
 
-        this.drawable = new RectangleDrawable();
+        this.drawable = new CircleDrawable();
     }
 
     /**
-     * Make this square visible. If it was already visible, do nothing.
+     * Make this circle visible. If it was already visible, do nothing.
      */
     @SuppressWarnings("unused")
     public void makeVisible() {
@@ -55,7 +54,7 @@ public class Rectangle {
     }
 
     /**
-     * Make this square invisible. If it was already invisible, do nothing.
+     * Make this circle invisible. If it was already invisible, do nothing.
      */
     @SuppressWarnings("unused")
     public void makeInvisible() {
@@ -68,7 +67,7 @@ public class Rectangle {
     }
 
     /**
-     * Move the square a few pixels to the right.
+     * Move the circle a few pixels to the right.
      */
     @SuppressWarnings("unused")
     public void moveRight() {
@@ -76,7 +75,7 @@ public class Rectangle {
     }
 
     /**
-     * Move the square a few pixels to the left.
+     * Move the circle a few pixels to the left.
      */
     @SuppressWarnings("unused")
     public void moveLeft() {
@@ -84,7 +83,7 @@ public class Rectangle {
     }
 
     /**
-     * Move the square a few pixels up.
+     * Move the circle a few pixels up.
      */
     @SuppressWarnings("unused")
     public void moveUp() {
@@ -92,7 +91,7 @@ public class Rectangle {
     }
 
     /**
-     * Move the square a few pixels down.
+     * Move the circle a few pixels down.
      */
     @SuppressWarnings("unused")
     public void moveDown() {
@@ -100,7 +99,7 @@ public class Rectangle {
     }
 
     /**
-     * Move the square horizontally by 'distance' pixels.
+     * Move the circle horizontally by 'distance' pixels.
      */
     @SuppressWarnings("unused")
     public void moveHorizontal(int distance) {
@@ -108,7 +107,7 @@ public class Rectangle {
     }
 
     /**
-     * Move the square vertically by 'distance' pixels.
+     * Move the circle vertically by 'distance' pixels.
      */
     @SuppressWarnings("unused")
     public void moveVertical(int distance) {
@@ -119,9 +118,8 @@ public class Rectangle {
      * Change the size to the new size (in pixels). Size must be greater or equal 0.
      */
     @SuppressWarnings("unused")
-    public void changeSize(int newWidth, int newHeight) {
-        this.width = newWidth;
-        this.height = newHeight;
+    public void changeSize(int newDiameter) {
+        this.diameter = newDiameter;
     }
 
     /**
@@ -132,15 +130,15 @@ public class Rectangle {
         this.color = Game.getGame().getParser().parseColor(newColor);
     }
 
-    private class RectangleDrawable extends GameDrawable {
+    private class CircleDrawable extends GameDrawable {
         @Override
         public void draw(Graphics2D canvas) {
-            if (!Rectangle.this.isVisible) {
+            if (!Kruh.this.isVisible) {
                 return;
             }
 
-            var shape = new Rectangle2D.Double(Rectangle.this.xPosition, Rectangle.this.yPosition, Rectangle.this.width, Rectangle.this.height);
-            canvas.setColor(Rectangle.this.color);
+            var shape = new Ellipse2D.Double(Kruh.this.xPosition, Kruh.this.yPosition, Kruh.this.diameter, Kruh.this.diameter);
+            canvas.setColor(Kruh.this.color);
             canvas.fill(shape);
         }
     }

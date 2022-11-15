@@ -12,7 +12,7 @@ import java.awt.geom.Rectangle2D;
  * @version 1.0  (9.11.2022)
  */
 @SuppressWarnings("unused")
-public class Square {
+public class Stvorec {
     private final SquareDrawable drawable;
     private int size;
     private int xPosition;
@@ -24,12 +24,12 @@ public class Square {
      * Create a new square at default position with default color.
      */
     @SuppressWarnings("unused")
-    public Square() {
+    public Stvorec() {
         this(60, 50);
     }
 
     @SuppressWarnings("unused")
-    public Square(int x, int y) {
+    public Stvorec(int x, int y) {
         this.size = 30;
         this.xPosition = x;
         this.yPosition = y;
@@ -132,12 +132,12 @@ public class Square {
     private class SquareDrawable extends GameDrawable {
         @Override
         public void draw(Graphics2D canvas) {
-            if (!Square.this.isVisible) {
+            if (!Stvorec.this.isVisible) {
                 return;
             }
 
-            var shape = new Rectangle2D.Double(Square.this.xPosition, Square.this.yPosition, Square.this.size, Square.this.size);
-            canvas.setColor(Square.this.color);
+            var shape = new Rectangle2D.Double(Stvorec.this.xPosition, Stvorec.this.yPosition, Stvorec.this.size, Stvorec.this.size);
+            canvas.setColor(Stvorec.this.color);
             canvas.fill(shape);
         }
     }

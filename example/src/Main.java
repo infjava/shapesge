@@ -1,21 +1,21 @@
-import fri.shapesge.Circle;
-import fri.shapesge.Manager;
-import fri.shapesge.Square;
-import fri.shapesge.Triangle;
+import fri.shapesge.Kruh;
+import fri.shapesge.Manazer;
+import fri.shapesge.Stvorec;
+import fri.shapesge.Trojuholnik;
 
 public class Main {
-    private static final Circle circle = new Circle();
+    private static final Kruh circle = new Kruh();
 
     public static void main(String[] args) {
-        Square square = new Square();
+        Stvorec square = new Stvorec();
         square.makeVisible();
 
         circle.makeVisible();
 
-        Triangle triangle = new Triangle();
+        Trojuholnik triangle = new Trojuholnik();
         triangle.makeVisible();
 
-        Manager manager = new Manager();
+        Manazer manager = new Manazer();
         manager.manageObject(triangle);
         manager.manageObject(new ManagedTest());
     }
