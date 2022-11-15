@@ -2,10 +2,14 @@ package fri.shapesge;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 class GameWindow {
+    private static final GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
+
     private final JFrame frame;
     private final GamePanel gamePanel;
     private final GameObjects gameObjects;
@@ -15,6 +19,7 @@ class GameWindow {
     private final int height;
     private final Color backgroundColor;
     private final boolean showInfo;
+    private final boolean isFullscreen;
 
     public GameWindow(GameObjects gameObjects, GameInputProcessor gameInputProcessor, GameFPSCounter fpsCounter, GameConfig gameConfig) {
         this.gameObjects = gameObjects;
@@ -24,14 +29,22 @@ class GameWindow {
         this.height = gameConfig.getInt(GameConfig.WINDOW_SECTION, GameConfig.WINDOW_HEIGHT);
         this.backgroundColor = gameConfig.getColor(GameConfig.WINDOW_SECTION, GameConfig.CANVAS_BACKGROUND);
         this.showInfo = gameConfig.getBoolean(GameConfig.WINDOW_SECTION, GameConfig.SHOW_INFO);
+        this.isFullscreen = gameConfig.getBoolean(GameConfig.WINDOW_SECTION, GameConfig.FULLSCREEN);
 
         this.gamePanel = new GamePanel();
 
         var windowTitle = gameConfig.get(GameConfig.WINDOW_SECTION, GameConfig.WINDOW_TITLE);
         this.frame = new JFrame(windowTitle);
+        this.frame.setLayout(new GridLayout());
         this.frame.add(this.gamePanel);
-        this.frame.pack();
-        this.frame.setResizable(false);
+        if (this.isFullscreen) {
+            this.frame.setUndecorated(true);
+            this.frame.pack();
+            device.setFullScreenWindow(this.frame);
+        } else {
+            this.frame.pack();
+            this.frame.setResizable(false);
+        }
     }
 
     public void show() {
@@ -43,18 +56,71 @@ class GameWindow {
     }
 
     private class GamePanel extends JPanel {
+        private int translateX;
+        private int translateY;
+        private double scale;
+        private boolean covered;
+
         public GamePanel() {
             this.setPreferredSize(new Dimension(GameWindow.this.width, GameWindow.this.height));
             this.setFocusable(true);
             this.enableEvents(AWTEvent.MOUSE_EVENT_MASK);
+
+            this.addComponentListener(new ComponentAdapter() {
+                @Override
+                public void componentResized(ComponentEvent e) {
+                    GamePanel.this.resized();
+                }
+            });
+
+            this.resized();
+        }
+
+        private void resized() {
+            if (!GameWindow.this.isFullscreen) {
+                this.translateX = 0;
+                this.translateY = 0;
+                this.scale = 1;
+                this.covered = true;
+                return;
+            }
+
+            var widthAspectRatio = (double) this.getWidth() / GameWindow.this.width;
+            var heightAspectRatio = (double) this.getHeight() / GameWindow.this.height;
+
+            this.covered = widthAspectRatio == heightAspectRatio;
+
+            if (widthAspectRatio < heightAspectRatio) {
+                this.translateX = 0;
+                this.translateY = (this.getHeight() - GameWindow.this.height) / 2;
+                this.scale = widthAspectRatio;
+            } else {
+                this.translateX = (this.getWidth() - GameWindow.this.width) / 2;
+                this.translateY = 0;
+                this.scale = heightAspectRatio;
+            }
         }
 
         @Override
         public void paint(Graphics g) {
             final var canvas = (Graphics2D)g;
 
+            if (!this.covered) {
+                canvas.setBackground(Color.black);
+                canvas.clearRect(0, 0, this.getWidth(), this.getHeight());
+            }
+
+            if (this.translateX != 0 || this.translateY != 0) {
+                canvas.translate(this.translateX, this.translateY);
+            }
+
+            if (this.scale != 1) {
+                canvas.scale(this.scale, this.scale);
+            }
+
             canvas.setBackground(GameWindow.this.backgroundColor);
             canvas.clearRect(0, 0, GameWindow.this.width, GameWindow.this.height);
+            canvas.setClip(0, 0, GameWindow.this.width, GameWindow.this.height);
 
             GameWindow.this.gameObjects.drawAll(canvas);
 
