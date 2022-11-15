@@ -24,13 +24,13 @@ class GameWindow {
     private final boolean showInfo;
     private final boolean isFullscreen;
 
-    public GameWindow(GameObjects gameObjects, GameInputProcessor gameInputProcessor, GameFPSCounter fpsCounter, GameConfig gameConfig) {
+    public GameWindow(GameObjects gameObjects, GameInputProcessor gameInputProcessor, GameFPSCounter fpsCounter, GameConfig gameConfig, GameParser gameParser) {
         this.gameObjects = gameObjects;
         this.gameInputProcessor = gameInputProcessor;
         this.fpsCounter = fpsCounter;
         this.width = gameConfig.getInt(GameConfig.WINDOW_SECTION, GameConfig.WINDOW_WIDTH);
         this.height = gameConfig.getInt(GameConfig.WINDOW_SECTION, GameConfig.WINDOW_HEIGHT);
-        this.backgroundColor = gameConfig.getColor(GameConfig.WINDOW_SECTION, GameConfig.CANVAS_BACKGROUND);
+        this.backgroundColor = gameParser.parseColor(gameConfig.get(GameConfig.WINDOW_SECTION, GameConfig.CANVAS_BACKGROUND));
         this.showInfo = gameConfig.getBoolean(GameConfig.WINDOW_SECTION, GameConfig.SHOW_INFO);
         this.isFullscreen = gameConfig.getBoolean(GameConfig.WINDOW_SECTION, GameConfig.FULLSCREEN);
 

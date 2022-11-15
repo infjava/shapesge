@@ -9,12 +9,11 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 class GameParser {
-    private static final Color BROWN = new Color(102, 51, 0);
-
     private static final Map<String, Integer> KEY_MAP = Arrays.stream(KeyEvent.class
             .getDeclaredFields())
             .filter(x -> Modifier.isStatic(x.getModifiers()) && Modifier.isFinal(x.getModifiers()))
@@ -38,32 +37,30 @@ class GameParser {
             "middle", MouseEvent.BUTTON3
     );
 
-    public static Color parseColor(String colorString) {
+    private final HashMap<String, Color> colorMap;
+
+    public GameParser(GameConfig gameConfig) {
+        this.colorMap = new HashMap<>();
+        for (var colorName : gameConfig.getOptions(GameConfig.COLORS_SECTION)) {
+            var color = Color.decode(gameConfig.get(GameConfig.COLORS_SECTION, colorName));
+            this.colorMap.put(colorName, color);
+        }
+    }
+
+    public Color parseColor(String colorString) {
         if (colorString.startsWith("#")) {
             return Color.decode(colorString);
         }
 
-        switch (colorString) {
-            case "red":
-                return Color.red;
-            case "blue":
-                return Color.blue;
-            case "yellow":
-                return Color.yellow;
-            case "green":
-                return Color.green;
-            case "magenta":
-                return Color.magenta;
-            case "white":
-                return Color.white;
-            case "brown":
-                return GameParser.BROWN;
-            default:
-                return Color.black;
+        var ret = this.colorMap.get(colorString);
+        if (ret == null) {
+            return Color.black;
         }
+
+        return ret;
     }
 
-    public static BufferedImage parseImage(String imagePath){
+    public BufferedImage parseImage(String imagePath){
         BufferedImage loadedImage;
 
         try {
@@ -76,7 +73,7 @@ class GameParser {
         return loadedImage;
     }
 
-    public static GameKeyEvent parseKeyEvent(String keyEvent, String message) {
+    public GameKeyEvent parseKeyEvent(String keyEvent, String message) {
         var eventTypeAndKey = keyEvent.strip().split("\\p{javaWhitespace}+", 2);
         if (eventTypeAndKey.length != 2) {
             throw new RuntimeException(String.format("Cannot parse key event %s", keyEvent));
@@ -128,7 +125,7 @@ class GameParser {
         return new GameKeyEvent(eventType, modifiers, keyCode, message);
     }
 
-    public static GameMouseEvent parseMouseEvent(String mouseEvent, String message) {
+    public GameMouseEvent parseMouseEvent(String mouseEvent, String message) {
         var eventTypeAndButton = mouseEvent.strip().split("\\p{javaWhitespace}+", 2);
 
         if (eventTypeAndButton[0].equals("move") && eventTypeAndButton.length == 1) {

@@ -39,7 +39,7 @@ public class Image {
 
         this.computeTransformation();
 
-        this.image = GameParser.parseImage(imagePath);
+        this.image = Game.getGame().getParser().parseImage(imagePath);
         this.isVisible = false;
 
         this.drawable = new ImageDrawable();
@@ -126,7 +126,7 @@ public class Image {
      */
     @SuppressWarnings("unused")
     public void changeImage(String imagePath) {
-        this.image = GameParser.parseImage(imagePath);
+        this.image = Game.getGame().getParser().parseImage(imagePath);
     }
 
     /**

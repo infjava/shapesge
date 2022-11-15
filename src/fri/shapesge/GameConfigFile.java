@@ -1,6 +1,5 @@
 package fri.shapesge;
 
-import java.awt.Color;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.HashMap;
@@ -62,10 +61,6 @@ class GameConfigFile {
     public boolean getBoolean(String section, String option) {
         var value = this.get(section, option).toLowerCase();
         return value.equals("yes") || value.equals("true");
-    }
-
-    public Color getColor(String section, String option) {
-        return GameParser.parseColor(this.get(section, option));
     }
 
     public boolean contains(String section) {

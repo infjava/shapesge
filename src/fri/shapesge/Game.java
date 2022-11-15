@@ -13,6 +13,7 @@ class Game {
 
     @SuppressWarnings("FieldCanBeLocal")
     private final GameConfig gameConfig;
+    private final GameParser gameParser;
     @SuppressWarnings("FieldCanBeLocal")
     private final GameFPSCounter gameFPSCounter;
     private final GameLoop gameLoop;
@@ -26,11 +27,13 @@ class Game {
 
     private Game() {
         this.gameConfig = new GameConfig();
+        this.gameParser = new GameParser(this.gameConfig);
         this.gameObjects = new GameObjects();
         this.gameEventDispatcher = new GameEventDispatcher();
         this.gameInputProcessor = new GameInputProcessor(
                 this.gameEventDispatcher,
-                this.gameConfig
+                this.gameConfig,
+                this.gameParser
         );
         this.gameTimerProcessor = new GameTimerProcessor(
                 this.gameEventDispatcher,
@@ -41,7 +44,8 @@ class Game {
                 this.gameObjects,
                 this.gameInputProcessor,
                 this.gameFPSCounter,
-                this.gameConfig
+                this.gameConfig,
+                this.gameParser
         );
         this.gameLoop = new GameLoop(
                 this.gameWindow,
@@ -55,6 +59,10 @@ class Game {
     private void start() {
         this.gameWindow.show();
         this.gameLoop.start();
+    }
+
+    public GameParser getParser() {
+        return this.gameParser;
     }
 
     public void registerDrawable(GameDrawable drawable) {

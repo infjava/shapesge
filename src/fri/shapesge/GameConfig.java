@@ -1,7 +1,5 @@
 package fri.shapesge;
 
-import java.awt.Color;
-
 class GameConfig {
     public static final String WINDOW_SECTION = "Window";
     public static final String WINDOW_TITLE = "Title";
@@ -18,6 +16,7 @@ class GameConfig {
     public static final String MOUSE_SECTION = "Mouse";
 
     public static final String TIMER_SECTION = "Timers";
+    public static final String COLORS_SECTION = "Colors";
 
     private final GameConfigFile appConfig;
     private final GameConfigFile defaultConfig;
@@ -58,14 +57,6 @@ class GameConfig {
             return this.appConfig.getBoolean(section, option);
         } else {
             return this.defaultConfig.getBoolean(section, option);
-        }
-    }
-
-    public Color getColor(String section, String option) {
-        if (this.appConfig.contains(section, option)) {
-            return this.appConfig.getColor(section, option);
-        } else {
-            return this.defaultConfig.getColor(section, option);
         }
     }
 

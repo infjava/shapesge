@@ -128,7 +128,7 @@ public class Circle {
      */
     @SuppressWarnings("unused")
     public void changeColor(String newColor) {
-        this.color = GameParser.parseColor(newColor);
+        this.color = Game.getGame().getParser().parseColor(newColor);
     }
 
     private class CircleDrawable extends GameDrawable {

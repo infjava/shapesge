@@ -9,7 +9,7 @@ class GameInputProcessor {
     private final ArrayList<GameMouseEvent> mouseEvents;
     private final GameEventDispatcher eventDispatcher;
 
-    public GameInputProcessor(GameEventDispatcher eventDispatcher, GameConfig gameConfig) {
+    public GameInputProcessor(GameEventDispatcher eventDispatcher, GameConfig gameConfig, GameParser gameParser) {
         this.eventDispatcher = eventDispatcher;
         this.keyEvents = new ArrayList<>();
         this.mouseEvents = new ArrayList<>();
@@ -17,7 +17,7 @@ class GameInputProcessor {
         for (String message : gameConfig.getOptions(GameConfig.KEYBOARD_SECTION)) {
             var eventDefinitions = gameConfig.get(GameConfig.KEYBOARD_SECTION, message).split(",");
             for (String eventDefinition : eventDefinitions) {
-                var keyEvent = GameParser.parseKeyEvent(eventDefinition, message);
+                var keyEvent = gameParser.parseKeyEvent(eventDefinition, message);
                 this.registerKeyEvent(keyEvent);
             }
         }
@@ -25,7 +25,7 @@ class GameInputProcessor {
         for (String message : gameConfig.getOptions(GameConfig.MOUSE_SECTION)) {
             var eventDefinitions = gameConfig.get(GameConfig.MOUSE_SECTION, message).split(",");
             for (String eventDefinition : eventDefinitions) {
-                var mouseEvent = GameParser.parseMouseEvent(eventDefinition, message);
+                var mouseEvent = gameParser.parseMouseEvent(eventDefinition, message);
                 this.registerMouseEvent(mouseEvent);
             }
         }
