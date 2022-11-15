@@ -11,6 +11,7 @@ class GameConfig {
     public static final String FPS = "FPS";
     public static final String SHOW_INFO = "ShowInfo";
     public static final String FULLSCREEN = "Fullscreen";
+    public static final String EXIT_ON_CLOSE = "ExitOnClose";
 
     public static final String KEYBOARD_SECTION = "Keyboard";
 

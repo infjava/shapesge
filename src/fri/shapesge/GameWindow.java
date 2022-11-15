@@ -34,12 +34,19 @@ class GameWindow {
         this.showInfo = gameConfig.getBoolean(GameConfig.WINDOW_SECTION, GameConfig.SHOW_INFO);
         this.isFullscreen = gameConfig.getBoolean(GameConfig.WINDOW_SECTION, GameConfig.FULLSCREEN);
 
+        var exitOnClose = gameConfig.getBoolean(GameConfig.WINDOW_SECTION, GameConfig.EXIT_ON_CLOSE);
+
         this.gamePanel = new GamePanel();
 
         var windowTitle = gameConfig.get(GameConfig.WINDOW_SECTION, GameConfig.WINDOW_TITLE);
         this.frame = new JFrame(windowTitle);
         this.frame.setLayout(new GridLayout());
         this.frame.add(this.gamePanel);
+
+        if (exitOnClose) {
+            this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        }
+
         if (this.isFullscreen) {
             this.frame.setUndecorated(true);
             this.frame.pack();
