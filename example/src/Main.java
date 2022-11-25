@@ -1,7 +1,4 @@
-import fri.shapesge.Circle;
-import fri.shapesge.Manager;
-import fri.shapesge.Square;
-import fri.shapesge.Triangle;
+import fri.shapesge.*;
 
 public class Main {
     private static final Circle circle = new Circle();
@@ -14,6 +11,11 @@ public class Main {
 
         Triangle triangle = new Triangle();
         triangle.makeVisible();
+
+        Text t = new Text("Boo from SBGE");
+        t.changeFont("Serif", FontStyle.BOLD, 30);
+        t.changeColor("blue");
+        t.makeVisible();
 
         Manager manager = new Manager();
         manager.manageObject(triangle);
