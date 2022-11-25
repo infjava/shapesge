@@ -5,6 +5,13 @@
     <option name="OTHER_OPTIONS" value="-encoding utf8 -docencoding utf8 -charset utf8" />
     <option name="OPTION_LINK_TO_JDK_DOCS" value="true" />
   </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+      </list>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
