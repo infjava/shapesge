@@ -12,10 +12,10 @@ public class Main {
         Trojuholnik triangle = new Trojuholnik();
         triangle.zobraz();
 
-        Text t = new Text("Boo from SBGE");
-        t.changeFont("Serif", FontStyle.BOLD, 30);
-        t.changeColor("blue");
-        t.makeVisible();
+        Text t = new Text("Búú zo SBGE");
+        t.zmenFont("Serif", FontStyle.BOLD, 30);
+        t.zmenFarbu("blue");
+        t.zobraz();
 
         Manazer manager = new Manazer();
         manager.spravujObjekt(triangle);

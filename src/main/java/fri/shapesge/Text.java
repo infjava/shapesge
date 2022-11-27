@@ -8,7 +8,7 @@ import java.util.EnumSet;
 import java.util.HashMap;
 
 /**
- * A text that can be manipulated and that draws itself on a canvas.
+ * Text, s ktorým možno pohybovať a nakreslí sa na plátno.
  *
  * @author Ján Janech
  * @version 1.0  (25.11.2022)
@@ -25,7 +25,7 @@ public class Text {
     private boolean isVisible;
 
     /**
-     * Create a new text at default position with default color.
+     * Vytvor nový text preddefinovanej farby na preddefinovanej pozícii.
      */
     @SuppressWarnings("unused")
     public Text(String text, int x, int y) {
@@ -47,10 +47,10 @@ public class Text {
     }
 
     /**
-     * Make this text visible. If it was already visible, do nothing.
+     * Zobraz sa.
      */
     @SuppressWarnings("unused")
-    public void makeVisible() {
+    public void zobraz() {
         if (this.isVisible) {
             return;
         }
@@ -60,10 +60,10 @@ public class Text {
     }
 
     /**
-     * Make this text invisible. If it was already invisible, do nothing.
+     * Skry sa.
      */
     @SuppressWarnings("unused")
-    public void makeInvisible() {
+    public void skry() {
         if (!this.isVisible) {
             return;
         }
@@ -73,71 +73,71 @@ public class Text {
     }
 
     /**
-     * Move the text a few pixels to the right.
+     * Posuň sa vpravo o pevnú dĺžku.
      */
     @SuppressWarnings("unused")
-    public void moveRight() {
-        this.moveHorizontal(20);
+    public void posunVpravo() {
+        this.posunVodorovne(20);
     }
 
     /**
-     * Move the text a few pixels to the left.
+     * Posuň sa vľavo o pevnú dĺžku.
      */
     @SuppressWarnings("unused")
-    public void moveLeft() {
-        this.moveHorizontal(-20);
+    public void posunVlavo() {
+        this.posunVodorovne(-20);
     }
 
     /**
-     * Move the text a few pixels up.
+     * Posuň sa hore o pevnú dĺžku.
      */
     @SuppressWarnings("unused")
-    public void moveUp() {
-        this.moveVertical(-20);
+    public void posunHore() {
+        this.posunZvisle(-20);
     }
 
     /**
-     * Move the text a few pixels down.
+     * Posuň sa dole o pevnú dĺžku.
      */
     @SuppressWarnings("unused")
-    public void moveDown() {
-        this.moveVertical(20);
+    public void posunDole() {
+        this.posunZvisle(20);
     }
 
     /**
-     * Move the text horizontally by 'distance' pixels.
+     * Posuň sa vodorovne o dĺžku danú parametrom.
      */
     @SuppressWarnings("unused")
-    public void moveHorizontal(int distance) {
-        this.xPosition += distance;
+    public void posunVodorovne(int vzdialenost) {
+        this.xPosition += vzdialenost;
     }
 
     /**
-     * Move the text vertically by 'distance' pixels.
+     * Posuň sa zvisle o dĺžku danú parametrom.
      */
     @SuppressWarnings("unused")
-    public void moveVertical(int distance) {
-        this.yPosition += distance;
+    public void posunZvisle(int vzdialenost) {
+        this.yPosition += vzdialenost;
     }
 
     /**
-     * Change the font according to the new specification.
+     * Zmeň font textu podľa požiadaviek.
      */
     @SuppressWarnings("unused")
-    public void changeFont(String fontFamily, FontStyle style, int size) {
+    public void zmenFont(String font, FontStyle styl, int velkost) {
         var intStyle = Font.PLAIN;
 
-        if (style == FontStyle.BOLD) {
+        if (styl == FontStyle.BOLD) {
             intStyle |= Font.BOLD;
         }
 
-        if (style == FontStyle.ITALIC) {
+        if (styl == FontStyle.ITALIC) {
             intStyle |= Font.ITALIC;
         }
 
-        var newFont = new Font(fontFamily, intStyle, size);
+        var newFont = new Font(font, intStyle, velkost);
 
-        if (style == FontStyle.UNDERLINE) {
+        if (styl == FontStyle.UNDERLINE) {
             var underlineAttribute = new HashMap<TextAttribute, Integer>();
             underlineAttribute.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
             this.font = newFont.deriveFont(underlineAttribute);
@@ -147,23 +147,23 @@ public class Text {
     }
 
     /**
-     * Change the font according to the new specification.
+     * Zmeň font textu podľa požiadaviek.
      */
     @SuppressWarnings("unused")
-    public void changeFont(String fontFamily, EnumSet<FontStyle> style, int size) {
+    public void zmenFont(String font, EnumSet<FontStyle> styl, int velkost) {
         var intStyle = Font.PLAIN;
 
-        if (style.contains(FontStyle.BOLD)) {
+        if (styl.contains(FontStyle.BOLD)) {
             intStyle |= Font.BOLD;
         }
 
-        if (style.contains(FontStyle.ITALIC)) {
+        if (styl.contains(FontStyle.ITALIC)) {
             intStyle |= Font.ITALIC;
         }
 
-        var newFont = new Font(fontFamily, intStyle, size);
+        var newFont = new Font(font, intStyle, velkost);
 
-        if (style.contains(FontStyle.UNDERLINE)) {
+        if (styl.contains(FontStyle.UNDERLINE)) {
             var underlineAttribute = new HashMap<TextAttribute, Integer>();
             underlineAttribute.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
             this.font = newFont.deriveFont(underlineAttribute);
@@ -173,15 +173,15 @@ public class Text {
     }
 
     /**
-     * Change the color.
+     * Zmeň farbu na hodnotu danú parametrom.
      */
     @SuppressWarnings("unused")
-    public void changeColor(String newColor) {
-        this.color = Game.getGame().getParser().parseColor(newColor);
+    public void zmenFarbu(String farba) {
+        this.color = Game.getGame().getParser().parseColor(farba);
     }
 
     /**
-     * Change the text.
+     * Zmeň text.
      */
     @SuppressWarnings("unused")
     public void changeText(String text) {
