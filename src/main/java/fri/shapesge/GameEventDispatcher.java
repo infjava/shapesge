@@ -3,14 +3,14 @@ package fri.shapesge;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 class GameEventDispatcher {
-    private final ArrayList<Object> targets;
+    private final CopyOnWriteArrayList<Object> targets;
     private final ArrayDeque<QueuedEvent> eventQueue;
 
     public GameEventDispatcher() {
-        this.targets = new ArrayList<>();
+        this.targets = new CopyOnWriteArrayList<>();
         this.eventQueue = new ArrayDeque<>();
     }
 

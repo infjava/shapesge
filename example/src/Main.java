@@ -1,7 +1,4 @@
-import fri.shapesge.Kruh;
-import fri.shapesge.Manazer;
-import fri.shapesge.Stvorec;
-import fri.shapesge.Trojuholnik;
+import fri.shapesge.*;
 
 public class Main {
     private static final Kruh circle = new Kruh();
@@ -14,6 +11,11 @@ public class Main {
 
         Trojuholnik triangle = new Trojuholnik();
         triangle.zobraz();
+
+        Text t = new Text("Boo from SBGE");
+        t.changeFont("Serif", FontStyle.BOLD, 30);
+        t.changeColor("blue");
+        t.makeVisible();
 
         Manazer manager = new Manazer();
         manager.spravujObjekt(triangle);
