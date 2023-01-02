@@ -69,7 +69,7 @@ public class Text {
         }
 
         Game.getGame().unregisterDrawable(this.drawable);
-        this.isVisible = true;
+        this.isVisible = false;
     }
 
     /**
