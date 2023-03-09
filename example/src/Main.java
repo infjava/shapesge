@@ -32,6 +32,10 @@ public class Main {
             System.out.format("Choose %d,%d%n", x, y);
         }
 
+        public void mouseMove(int x, int y) {
+            System.out.format("Mouse moved %d,%d%n", x, y);
+        }
+
         public void tick() {
             System.out.println("Tick - tack");
             circle.moveRight();
