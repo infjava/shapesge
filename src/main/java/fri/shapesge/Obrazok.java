@@ -68,7 +68,7 @@ public class Obrazok {
         }
 
         Game.getGame().unregisterDrawable(this.drawable);
-        this.isVisible = true;
+        this.isVisible = false;
     }
 
     /**

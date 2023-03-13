@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -14,6 +15,11 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 class GameParser {
+    private enum ImageSource {
+        FILE,
+        RESOURCE
+    }
+
     private static final Map<String, Integer> KEY_MAP = Arrays.stream(KeyEvent.class
             .getDeclaredFields())
             .filter(x -> Modifier.isStatic(x.getModifiers()) && Modifier.isFinal(x.getModifiers()))
@@ -23,7 +29,7 @@ class GameParser {
                             x -> x.getName().substring(3).toLowerCase(),
                             x -> {
                                 try {
-                                    return (Integer) x.get(null);
+                                    return (Integer)x.get(null);
                                 } catch (IllegalAccessException e) {
                                     throw new RuntimeException(e);
                                 }
@@ -38,12 +44,24 @@ class GameParser {
     );
 
     private final HashMap<String, Color> colorMap;
+    private final ImageSource imageSource;
 
-    public GameParser(GameConfig gameConfig) {
+    GameParser(GameConfig gameConfig) {
         this.colorMap = new HashMap<>();
         for (var colorName : gameConfig.getOptions(GameConfig.COLORS_SECTION)) {
             var color = Color.decode(gameConfig.get(GameConfig.COLORS_SECTION, colorName));
             this.colorMap.put(colorName, color);
+        }
+
+        switch (gameConfig.get(GameConfig.SHAPES_SECTION, GameConfig.IMAGE_SOURCE).toLowerCase()) {
+            case GameConfig.IMAGE_SOURCE_RESOURCE:
+                this.imageSource = ImageSource.RESOURCE;
+                break;
+            case GameConfig.IMAGE_SOURCE_FILE:
+                this.imageSource = ImageSource.FILE;
+                break;
+            default:
+                throw new RuntimeException("Invalid image source");
         }
     }
 
@@ -60,13 +78,25 @@ class GameParser {
         return ret;
     }
 
-    public BufferedImage parseImage(String imagePath){
-        BufferedImage loadedImage;
+    public BufferedImage parseImage(String imagePath) {
+        BufferedImage loadedImage = null;
 
         try {
-            loadedImage = ImageIO.read(new File(imagePath));
-        } catch (IOException e) {
-            loadedImage = null;
+            switch (this.imageSource) {
+                case FILE:
+                    loadedImage = ImageIO.read(new File(imagePath));
+                    break;
+                case RESOURCE:
+                    InputStream resource = ClassLoader.getSystemResourceAsStream(imagePath);
+                    if (resource != null) {
+                        loadedImage = ImageIO.read(resource);
+                    }
+                    break;
+            }
+        } catch (IOException ignored) {
+        }
+
+        if (loadedImage == null) {
             javax.swing.JOptionPane.showMessageDialog(null, "File " + imagePath + " was not found.");
         }
 
