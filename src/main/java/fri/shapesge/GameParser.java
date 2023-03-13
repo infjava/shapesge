@@ -29,7 +29,7 @@ class GameParser {
                             x -> x.getName().substring(3).toLowerCase(),
                             x -> {
                                 try {
-                                    return (Integer) x.get(null);
+                                    return (Integer)x.get(null);
                                 } catch (IllegalAccessException e) {
                                     throw new RuntimeException(e);
                                 }
@@ -46,7 +46,7 @@ class GameParser {
     private final HashMap<String, Color> colorMap;
     private final ImageSource imageSource;
 
-    public GameParser(GameConfig gameConfig) {
+    GameParser(GameConfig gameConfig) {
         this.colorMap = new HashMap<>();
         for (var colorName : gameConfig.getOptions(GameConfig.COLORS_SECTION)) {
             var color = Color.decode(gameConfig.get(GameConfig.COLORS_SECTION, colorName));
@@ -78,7 +78,7 @@ class GameParser {
         return ret;
     }
 
-    public BufferedImage parseImage(String imagePath){
+    public BufferedImage parseImage(String imagePath) {
         BufferedImage loadedImage = null;
 
         try {

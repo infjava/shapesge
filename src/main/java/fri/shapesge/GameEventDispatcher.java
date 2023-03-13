@@ -9,7 +9,7 @@ class GameEventDispatcher {
     private final CopyOnWriteArrayList<Object> targets;
     private final ArrayDeque<QueuedEvent> eventQueue;
 
-    public GameEventDispatcher() {
+    GameEventDispatcher() {
         this.targets = new CopyOnWriteArrayList<>();
         this.eventQueue = new ArrayDeque<>();
     }
@@ -40,8 +40,8 @@ class GameEventDispatcher {
     private void sendMessage(QueuedEvent event) {
         for (Object target : this.targets) {
             try {
-                Method method = target.getClass().getMethod(event.message, event.parameterTypes);
-                method.invoke(target, event.parameterValues);
+                Method method = target.getClass().getMethod(event.getMessage(), event.getParameterTypes());
+                method.invoke(target, event.getParameterValues());
             } catch (NoSuchMethodException e) {
                 // do nothing here
             } catch (SecurityException | IllegalArgumentException | IllegalAccessException |
@@ -55,20 +55,32 @@ class GameEventDispatcher {
         private static final Class<?>[] EMPTY_PARAMETER_TYPES = new Class<?>[0];
         private static final Object[] EMPTY_PARAMETER_VALUES = new Object[0];
 
-        public final String message;
-        public final Class<?>[] parameterTypes;
-        public final Object[] parameterValues;
+        private final String message;
+        private final Class<?>[] parameterTypes;
+        private final Object[] parameterValues;
 
-        public QueuedEvent(String message) {
+        QueuedEvent(String message) {
             this.message = message;
             this.parameterTypes = EMPTY_PARAMETER_TYPES;
             this.parameterValues = EMPTY_PARAMETER_VALUES;
         }
 
-        public QueuedEvent(String message, Class<?>[] parameterTypes, Object[] parameterValues) {
+        QueuedEvent(String message, Class<?>[] parameterTypes, Object[] parameterValues) {
             this.message = message;
             this.parameterTypes = parameterTypes;
             this.parameterValues = parameterValues;
+        }
+
+        public String getMessage() {
+            return this.message;
+        }
+
+        public Class<?>[] getParameterTypes() {
+            return this.parameterTypes;
+        }
+
+        public Object[] getParameterValues() {
+            return this.parameterValues;
         }
     }
 }

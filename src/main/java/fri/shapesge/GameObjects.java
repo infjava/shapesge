@@ -6,7 +6,7 @@ import java.util.ArrayList;
 class GameObjects {
     private final ArrayList<GameDrawable> drawables;
 
-    public GameObjects() {
+    GameObjects() {
         this.drawables = new ArrayList<>();
     }
 

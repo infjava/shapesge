@@ -6,7 +6,7 @@ class GameFPSCounter {
     private int fps;
     private int fpsCounter;
 
-    public GameFPSCounter() {
+    GameFPSCounter() {
         this.lastSecondNanotime = 0;
         this.fps = 0;
         this.fpsCounter = 0;

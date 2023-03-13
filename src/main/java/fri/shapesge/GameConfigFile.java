@@ -8,11 +8,7 @@ import java.util.Scanner;
 class GameConfigFile {
     private final HashMap<String, HashMap<String, String>> values;
 
-    public GameConfigFile() {
-        this.values = new HashMap<>();
-    }
-
-    public GameConfigFile(InputStream config) {
+    GameConfigFile(InputStream config) {
         this.values = new HashMap<>();
 
         try (var configReader = new Scanner(config)) {

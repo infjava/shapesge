@@ -7,7 +7,7 @@ class GameMouseEvent {
     private final int button;
     private final String message;
 
-    public GameMouseEvent(int eventType, int button, String message) {
+    GameMouseEvent(int eventType, int button, String message) {
         this.eventType = eventType;
         this.button = button;
         this.message = message;

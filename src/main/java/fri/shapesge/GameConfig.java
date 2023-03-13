@@ -30,7 +30,7 @@ class GameConfig {
 
     private final ArrayList<GameConfigFile> configFiles;
 
-    public GameConfig() {
+    GameConfig() {
         this.configFiles = new ArrayList<>();
 
         var appConfigStream = ClassLoader.getSystemResourceAsStream("sbge.ini");

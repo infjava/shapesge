@@ -8,7 +8,7 @@ class GameTimerProcessor {
     private final GameEventDispatcher eventDispatcher;
     private final ArrayList<TimerDetail> timers;
 
-    public GameTimerProcessor(GameEventDispatcher eventDispatcher, GameConfig gameConfig) {
+    GameTimerProcessor(GameEventDispatcher eventDispatcher, GameConfig gameConfig) {
         this.eventDispatcher = eventDispatcher;
         this.timers = new ArrayList<>();
 
@@ -39,7 +39,7 @@ class GameTimerProcessor {
         private final String message;
         private long nextInvocation;
 
-        public TimerDetail(long currentTime, long nsInterval, String message) {
+        TimerDetail(long currentTime, long nsInterval, String message) {
             this.nsInterval = nsInterval;
             this.message = message;
             this.nextInvocation = currentTime + nsInterval;

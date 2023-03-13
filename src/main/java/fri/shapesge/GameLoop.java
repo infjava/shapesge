@@ -1,8 +1,8 @@
 package fri.shapesge;
 
 class GameLoop implements Runnable {
-    private final static long SECOND = 1_000_000_000; // in nanoseconds
-    private final static long MILLISECOND = 1_000_000; // in nanoseconds
+    private static final long SECOND = 1_000_000_000; // in nanoseconds
+    private static final long MILLISECOND = 1_000_000; // in nanoseconds
 
     private final int fpsCaps;
     private final GameFPSCounter fpsCounter;
@@ -10,7 +10,7 @@ class GameLoop implements Runnable {
     private final GameTimerProcessor timerProcessor;
     private final GameEventDispatcher eventDispatcher;
 
-    public GameLoop(GameWindow gameWindow, GameTimerProcessor timerProcessor, GameEventDispatcher eventDispatcher, GameFPSCounter fpsCounter, GameConfig gameConfig) {
+    GameLoop(GameWindow gameWindow, GameTimerProcessor timerProcessor, GameEventDispatcher eventDispatcher, GameFPSCounter fpsCounter, GameConfig gameConfig) {
         this.gameWindow = gameWindow;
         this.timerProcessor = timerProcessor;
         this.eventDispatcher = eventDispatcher;
@@ -46,7 +46,7 @@ class GameLoop implements Runnable {
 
             try {
                 //noinspection BusyWait
-                Thread.sleep(sleepTime / MILLISECOND, (int) (sleepTime % MILLISECOND));
+                Thread.sleep(sleepTime / MILLISECOND, (int)(sleepTime % MILLISECOND));
             } catch (InterruptedException e) {
                 return;
             }
