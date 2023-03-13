@@ -12,7 +12,7 @@ public class Main {
         Triangle triangle = new Triangle();
         triangle.makeVisible();
 
-        Text t = new Text("Boo from SBGE");
+        Text t = new Text("Boo from\nSBGE");
         t.changeFont("Serif", FontStyle.BOLD, 30);
         t.changeColor("blue");
         t.makeVisible();
