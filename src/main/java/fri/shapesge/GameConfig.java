@@ -16,6 +16,11 @@ class GameConfig {
     public static final String FULLSCREEN = "Fullscreen";
     public static final String EXIT_ON_CLOSE = "ExitOnClose";
 
+    public static final String SHAPES_SECTION = "Shapes";
+    public static final String IMAGE_SOURCE = "ImageSource";
+    public static final String IMAGE_SOURCE_RESOURCE = "resource";
+    public static final String IMAGE_SOURCE_FILE = "file";
+
     public static final String KEYBOARD_SECTION = "Keyboard";
 
     public static final String MOUSE_SECTION = "Mouse";

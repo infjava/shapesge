@@ -17,6 +17,9 @@ public class Main {
         t.changeColor("blue");
         t.makeVisible();
 
+        Image i = new Image("test.jpg");
+        i.makeVisible();
+
         Manager manager = new Manager();
         manager.manageObject(triangle);
         manager.manageObject(new ManagedTest());
