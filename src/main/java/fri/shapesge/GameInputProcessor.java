@@ -9,7 +9,7 @@ class GameInputProcessor {
     private final ArrayList<GameMouseEvent> mouseEvents;
     private final GameEventDispatcher eventDispatcher;
 
-    public GameInputProcessor(GameEventDispatcher eventDispatcher, GameConfig gameConfig, GameParser gameParser) {
+    GameInputProcessor(GameEventDispatcher eventDispatcher, GameConfig gameConfig, GameParser gameParser) {
         this.eventDispatcher = eventDispatcher;
         this.keyEvents = new ArrayList<>();
         this.mouseEvents = new ArrayList<>();

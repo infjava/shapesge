@@ -17,7 +17,7 @@ import java.util.HashMap;
 @SuppressWarnings("unused")
 public class Text {
     private final TextDrawable drawable;
-    private String text;
+    private String[] text;
     private Font font;
     private int xPosition;
     private int yPosition;
@@ -29,7 +29,7 @@ public class Text {
      */
     @SuppressWarnings("unused")
     public Text(String text, int x, int y) {
-        this.text = text;
+        this.text = text.split("\n");
 
         this.font = new Font(Font.SERIF, Font.PLAIN, 12);
 
@@ -69,7 +69,7 @@ public class Text {
         }
 
         Game.getGame().unregisterDrawable(this.drawable);
-        this.isVisible = true;
+        this.isVisible = false;
     }
 
     /**
@@ -185,7 +185,7 @@ public class Text {
      */
     @SuppressWarnings("unused")
     public void changeText(String text) {
-        this.text = text;
+        this.text = text.split("\n");
     }
 
     private class TextDrawable extends GameDrawable {
@@ -194,7 +194,13 @@ public class Text {
             canvas.setColor(Text.this.color);
 
             canvas.setFont(Text.this.font);
-            canvas.drawString(Text.this.text, Text.this.xPosition,Text.this.yPosition);
+            var y = Text.this.yPosition;
+            final var lineHeight = canvas.getFontMetrics().getHeight();
+
+            for (String line : Text.this.text) {
+                canvas.drawString(line, Text.this.xPosition, y);
+                y += lineHeight;
+            }
         }
     }
 }

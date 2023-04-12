@@ -1,7 +1,16 @@
 package fri.shapesge;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.AWTEvent;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.GridLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
@@ -11,7 +20,7 @@ import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 
 class GameWindow {
-    private static final GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
+    private static final GraphicsDevice DEVICE = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
 
     private final JFrame frame;
     private final GamePanel gamePanel;
@@ -24,7 +33,7 @@ class GameWindow {
     private final boolean showInfo;
     private final boolean isFullscreen;
 
-    public GameWindow(GameObjects gameObjects, GameInputProcessor gameInputProcessor, GameFPSCounter fpsCounter, GameConfig gameConfig, GameParser gameParser) {
+    GameWindow(GameObjects gameObjects, GameInputProcessor gameInputProcessor, GameFPSCounter fpsCounter, GameConfig gameConfig, GameParser gameParser) {
         this.gameObjects = gameObjects;
         this.gameInputProcessor = gameInputProcessor;
         this.fpsCounter = fpsCounter;
@@ -50,7 +59,7 @@ class GameWindow {
         if (this.isFullscreen) {
             this.frame.setUndecorated(true);
             this.frame.pack();
-            device.setFullScreenWindow(this.frame);
+            DEVICE.setFullScreenWindow(this.frame);
         } else {
             this.frame.pack();
             this.frame.setResizable(false);
@@ -70,7 +79,7 @@ class GameWindow {
         private AffineTransform invertedCanvasTransform;
         private boolean covered;
 
-        public GamePanel() {
+        GamePanel() {
             this.setPreferredSize(new Dimension(GameWindow.this.width, GameWindow.this.height));
             this.setFocusable(true);
             this.enableEvents(AWTEvent.MOUSE_EVENT_MASK | AWTEvent.MOUSE_MOTION_EVENT_MASK);
@@ -96,8 +105,8 @@ class GameWindow {
                 return;
             }
 
-            var widthAspectRatio = (double) this.getWidth() / GameWindow.this.width;
-            var heightAspectRatio = (double) this.getHeight() / GameWindow.this.height;
+            var widthAspectRatio = (double)this.getWidth() / GameWindow.this.width;
+            var heightAspectRatio = (double)this.getHeight() / GameWindow.this.height;
 
             this.covered = widthAspectRatio == heightAspectRatio;
 
@@ -194,8 +203,8 @@ class GameWindow {
                     e.getID(),
                     e.getWhen(),
                     e.getModifiersEx(),
-                    (int) Math.round(xy.getX()),
-                    (int) Math.round(xy.getY()),
+                    (int)Math.round(xy.getX()),
+                    (int)Math.round(xy.getY()),
                     e.getXOnScreen(),
                     e.getYOnScreen(),
                     e.getClickCount(),

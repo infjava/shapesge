@@ -1,29 +1,43 @@
-import fri.shapesge.*;
+import fri.shapesge.Circle;
+import fri.shapesge.FontStyle;
+import fri.shapesge.Image;
+import fri.shapesge.Manager;
+import fri.shapesge.Square;
+import fri.shapesge.Text;
+import fri.shapesge.Triangle;
 
 public class Main {
-    private static final Circle circle = new Circle();
-
     public static void main(String[] args) {
         Square square = new Square();
         square.makeVisible();
 
+        Circle circle = new Circle();
         circle.makeVisible();
 
         Triangle triangle = new Triangle();
         triangle.makeVisible();
 
-        Text t = new Text("Boo from SBGE");
+        Text t = new Text("Boo from\nSBGE");
         t.changeFont("Serif", FontStyle.BOLD, 30);
         t.changeColor("blue");
         t.makeVisible();
 
+        Image i = new Image("test.jpg");
+        i.makeVisible();
+
         Manager manager = new Manager();
         manager.manageObject(triangle);
-        manager.manageObject(new ManagedTest());
+        manager.manageObject(new ManagedTest(circle));
     }
 
     @SuppressWarnings("unused")
     public static class ManagedTest {
+        private final Circle circle;
+
+        public ManagedTest(Circle circle) {
+            this.circle = circle;
+        }
+
         public void moveRight() {
             System.out.println("Move right");
         }
@@ -38,7 +52,7 @@ public class Main {
 
         public void tick() {
             System.out.println("Tick - tack");
-            circle.moveRight();
+            this.circle.moveRight();
         }
     }
 }

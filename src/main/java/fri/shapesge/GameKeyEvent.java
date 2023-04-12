@@ -10,7 +10,7 @@ class GameKeyEvent {
     private final int keyCode;
     private final String message;
 
-    public GameKeyEvent(int eventType, int modifiers, int keyCode, String message) {
+    GameKeyEvent(int eventType, int modifiers, int keyCode, String message) {
         this.eventType = eventType;
         this.modifiers = modifiers;
         this.keyCode = keyCode;
