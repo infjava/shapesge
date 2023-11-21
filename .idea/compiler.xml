@@ -9,8 +9,5 @@
         <module name="shapesGE" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="shapesGE" target="11" />
-    </bytecodeTargetLevel>
   </component>
 </project>
