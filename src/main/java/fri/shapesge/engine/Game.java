@@ -1,6 +1,6 @@
-package fri.shapesge;
+package fri.shapesge.engine;
 
-class Game {
+public class Game {
     private static final Game INSTANCE = new Game();
 
     public static Game getGame() {

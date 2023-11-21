@@ -1,4 +1,4 @@
-package fri.shapesge;
+package fri.shapesge.engine;
 
 import javax.imageio.ImageIO;
 import java.awt.Color;
@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-class GameParser {
+public class GameParser {
     private enum ImageSource {
         FILE,
         RESOURCE
@@ -103,7 +103,7 @@ class GameParser {
         return loadedImage;
     }
 
-    public GameKeyEvent parseKeyEvent(String keyEvent, String message) {
+    GameKeyEvent parseKeyEvent(String keyEvent, String message) {
         var eventTypeAndKey = keyEvent.strip().split("\\p{javaWhitespace}+", 2);
         if (eventTypeAndKey.length != 2) {
             throw new RuntimeException(String.format("Cannot parse key event %s", keyEvent));
@@ -155,7 +155,7 @@ class GameParser {
         return new GameKeyEvent(eventType, modifiers, keyCode, message);
     }
 
-    public GameMouseEvent parseMouseEvent(String mouseEvent, String message) {
+    GameMouseEvent parseMouseEvent(String mouseEvent, String message) {
         var eventTypeAndButton = mouseEvent.strip().split("\\p{javaWhitespace}+", 2);
 
         if (eventTypeAndButton[0].equals("move") && eventTypeAndButton.length == 1) {

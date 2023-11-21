@@ -1,4 +1,4 @@
-package fri.shapesge;
+package fri.shapesge.engine;
 
 import java.io.InputStream;
 import java.util.Collections;

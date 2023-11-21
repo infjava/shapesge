@@ -1,4 +1,4 @@
-package fri.shapesge;
+package fri.shapesge.engine;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
-package fri.shapesge;
+package fri.shapesge.engine;
 
 import java.awt.Graphics2D;
 
-abstract class GameDrawable {
+public abstract class GameDrawable {
     public abstract void draw(Graphics2D canvas);
 }

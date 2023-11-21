@@ -1,4 +1,4 @@
-package fri.shapesge;
+package fri.shapesge.engine;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;

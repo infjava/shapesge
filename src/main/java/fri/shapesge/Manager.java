@@ -1,5 +1,7 @@
 package fri.shapesge;
 
+import fri.shapesge.engine.Game;
+
 /**
  * Sends messages to a managed objects as defined in spge.ini
  * @author Ján Janech

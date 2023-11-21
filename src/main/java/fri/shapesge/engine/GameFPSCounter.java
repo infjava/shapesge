@@ -1,4 +1,4 @@
-package fri.shapesge;
+package fri.shapesge.engine;
 
 class GameFPSCounter {
     private static final long SECOND = 1_000_000_000; // in ns

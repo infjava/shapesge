@@ -1,5 +1,8 @@
 package fri.shapesge;
 
+import fri.shapesge.engine.Game;
+import fri.shapesge.engine.GameDrawable;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;

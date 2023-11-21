@@ -1,4 +1,4 @@
-package fri.shapesge;
+package fri.shapesge.engine;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
