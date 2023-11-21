@@ -1,7 +1,6 @@
 package fri.shapesge.engine;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -52,9 +51,7 @@ class GameWindow {
         this.frame.setLayout(new GridLayout());
         this.frame.add(this.gamePanel);
 
-        if (exitOnClose) {
-            this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        }
+        this.frame.setDefaultCloseOperation(exitOnClose ? JFrame.EXIT_ON_CLOSE : JFrame.DO_NOTHING_ON_CLOSE);
 
         if (this.isFullscreen) {
             this.frame.setUndecorated(true);
