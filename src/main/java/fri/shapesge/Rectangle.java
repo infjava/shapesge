@@ -5,7 +5,7 @@ import fri.shapesge.drawables.RectangularDrawable;
 import java.awt.Color;
 
 /**
- * A square that can be manipulated and that draws itself on a canvas.
+ * A rectangle that can be manipulated and that draws itself on a canvas.
  *
  * @author original: Michael Kölling and David J. Barnes
  * @author engine: Ján Janech
@@ -16,7 +16,7 @@ public class Rectangle {
     private final RectangularDrawable drawable;
 
     /**
-     * Create a new square at default position with default color.
+     * Create a new rectangle at default position with default color.
      */
     @SuppressWarnings("unused")
     public Rectangle() {
@@ -29,7 +29,7 @@ public class Rectangle {
     }
 
     /**
-     * Make this square visible. If it was already visible, do nothing.
+     * Make this rectangle visible. If it was already visible, do nothing.
      */
     @SuppressWarnings("unused")
     public void makeVisible() {
@@ -37,7 +37,7 @@ public class Rectangle {
     }
 
     /**
-     * Make this square invisible. If it was already invisible, do nothing.
+     * Make this rectangle invisible. If it was already invisible, do nothing.
      */
     @SuppressWarnings("unused")
     public void makeInvisible() {
@@ -45,7 +45,7 @@ public class Rectangle {
     }
 
     /**
-     * Move the square a few pixels to the right.
+     * Move the rectangle a few pixels to the right.
      */
     @SuppressWarnings("unused")
     public void moveRight() {
@@ -53,7 +53,7 @@ public class Rectangle {
     }
 
     /**
-     * Move the square a few pixels to the left.
+     * Move the rectangle a few pixels to the left.
      */
     @SuppressWarnings("unused")
     public void moveLeft() {
@@ -61,7 +61,7 @@ public class Rectangle {
     }
 
     /**
-     * Move the square a few pixels up.
+     * Move the rectangle a few pixels up.
      */
     @SuppressWarnings("unused")
     public void moveUp() {
@@ -69,7 +69,7 @@ public class Rectangle {
     }
 
     /**
-     * Move the square a few pixels down.
+     * Move the rectangle a few pixels down.
      */
     @SuppressWarnings("unused")
     public void moveDown() {
@@ -77,7 +77,7 @@ public class Rectangle {
     }
 
     /**
-     * Move the square horizontally by 'distance' pixels.
+     * Move the rectangle horizontally by 'distance' pixels.
      */
     @SuppressWarnings("unused")
     public void moveHorizontal(int distance) {
@@ -85,7 +85,7 @@ public class Rectangle {
     }
 
     /**
-     * Move the square vertically by 'distance' pixels.
+     * Move the rectangle vertically by 'distance' pixels.
      */
     @SuppressWarnings("unused")
     public void moveVertical(int distance) {

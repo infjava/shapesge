@@ -5,7 +5,7 @@ import fri.shapesge.drawables.EllipticalDrawable;
 import java.awt.Color;
 
 /**
- * A circle that can be manipulated and that draws itself on a canvas.
+ * A ellipse that can be manipulated and that draws itself on a canvas.
  *
  * @author original: Michael Kölling and David J. Barnes
  * @author engine: Ján Janech
@@ -17,7 +17,7 @@ public class Ellipse {
     private final EllipticalDrawable drawable;
 
     /**
-     * Create a new circle at default position with default color.
+     * Create a new ellipse at default position with default color.
      */
     @SuppressWarnings("unused")
     public Ellipse() {
@@ -30,7 +30,7 @@ public class Ellipse {
     }
 
     /**
-     * Make this circle visible. If it was already visible, do nothing.
+     * Make this ellipse visible. If it was already visible, do nothing.
      */
     @SuppressWarnings("unused")
     public void makeVisible() {
@@ -38,7 +38,7 @@ public class Ellipse {
     }
 
     /**
-     * Make this circle invisible. If it was already invisible, do nothing.
+     * Make this ellipse invisible. If it was already invisible, do nothing.
      */
     @SuppressWarnings("unused")
     public void makeInvisible() {
@@ -46,7 +46,7 @@ public class Ellipse {
     }
 
     /**
-     * Move the circle a few pixels to the right.
+     * Move the ellipse a few pixels to the right.
      */
     @SuppressWarnings("unused")
     public void moveRight() {
@@ -54,7 +54,7 @@ public class Ellipse {
     }
 
     /**
-     * Move the circle a few pixels to the left.
+     * Move the ellipse a few pixels to the left.
      */
     @SuppressWarnings("unused")
     public void moveLeft() {
@@ -62,7 +62,7 @@ public class Ellipse {
     }
 
     /**
-     * Move the circle a few pixels up.
+     * Move the ellipse a few pixels up.
      */
     @SuppressWarnings("unused")
     public void moveUp() {
@@ -70,7 +70,7 @@ public class Ellipse {
     }
 
     /**
-     * Move the circle a few pixels down.
+     * Move the ellipse a few pixels down.
      */
     @SuppressWarnings("unused")
     public void moveDown() {
@@ -78,7 +78,7 @@ public class Ellipse {
     }
 
     /**
-     * Move the circle horizontally by 'distance' pixels.
+     * Move the ellipse horizontally by 'distance' pixels.
      */
     @SuppressWarnings("unused")
     public void moveHorizontal(int distance) {
@@ -86,7 +86,7 @@ public class Ellipse {
     }
 
     /**
-     * Move the circle vertically by 'distance' pixels.
+     * Move the ellipse vertically by 'distance' pixels.
      */
     @SuppressWarnings("unused")
     public void moveVertical(int distance) {
