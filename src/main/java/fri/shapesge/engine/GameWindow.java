@@ -1,6 +1,7 @@
 package fri.shapesge.engine;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Dimension;

@@ -25,10 +25,10 @@ public class ImageDrawable extends TranslatableDrawable {
 
     @Override
     public void draw(Graphics2D canvas) {
-        if (!this.isVisible) {
+        if (!this.isVisible()) {
             return;
         }
 
-        canvas.drawImage(this.image, this.transform, null);
+        canvas.drawImage(this.image, this.getTransform(), null);
     }
 }

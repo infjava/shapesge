@@ -22,12 +22,12 @@ public class EllipticalDrawable extends FilledDrawable {
 
     @Override
     public void draw(Graphics2D canvas) {
-        if (!this.isVisible) {
+        if (!this.isVisible()) {
             return;
         }
 
-        var shape = new Ellipse2D.Double(this.xPosition, this.yPosition, this.diameterX, this.diameterY);
-        canvas.setColor(this.color);
+        var shape = new Ellipse2D.Double(this.getXPosition(), this.getYPosition(), this.diameterX, this.diameterY);
+        canvas.setColor(this.getColor());
         canvas.fill(shape);
     }
 }

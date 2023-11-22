@@ -5,9 +5,9 @@ import fri.shapesge.engine.Game;
 import java.awt.Graphics2D;
 
 public abstract class GameDrawable {
-    protected int xPosition;
-    protected int yPosition;
-    protected boolean isVisible;
+    private int xPosition;
+    private int yPosition;
+    private boolean isVisible;
 
     public GameDrawable(int x, int y) {
         this.xPosition = x;
@@ -34,8 +34,20 @@ public abstract class GameDrawable {
     }
 
     public void moveBy(int dx, int dy) {
-        this.xPosition += dx;
-        this.yPosition += dy;
+        this.xPosition = this.xPosition + dx;
+        this.yPosition = this.yPosition + dy;
+    }
+
+    protected int getXPosition() {
+        return this.xPosition;
+    }
+
+    protected int getYPosition() {
+        return this.yPosition;
+    }
+
+    protected boolean isVisible() {
+        return this.isVisible;
     }
 
     public abstract void draw(Graphics2D canvas);

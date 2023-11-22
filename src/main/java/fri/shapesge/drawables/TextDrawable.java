@@ -45,14 +45,14 @@ public class TextDrawable extends FilledDrawable {
 
     @Override
     public void draw(Graphics2D canvas) {
-        canvas.setColor(this.color);
+        canvas.setColor(this.getColor());
 
         canvas.setFont(this.font);
-        var y = this.yPosition;
+        var y = this.getYPosition();
         final var lineHeight = canvas.getFontMetrics().getHeight();
 
         for (String line : this.text) {
-            canvas.drawString(line, this.xPosition, y);
+            canvas.drawString(line, this.getXPosition(), y);
             y += lineHeight;
         }
     }

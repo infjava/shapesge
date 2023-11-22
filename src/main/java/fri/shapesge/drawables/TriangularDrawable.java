@@ -22,14 +22,14 @@ public class TriangularDrawable extends FilledDrawable {
 
     @Override
     public void draw(Graphics2D canvas) {
-        if (!this.isVisible) {
+        if (!this.isVisible()) {
             return;
         }
 
-        var xPoints = new int[]{this.xPosition, this.xPosition + (this.width / 2), this.xPosition - this.width / 2};
-        var yPoints = new int[]{this.yPosition, this.yPosition + this.height, this.yPosition + this.height};
+        var xPoints = new int[]{this.getXPosition(), this.getXPosition() + (this.width / 2), this.getXPosition() - this.width / 2};
+        var yPoints = new int[]{this.getYPosition(), this.getYPosition() + this.height, this.getYPosition() + this.height};
         var shape = new Polygon(xPoints, yPoints, 3);
-        canvas.setColor(this.color);
+        canvas.setColor(this.getColor());
         canvas.fill(shape);
     }
 }

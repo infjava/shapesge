@@ -22,12 +22,12 @@ public class RectangularDrawable extends FilledDrawable {
 
     @Override
     public void draw(Graphics2D canvas) {
-        if (!this.isVisible) {
+        if (!this.isVisible()) {
             return;
         }
 
-        var shape = new Rectangle2D.Double(this.xPosition, this.yPosition, this.width, this.height);
-        canvas.setColor(this.color);
+        var shape = new Rectangle2D.Double(this.getXPosition(), this.getYPosition(), this.width, this.height);
+        canvas.setColor(this.getColor());
         canvas.fill(shape);
     }
 }

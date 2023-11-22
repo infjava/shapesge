@@ -1,7 +1,6 @@
 package fri.shapesge;
 
 import fri.shapesge.drawables.TriangularDrawable;
-import fri.shapesge.engine.Game;
 
 import java.awt.Color;
 
