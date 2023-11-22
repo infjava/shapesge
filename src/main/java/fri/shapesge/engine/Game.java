@@ -1,5 +1,7 @@
 package fri.shapesge.engine;
 
+import fri.shapesge.drawables.GameDrawable;
+
 public class Game {
     private static final Game INSTANCE = new Game();
 

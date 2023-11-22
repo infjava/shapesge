@@ -1,11 +1,9 @@
 package fri.shapesge;
 
+import fri.shapesge.drawables.TriangularDrawable;
 import fri.shapesge.engine.Game;
-import fri.shapesge.engine.GameDrawable;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Polygon;
 
 /**
  * A triangle that can be manipulated and that draws itself on a canvas.
@@ -17,13 +15,7 @@ import java.awt.Polygon;
 
 @SuppressWarnings("unused")
 public class Triangle {
-    private final TriangleDrawable drawable;
-    private int height;
-    private int width;
-    private int xPosition;
-    private int yPosition;
-    private Color color;
-    private boolean isVisible;
+    private final TriangularDrawable drawable;
 
     /**
      * Create a new triangle at default position with default color.
@@ -35,14 +27,7 @@ public class Triangle {
 
     @SuppressWarnings("unused")
     public Triangle(int x, int y) {
-        this.height = 30;
-        this.width = 40;
-        this.xPosition = x;
-        this.yPosition = y;
-        this.color = Color.green;
-        this.isVisible = false;
-
-        this.drawable = new TriangleDrawable();
+        this.drawable = new TriangularDrawable(x, y, 40, 30, Color.green);
     }
 
     /**
@@ -50,12 +35,7 @@ public class Triangle {
      */
     @SuppressWarnings("unused")
     public void makeVisible() {
-        if (this.isVisible) {
-            return;
-        }
-
-        Game.getGame().registerDrawable(this.drawable);
-        this.isVisible = true;
+        this.drawable.makeVisible();
     }
 
     /**
@@ -63,12 +43,7 @@ public class Triangle {
      */
     @SuppressWarnings("unused")
     public void makeInvisible() {
-        if (!this.isVisible) {
-            return;
-        }
-
-        Game.getGame().unregisterDrawable(this.drawable);
-        this.isVisible = false;
+        this.drawable.makeInvisible();
     }
 
     /**
@@ -76,7 +51,7 @@ public class Triangle {
      */
     @SuppressWarnings("unused")
     public void moveRight() {
-        this.moveHorizontal(20);
+        this.drawable.moveBy(20, 0);
     }
 
     /**
@@ -84,7 +59,7 @@ public class Triangle {
      */
     @SuppressWarnings("unused")
     public void moveLeft() {
-        this.moveHorizontal(-20);
+        this.drawable.moveBy(-20, 0);
     }
 
     /**
@@ -92,7 +67,7 @@ public class Triangle {
      */
     @SuppressWarnings("unused")
     public void moveUp() {
-        this.moveVertical(-20);
+        this.drawable.moveBy(0, -20);
     }
 
     /**
@@ -100,7 +75,7 @@ public class Triangle {
      */
     @SuppressWarnings("unused")
     public void moveDown() {
-        this.moveVertical(20);
+        this.drawable.moveBy(0, 20);
     }
 
     /**
@@ -108,7 +83,7 @@ public class Triangle {
      */
     @SuppressWarnings("unused")
     public void moveHorizontal(int distance) {
-        this.xPosition += distance;
+        this.drawable.moveBy(distance, 0);
     }
 
     /**
@@ -116,7 +91,7 @@ public class Triangle {
      */
     @SuppressWarnings("unused")
     public void moveVertical(int distance) {
-        this.yPosition += distance;
+        this.drawable.moveBy(0, distance);
     }
 
     /**
@@ -124,8 +99,7 @@ public class Triangle {
      */
     @SuppressWarnings("unused")
     public void changeSize(int newHeight, int newWidth) {
-        this.height = newHeight;
-        this.width = newWidth;
+        this.drawable.changeSize(newWidth, newHeight);
     }
 
     /**
@@ -133,21 +107,6 @@ public class Triangle {
      */
     @SuppressWarnings("unused")
     public void changeColor(String newColor) {
-        this.color = Game.getGame().getParser().parseColor(newColor);
-    }
-
-    private class TriangleDrawable extends GameDrawable {
-        @Override
-        public void draw(Graphics2D canvas) {
-            if (!Triangle.this.isVisible) {
-                return;
-            }
-
-            var xPoints = new int[]{Triangle.this.xPosition, Triangle.this.xPosition + (Triangle.this.width / 2), Triangle.this.xPosition - Triangle.this.width / 2};
-            var yPoints = new int[]{Triangle.this.yPosition, Triangle.this.yPosition + Triangle.this.height, Triangle.this.yPosition + Triangle.this.height};
-            var shape = new Polygon(xPoints, yPoints, 3);
-            canvas.setColor(Triangle.this.color);
-            canvas.fill(shape);
-        }
+        this.drawable.changeColor(newColor);
     }
 }

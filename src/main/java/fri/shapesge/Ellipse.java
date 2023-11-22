@@ -1,11 +1,8 @@
 package fri.shapesge;
 
-import fri.shapesge.engine.Game;
-import fri.shapesge.engine.GameDrawable;
+import fri.shapesge.drawables.EllipticalDrawable;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.geom.Ellipse2D;
 
 /**
  * A circle that can be manipulated and that draws itself on a canvas.
@@ -17,13 +14,7 @@ import java.awt.geom.Ellipse2D;
 
 @SuppressWarnings("unused")
 public class Ellipse {
-    private final EllipseDrawable drawable;
-    private int diameterX;
-    private int diameterY;
-    private int xPosition;
-    private int yPosition;
-    private Color color;
-    private boolean isVisible;
+    private final EllipticalDrawable drawable;
 
     /**
      * Create a new circle at default position with default color.
@@ -35,14 +26,7 @@ public class Ellipse {
 
     @SuppressWarnings("unused")
     public Ellipse(int x, int y) {
-        this.diameterX = 60;
-        this.diameterY = 30;
-        this.xPosition = x;
-        this.yPosition = y;
-        this.color = Color.blue;
-        this.isVisible = false;
-
-        this.drawable = new EllipseDrawable();
+        this.drawable = new EllipticalDrawable(x, y, 60, 30, Color.blue);
     }
 
     /**
@@ -50,12 +34,7 @@ public class Ellipse {
      */
     @SuppressWarnings("unused")
     public void makeVisible() {
-        if (this.isVisible) {
-            return;
-        }
-
-        Game.getGame().registerDrawable(this.drawable);
-        this.isVisible = true;
+        this.drawable.makeVisible();
     }
 
     /**
@@ -63,12 +42,7 @@ public class Ellipse {
      */
     @SuppressWarnings("unused")
     public void makeInvisible() {
-        if (!this.isVisible) {
-            return;
-        }
-
-        Game.getGame().unregisterDrawable(this.drawable);
-        this.isVisible = false;
+        this.drawable.makeInvisible();
     }
 
     /**
@@ -76,7 +50,7 @@ public class Ellipse {
      */
     @SuppressWarnings("unused")
     public void moveRight() {
-        this.moveHorizontal(20);
+        this.drawable.moveBy(20, 0);
     }
 
     /**
@@ -84,7 +58,7 @@ public class Ellipse {
      */
     @SuppressWarnings("unused")
     public void moveLeft() {
-        this.moveHorizontal(-20);
+        this.drawable.moveBy(-20, 0);
     }
 
     /**
@@ -92,7 +66,7 @@ public class Ellipse {
      */
     @SuppressWarnings("unused")
     public void moveUp() {
-        this.moveVertical(-20);
+        this.drawable.moveBy(0, -20);
     }
 
     /**
@@ -100,7 +74,7 @@ public class Ellipse {
      */
     @SuppressWarnings("unused")
     public void moveDown() {
-        this.moveVertical(20);
+        this.drawable.moveBy(0, 20);
     }
 
     /**
@@ -108,7 +82,7 @@ public class Ellipse {
      */
     @SuppressWarnings("unused")
     public void moveHorizontal(int distance) {
-        this.xPosition += distance;
+        this.drawable.moveBy(distance, 0);
     }
 
     /**
@@ -116,7 +90,7 @@ public class Ellipse {
      */
     @SuppressWarnings("unused")
     public void moveVertical(int distance) {
-        this.yPosition += distance;
+        this.drawable.moveBy(0, distance);
     }
 
     /**
@@ -124,8 +98,7 @@ public class Ellipse {
      */
     @SuppressWarnings("unused")
     public void changeSize(int newDiameterX, int newDiameterY) {
-        this.diameterX = newDiameterX;
-        this.diameterY = newDiameterY;
+        this.drawable.changeSize(newDiameterX, newDiameterY);
     }
 
     /**
@@ -133,19 +106,6 @@ public class Ellipse {
      */
     @SuppressWarnings("unused")
     public void changeColor(String newColor) {
-        this.color = Game.getGame().getParser().parseColor(newColor);
-    }
-
-    private class EllipseDrawable extends GameDrawable {
-        @Override
-        public void draw(Graphics2D canvas) {
-            if (!Ellipse.this.isVisible) {
-                return;
-            }
-
-            var shape = new Ellipse2D.Double(Ellipse.this.xPosition, Ellipse.this.yPosition, Ellipse.this.diameterX, Ellipse.this.diameterY);
-            canvas.setColor(Ellipse.this.color);
-            canvas.fill(shape);
-        }
+        this.drawable.changeColor(newColor);
     }
 }

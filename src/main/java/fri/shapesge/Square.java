@@ -1,11 +1,8 @@
 package fri.shapesge;
 
-import fri.shapesge.engine.Game;
-import fri.shapesge.engine.GameDrawable;
+import fri.shapesge.drawables.RectangularDrawable;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
 
 /**
  * A square that can be manipulated and that draws itself on a canvas.
@@ -16,12 +13,7 @@ import java.awt.geom.Rectangle2D;
  */
 @SuppressWarnings("unused")
 public class Square {
-    private final SquareDrawable drawable;
-    private int size;
-    private int xPosition;
-    private int yPosition;
-    private Color color;
-    private boolean isVisible;
+    private final RectangularDrawable drawable;
 
     /**
      * Create a new square at default position with default color.
@@ -33,13 +25,7 @@ public class Square {
 
     @SuppressWarnings("unused")
     public Square(int x, int y) {
-        this.size = 30;
-        this.xPosition = x;
-        this.yPosition = y;
-        this.color = Color.red;
-        this.isVisible = false;
-
-        this.drawable = new SquareDrawable();
+        this.drawable = new RectangularDrawable(x, y, 30, 30, Color.red);
     }
 
     /**
@@ -47,12 +33,7 @@ public class Square {
      */
     @SuppressWarnings("unused")
     public void makeVisible() {
-        if (this.isVisible) {
-            return;
-        }
-
-        Game.getGame().registerDrawable(this.drawable);
-        this.isVisible = true;
+        this.drawable.makeVisible();
     }
 
     /**
@@ -60,12 +41,7 @@ public class Square {
      */
     @SuppressWarnings("unused")
     public void makeInvisible() {
-        if (!this.isVisible) {
-            return;
-        }
-
-        Game.getGame().unregisterDrawable(this.drawable);
-        this.isVisible = false;
+        this.drawable.makeInvisible();
     }
 
     /**
@@ -73,7 +49,7 @@ public class Square {
      */
     @SuppressWarnings("unused")
     public void moveRight() {
-        this.moveHorizontal(20);
+        this.drawable.moveBy(20, 0);
     }
 
     /**
@@ -81,7 +57,7 @@ public class Square {
      */
     @SuppressWarnings("unused")
     public void moveLeft() {
-        this.moveHorizontal(-20);
+        this.drawable.moveBy(-20, 0);
     }
 
     /**
@@ -89,7 +65,7 @@ public class Square {
      */
     @SuppressWarnings("unused")
     public void moveUp() {
-        this.moveVertical(-20);
+        this.drawable.moveBy(0, -20);
     }
 
     /**
@@ -97,7 +73,7 @@ public class Square {
      */
     @SuppressWarnings("unused")
     public void moveDown() {
-        this.moveVertical(20);
+        this.drawable.moveBy(0, 20);
     }
 
     /**
@@ -105,7 +81,7 @@ public class Square {
      */
     @SuppressWarnings("unused")
     public void moveHorizontal(int distance) {
-        this.xPosition += distance;
+        this.drawable.moveBy(distance, 0);
     }
 
     /**
@@ -113,7 +89,7 @@ public class Square {
      */
     @SuppressWarnings("unused")
     public void moveVertical(int distance) {
-        this.yPosition += distance;
+        this.drawable.moveBy(0, distance);
     }
 
     /**
@@ -121,7 +97,7 @@ public class Square {
      */
     @SuppressWarnings("unused")
     public void changeSize(int newSize) {
-        this.size = newSize;
+        this.drawable.changeSize(newSize, newSize);
     }
 
     /**
@@ -129,19 +105,6 @@ public class Square {
      */
     @SuppressWarnings("unused")
     public void changeColor(String newColor) {
-        this.color = Game.getGame().getParser().parseColor(newColor);
-    }
-
-    private class SquareDrawable extends GameDrawable {
-        @Override
-        public void draw(Graphics2D canvas) {
-            if (!Square.this.isVisible) {
-                return;
-            }
-
-            var shape = new Rectangle2D.Double(Square.this.xPosition, Square.this.yPosition, Square.this.size, Square.this.size);
-            canvas.setColor(Square.this.color);
-            canvas.fill(shape);
-        }
+        this.drawable.changeColor(newColor);
     }
 }

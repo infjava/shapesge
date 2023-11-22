@@ -1,5 +1,7 @@
 package fri.shapesge.engine;
 
+import fri.shapesge.drawables.GameDrawable;
+
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
