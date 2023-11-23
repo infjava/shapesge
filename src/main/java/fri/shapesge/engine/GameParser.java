@@ -124,7 +124,7 @@ public class GameParser {
                 throw new RuntimeException(String.format("Cannot parse key event %s", keyEvent));
         }
 
-        var keyShortcut = eventTypeAndKey[1].split("\\+");
+        var keyShortcut = eventTypeAndKey[1].split("\\\\+");
         int modifiers = 0;
         for (int i = 0; i < keyShortcut.length - 1; i++) {
             switch (keyShortcut[i].toLowerCase()) {
