@@ -46,6 +46,7 @@ public abstract class GameDrawable {
         return this.yPosition;
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     protected boolean isVisible() {
         return this.isVisible;
     }

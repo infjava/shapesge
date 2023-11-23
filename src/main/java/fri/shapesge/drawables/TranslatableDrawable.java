@@ -46,10 +46,6 @@ public abstract class TranslatableDrawable extends GameDrawable {
         }
     }
 
-    protected int getAngle() {
-        return this.angle;
-    }
-
     protected AffineTransform getTransform() {
         return this.transform;
     }

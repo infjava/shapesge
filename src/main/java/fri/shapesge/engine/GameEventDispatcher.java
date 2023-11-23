@@ -46,6 +46,7 @@ class GameEventDispatcher {
                 // do nothing here
             } catch (SecurityException | IllegalArgumentException | IllegalAccessException |
                      InvocationTargetException e) {
+                //noinspection CallToPrintStackTrace
                 e.printStackTrace();
             }
         }

@@ -34,6 +34,7 @@ class GameLoop implements Runnable {
             try {
                 this.gameWindow.redraw();
             } catch (Exception e) {
+                //noinspection CallToPrintStackTrace
                 e.printStackTrace();
             }
 
