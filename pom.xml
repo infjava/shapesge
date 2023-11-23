@@ -4,22 +4,60 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>fri.shapesge</groupId>
-    <artifactId>shapesGE</artifactId>
-    <version>1.2.0</version>
-
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <shapesge.source>main-en</shapesge.source>
+        <shapesge.jar>shapesGE</shapesge.jar>
+        <version>git</version>
     </properties>
+
+    <groupId>fri.shapesge</groupId>
+    <artifactId>${shapesge.jar}</artifactId>
+
+    <version>${version}</version>
 
     <build>
         <plugins>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/${shapesge.source}/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-resource</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>src/${shapesge.source}/resources</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
-                    <finalName>shapesGE</finalName>
+                    <finalName>${shapesge.jar}</finalName>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
@@ -29,4 +67,19 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>lang-sk</id>
+            <activation>
+                <property>
+                    <name>lang</name>
+                    <value>sk</value>
+                </property>
+            </activation>
+            <properties>
+                <shapesge.source>main-sk</shapesge.source>
+                <shapesge.jar>shapesGE-SK</shapesge.jar>
+            </properties>
+        </profile>
+    </profiles>
 </project>
