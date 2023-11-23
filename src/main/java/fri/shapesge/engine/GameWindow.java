@@ -110,10 +110,10 @@ class GameWindow {
 
             var transform = new AffineTransform();
             if (widthAspectRatio < heightAspectRatio) {
-                transform.translate(0, (this.getHeight() - GameWindow.this.height) / 2.0);
+                transform.translate(0, (this.getHeight() - GameWindow.this.height * widthAspectRatio) / 2.0);
                 transform.scale(widthAspectRatio, widthAspectRatio);
             } else {
-                transform.translate((this.getWidth() - GameWindow.this.width) / 2.0, 0);
+                transform.translate((this.getWidth() - GameWindow.this.width * heightAspectRatio) / 2.0, 0);
                 transform.scale(heightAspectRatio, heightAspectRatio);
             }
 
