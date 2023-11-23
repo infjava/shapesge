@@ -14,19 +14,19 @@ import java.util.EnumSet;
  */
 
 @SuppressWarnings("unused")
-public class Text {
+public class BlokTextu {
     private final TextDrawable drawable;
 
     /**
      * Vytvor nový text preddefinovanej farby na preddefinovanej pozícii.
      */
     @SuppressWarnings("unused")
-    public Text(String text, int x, int y) {
+    public BlokTextu(String text, int x, int y) {
         this.drawable = new TextDrawable(x, y, Color.black, text, new Font(Font.SERIF, Font.PLAIN, 12));
     }
 
     @SuppressWarnings("unused")
-    public Text(String text) {
+    public BlokTextu(String text) {
         this(text, 0, 20);
     }
 

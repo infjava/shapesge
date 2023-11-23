@@ -3,7 +3,7 @@ import fri.shapesge.FontStyle;
 import fri.shapesge.Image;
 import fri.shapesge.Manager;
 import fri.shapesge.Square;
-import fri.shapesge.Text;
+import fri.shapesge.TextBlock;
 import fri.shapesge.Triangle;
 
 public class Main {
@@ -17,7 +17,7 @@ public class Main {
         Triangle triangle = new Triangle();
         triangle.makeVisible();
 
-        Text t = new Text("Boo from\nSBGE");
+        TextBlock t = new TextBlock("Boo from\nSBGE");
         t.changeFont("Serif", FontStyle.BOLD, 30);
         t.changeColor("blue");
         t.makeVisible();

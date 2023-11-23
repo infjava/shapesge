@@ -14,19 +14,19 @@ import java.util.EnumSet;
  */
 
 @SuppressWarnings("unused")
-public class Text {
+public class TextBlock {
     private final TextDrawable drawable;
 
     /**
      * Create a new text at default position with default color.
      */
     @SuppressWarnings("unused")
-    public Text(String text, int x, int y) {
+    public TextBlock(String text, int x, int y) {
         this.drawable = new TextDrawable(x, y, Color.black, text, new Font(Font.SERIF, Font.PLAIN, 12));
     }
 
     @SuppressWarnings("unused")
-    public Text(String text) {
+    public TextBlock(String text) {
         this(text, 0, 20);
     }
 
