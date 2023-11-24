@@ -80,7 +80,7 @@ class GameWindow {
                 this.frame.addWindowListener(new WindowAdapter() {
                     @Override
                     public void windowClosing(WindowEvent e) {
-                        GameWindow.this.windowClosing(e);
+                        GameWindow.this.windowClosing();
                     }
                 });
                 break;
@@ -107,7 +107,7 @@ class GameWindow {
         this.gamePanel.repaint();
     }
 
-    private void windowClosing(WindowEvent e) {
+    private void windowClosing() {
         if (this.onCloseOperation.getType() != GameOnCloseOperationType.SEND_MESSAGE || this.onCloseOperation.getMessage() == null) {
             return;
         }
