@@ -11,6 +11,7 @@
 
         <shapesge.source>main-en</shapesge.source>
         <shapesge.jar>shapesGE</shapesge.jar>
+        <shapesge.docdir>en</shapesge.docdir>
         <version>git</version>
     </properties>
 
@@ -64,6 +65,15 @@
                     <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.2</version>
+                <configuration>
+                    <excludePackageNames>fri.shapesge.*</excludePackageNames>
+                    <destDir>${shapesge.docdir}</destDir>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -79,6 +89,7 @@
             <properties>
                 <shapesge.source>main-sk</shapesge.source>
                 <shapesge.jar>shapesGE-SK</shapesge.jar>
+                <shapesge.docdir>sk</shapesge.docdir>
             </properties>
         </profile>
     </profiles>
