@@ -1,0 +1,62 @@
+  on:
+    push:
+      tags:
+        - '*'
+  jobs:
+    build:
+      runs-on: ubuntu-latest
+
+      steps:
+        - uses: actions/checkout@v4
+
+        - uses: actions/setup-java@v3
+          with:
+            java-version: '11'
+            distribution: 'temurin'
+
+        - name: Publish package (english API)
+          run: |
+            mvn --batch-mode clean install -Dversion=${{ github.ref_name }}
+            mkdir -p publish
+            cp target/*.jar publish/
+
+        - name: Publish package (slovak API)
+          run: |
+            mvn --batch-mode clean install -Dlang=sk -Dversion=${{ github.ref_name }}
+            mkdir -p publish
+            cp target/*.jar publish/
+
+        - name: Create release notes
+          uses: CSchoel/release-notes-from-changelog@v1
+
+        - name: Append API reference URLs to the release notes
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          run: |
+            url=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.html_url')
+            echo "### API Reference Documentation" >> RELEASE.md
+            echo "You can find API reference documentation for this release on the following addresses:" >> RELEASE.md
+            echo "- English API: ${url}doc/${{ github.ref_name }}/en/" >> RELEASE.md
+            echo "- Slovak API: ${url}doc/${{ github.ref_name }}/sk/" >> RELEASE.md
+
+        - name: Release
+          uses: softprops/action-gh-release@v1
+          with:
+            body_path: RELEASE.md
+            files: publish/*.jar
+
+        - name: Create JavaDoc for english API
+          run: |
+            mvn --batch-mode javadoc:javadoc -Dversion=${{ github.ref_name }}
+
+        - name: Create JavaDoc for slovak API
+          run: |
+            mvn --batch-mode javadoc:javadoc -Dlang=sk -Dversion=${{ github.ref_name }}
+
+        - name: Deploy JavaDoc documentation
+          uses: peaceiris/actions-gh-pages@v3
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_dir: target/site/apidocs
+            destination_dir: doc/${{ github.ref_name }}
+            keep_files: true
