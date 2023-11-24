@@ -16,6 +16,8 @@ public class ImageDrawable extends TranslatableDrawable {
 
     public void changeImage(String imagePath) {
         this.image = Game.getGame().getParser().parseImage(imagePath);
+
+        Game.getGame().somethingHasChanged();
     }
 
     @Override

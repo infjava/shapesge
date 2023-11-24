@@ -1,5 +1,7 @@
 package fri.shapesge.drawables;
 
+import fri.shapesge.engine.Game;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
@@ -18,6 +20,8 @@ public class EllipticalDrawable extends FilledDrawable {
     public void changeSize(int newDiameterX, int newDiameterY) {
         this.diameterX = newDiameterX;
         this.diameterY = newDiameterY;
+
+        Game.getGame().somethingHasChanged();
     }
 
     @Override

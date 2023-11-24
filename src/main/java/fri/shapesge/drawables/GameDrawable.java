@@ -22,6 +22,8 @@ public abstract class GameDrawable {
 
         Game.getGame().registerDrawable(this);
         this.isVisible = true;
+
+        Game.getGame().somethingHasChanged();
     }
 
     public void makeInvisible() {
@@ -31,11 +33,15 @@ public abstract class GameDrawable {
 
         Game.getGame().unregisterDrawable(this);
         this.isVisible = false;
+
+        Game.getGame().somethingHasChanged();
     }
 
     public void moveBy(int dx, int dy) {
         this.xPosition = this.xPosition + dx;
         this.yPosition = this.yPosition + dy;
+
+        Game.getGame().somethingHasChanged();
     }
 
     protected int getXPosition() {

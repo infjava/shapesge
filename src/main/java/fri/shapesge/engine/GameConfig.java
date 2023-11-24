@@ -15,6 +15,7 @@ class GameConfig {
     public static final String SHOW_INFO = "ShowInfo";
     public static final String FULLSCREEN = "Fullscreen";
     public static final String EXIT_ON_CLOSE = "ExitOnClose";
+    public static final String ON_CLOSE = "OnClose";
 
     public static final String SHAPES_SECTION = "Shapes";
     public static final String IMAGE_SOURCE = "ImageSource";
@@ -51,6 +52,16 @@ class GameConfig {
             throw new RuntimeException("Internal SPGE error - missing config");
         }
         this.configFiles.add(new GameConfigFile(defaultConfigStream));
+    }
+
+    public boolean contains(String section, String option) {
+        for (GameConfigFile configFile : this.configFiles) {
+            if (configFile.contains(section, option)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public String get(String section, String option) {

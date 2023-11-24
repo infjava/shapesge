@@ -14,6 +14,8 @@ public abstract class FilledDrawable extends GameDrawable {
 
     public void changeColor(String newColor) {
         this.color = Game.getGame().getParser().parseColor(newColor);
+
+        Game.getGame().somethingHasChanged();
     }
 
     protected Color getColor() {

@@ -1,5 +1,7 @@
 package fri.shapesge.drawables;
 
+import fri.shapesge.engine.Game;
+
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
@@ -23,12 +25,16 @@ public abstract class TranslatableDrawable extends GameDrawable {
         super.moveBy(dx, dy);
 
         this.computeTransformation();
+
+        Game.getGame().somethingHasChanged();
     }
 
     public void changeAngle(int angle) {
         this.angle = angle;
 
         this.computeTransformation();
+
+        Game.getGame().somethingHasChanged();
     }
 
     private void computeTransformation() {

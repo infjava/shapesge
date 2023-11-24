@@ -2,6 +2,7 @@ package fri.shapesge.engine;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,6 +16,8 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
@@ -29,21 +32,34 @@ class GameWindow {
     private final GameFPSCounter fpsCounter;
     private final int width;
     private final int height;
+    private final GameEventDispatcher gameEventDispatcher;
     private final Color backgroundColor;
     private final boolean showInfo;
     private final boolean isFullscreen;
+    private final GameOnCloseOperation onCloseOperation;
 
-    GameWindow(GameObjects gameObjects, GameInputProcessor gameInputProcessor, GameFPSCounter fpsCounter, GameConfig gameConfig, GameParser gameParser) {
+    GameWindow(GameObjects gameObjects, GameInputProcessor gameInputProcessor, GameFPSCounter fpsCounter, GameConfig gameConfig, GameParser gameParser, GameEventDispatcher gameEventDispatcher) {
         this.gameObjects = gameObjects;
         this.gameInputProcessor = gameInputProcessor;
         this.fpsCounter = fpsCounter;
+        this.gameEventDispatcher = gameEventDispatcher;
+
         this.width = gameConfig.getInt(GameConfig.WINDOW_SECTION, GameConfig.WINDOW_WIDTH);
         this.height = gameConfig.getInt(GameConfig.WINDOW_SECTION, GameConfig.WINDOW_HEIGHT);
         this.backgroundColor = gameParser.parseColor(gameConfig.get(GameConfig.WINDOW_SECTION, GameConfig.CANVAS_BACKGROUND));
         this.showInfo = gameConfig.getBoolean(GameConfig.WINDOW_SECTION, GameConfig.SHOW_INFO);
         this.isFullscreen = gameConfig.getBoolean(GameConfig.WINDOW_SECTION, GameConfig.FULLSCREEN);
 
-        var exitOnClose = gameConfig.getBoolean(GameConfig.WINDOW_SECTION, GameConfig.EXIT_ON_CLOSE);
+        if (gameConfig.contains(GameConfig.WINDOW_SECTION, GameConfig.EXIT_ON_CLOSE)) {
+            System.out.format("ShapesGE: Using deprecated %s setting, use %s instead", GameConfig.EXIT_ON_CLOSE, GameConfig.ON_CLOSE);
+
+            this.onCloseOperation = new GameOnCloseOperation(
+                gameConfig.getBoolean(GameConfig.WINDOW_SECTION, GameConfig.EXIT_ON_CLOSE) ? GameOnCloseOperationType.EXIT : GameOnCloseOperationType.HIDE,
+                null
+            );
+        } else {
+            this.onCloseOperation = gameParser.parseOnClose(gameConfig.get(GameConfig.WINDOW_SECTION, GameConfig.ON_CLOSE));
+        }
 
         this.gamePanel = new GamePanel();
 
@@ -52,7 +68,26 @@ class GameWindow {
         this.frame.setLayout(new GridLayout());
         this.frame.add(this.gamePanel);
 
-        this.frame.setDefaultCloseOperation(exitOnClose ? JFrame.EXIT_ON_CLOSE : JFrame.DO_NOTHING_ON_CLOSE);
+        switch (this.onCloseOperation.getType()) {
+            case EXIT:
+                this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                break;
+            case HIDE:
+                this.frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+                break;
+            case SEND_MESSAGE:
+                this.frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+                this.frame.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        GameWindow.this.windowClosing(e);
+                    }
+                });
+                break;
+            default:
+                this.frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+                break;
+        }
 
         if (this.isFullscreen) {
             this.frame.setUndecorated(true);
@@ -70,6 +105,22 @@ class GameWindow {
 
     public void redraw() {
         this.gamePanel.repaint();
+    }
+
+    private void windowClosing(WindowEvent e) {
+        if (this.onCloseOperation.getType() != GameOnCloseOperationType.SEND_MESSAGE || this.onCloseOperation.getMessage() == null) {
+            return;
+        }
+
+        this.gameEventDispatcher.dispatchStandard(this.onCloseOperation.getMessage());
+    }
+
+    public void showIfNeeded() {
+        if (this.onCloseOperation.getType() == GameOnCloseOperationType.HIDE) {
+            if (!this.frame.isVisible()) {
+                this.frame.setVisible(true);
+            }
+        }
     }
 
     private class GamePanel extends JPanel {

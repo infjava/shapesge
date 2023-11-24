@@ -50,6 +50,10 @@ public class Main {
             System.out.format("Mouse moved %d,%d%n", x, y);
         }
 
+        public void boo() {
+            System.out.println("You really want to quit? Why would you do that?");
+        }
+
         public void tick() {
             System.out.println("Tick - tack");
             this.circle.moveRight();

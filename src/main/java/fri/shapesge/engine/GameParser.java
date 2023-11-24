@@ -65,6 +65,35 @@ public class GameParser {
         }
     }
 
+    public GameOnCloseOperation parseOnClose(String onCloseOperation) {
+        var operationTypeAndMessage = onCloseOperation.strip().split("\\p{javaWhitespace}+", 2);
+
+        switch (operationTypeAndMessage[0]) {
+            case "hide":
+                if (operationTypeAndMessage.length > 1) {
+                    throw new RuntimeException("Invalid on close operation");
+                }
+                return new GameOnCloseOperation(GameOnCloseOperationType.HIDE, null);
+            case "exit":
+                if (operationTypeAndMessage.length > 1) {
+                    throw new RuntimeException("Invalid on close operation");
+                }
+                return new GameOnCloseOperation(GameOnCloseOperationType.EXIT, null);
+            case "nothing":
+                if (operationTypeAndMessage.length > 1) {
+                    throw new RuntimeException("Invalid on close operation");
+                }
+                return new GameOnCloseOperation(GameOnCloseOperationType.DO_NOTHING, null);
+            case "send":
+                if (operationTypeAndMessage.length < 2) {
+                    throw new RuntimeException("Invalid on close operation");
+                }
+                return new GameOnCloseOperation(GameOnCloseOperationType.SEND_MESSAGE, operationTypeAndMessage[1]);
+            default:
+                throw new RuntimeException("Invalid on close operation");
+        }
+    }
+
     public Color parseColor(String colorString) {
         if (colorString.startsWith("#")) {
             return Color.decode(colorString);

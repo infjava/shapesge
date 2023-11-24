@@ -1,5 +1,7 @@
 package fri.shapesge.drawables;
 
+import fri.shapesge.engine.Game;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
@@ -18,6 +20,8 @@ public class RectangularDrawable extends FilledDrawable {
     public void changeSize(int width, int height) {
         this.width = width;
         this.height = height;
+
+        Game.getGame().somethingHasChanged();
     }
 
     @Override

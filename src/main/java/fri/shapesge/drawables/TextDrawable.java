@@ -1,5 +1,7 @@
 package fri.shapesge.drawables;
 
+import fri.shapesge.engine.Game;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -37,10 +39,14 @@ public class TextDrawable extends FilledDrawable {
         } else {
             this.font = newFont;
         }
+
+        Game.getGame().somethingHasChanged();
     }
 
     public void changeText(String text) {
         this.text = text.split("\n");
+
+        Game.getGame().somethingHasChanged();
     }
 
     @Override

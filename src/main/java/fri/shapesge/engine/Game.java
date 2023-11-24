@@ -46,7 +46,8 @@ public class Game {
                 this.gameInputProcessor,
                 this.gameFPSCounter,
                 gameConfig,
-                this.gameParser
+                this.gameParser,
+                this.gameEventDispatcher
         );
         this.gameLoop = new GameLoop(
                 this.gameWindow,
@@ -60,6 +61,10 @@ public class Game {
     private void start() {
         this.gameWindow.show();
         this.gameLoop.start();
+    }
+
+    public void somethingHasChanged() {
+        this.gameWindow.showIfNeeded();
     }
 
     public GameParser getParser() {

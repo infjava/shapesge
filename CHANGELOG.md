@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Text class renamed to TextBlock (english API) and BlokTextu (slovak API) to 
   differentiate names between localizations
 - FontStyle enum renamed to StylFontu in the slovak API
+- ExitOnClose configuration option replaced by OnClose = hide/exit/nothing/send message.
 
 ### Fixed
 - key events with key modifiers are parsed correctly
