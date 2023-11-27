@@ -1,6 +1,7 @@
 import fri.shapesge.Circle;
 import fri.shapesge.FontStyle;
 import fri.shapesge.Image;
+import fri.shapesge.ImageData;
 import fri.shapesge.Manager;
 import fri.shapesge.Square;
 import fri.shapesge.TextBlock;
@@ -22,7 +23,9 @@ public class Main {
         t.changeColor("blue");
         t.makeVisible();
 
-        Image i = new Image("test.jpg");
+        ImageData id = new ImageData("test.jpg");
+        System.out.format("%d x %d%n", id.getWidth(), id.getHeight());
+        Image i = new Image(id);
         i.makeVisible();
 
         Manager manager = new Manager();

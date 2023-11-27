@@ -1,14 +1,13 @@
 package fri.shapesge;
 
 import fri.shapesge.drawables.ImageDrawable;
-import fri.shapesge.engine.Game;
 
 /**
  * The Image class represents a bitmap image that can be drawn on the canvas.
  *
  * @author original: Miroslav Kvaššay and Michal Varga
  * @author engine: Ján Janech
- * @version 1.0
+ * @version 1.1
  */
 @SuppressWarnings("unused")
 public class Image {
@@ -20,7 +19,16 @@ public class Image {
      */
     @SuppressWarnings("unused")
     public Image(String imagePath) {
-        this(imagePath, 100, 100);
+        this(new ImageData(imagePath));
+    }
+
+    /**
+     * Create a new image at default position.
+     * @param imageData image data
+     */
+    @SuppressWarnings("unused")
+    public Image(ImageData imageData) {
+        this(imageData, 100, 100);
     }
 
     /**
@@ -34,8 +42,20 @@ public class Image {
      */
     @SuppressWarnings("unused")
     public Image(String imagePath, int x, int y) {
-        var image = Game.getGame().getParser().parseImage(imagePath);
-        this.drawable = new ImageDrawable(x, y, 0, image);
+        this(new ImageData(imagePath), x, y);
+    }
+
+    /**
+     * Create a new image at a given position.
+     *
+     * @param imageData image data
+     * @param x x-coordinate of the image
+     *          (distance from left border of the canvas)
+     * @param y y-coordinate of the image
+     *          (distance from top border of the canvas)
+     */
+    public Image(ImageData imageData, int x, int y) {
+        this.drawable = new ImageDrawable(x, y, 0, imageData.getImage());
     }
 
     /**
@@ -110,7 +130,16 @@ public class Image {
      */
     @SuppressWarnings("unused")
     public void changeImage(String imagePath) {
-        this.drawable.changeImage(imagePath);
+        this.changeImage(new ImageData(imagePath));
+    }
+
+    /**
+     * Change the drawn image.
+     * @param imageData image data
+     */
+    @SuppressWarnings("unused")
+    public void changeImage(ImageData imageData) {
+        this.drawable.changeImage(imageData.getImage());
     }
 
     /**

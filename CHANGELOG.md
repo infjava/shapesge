@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Disabling hiding the ShapesGE window, as the window cannot be shown again.
+- image resource can be loaded once and used in multiple Image/Obrazok instances
+  using ImageData/DataObrazku classes
 
 ### Changed
 - Text class renamed to TextBlock (english API) and BlokTextu (slovak API) to 

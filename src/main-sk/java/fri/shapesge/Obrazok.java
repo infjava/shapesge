@@ -1,14 +1,13 @@
 package fri.shapesge;
 
 import fri.shapesge.drawables.ImageDrawable;
-import fri.shapesge.engine.Game;
 
 /**
  * Trieda Obrazok, reprezentuje bitmapový obrázok, ktorý môže byť vykreslený na plátno.
  *
  * @author originál: Miroslav Kvaššay and Michal Varga
  * @author engine: Ján Janech
- * @version 1.0
+ * @version 1.1
  */
 @SuppressWarnings("unused")
 public class Obrazok {
@@ -20,7 +19,15 @@ public class Obrazok {
      */
     @SuppressWarnings("unused")
     public Obrazok(String suborSObrazkom) {
-        this(suborSObrazkom, 100, 100);
+        this(new DataObrazku(suborSObrazkom));
+    }
+
+    /**
+     * Vytvor nový obrázok s danou cestou na preddefinovanej pozícii.
+     * @param dataObrazku dáta obrázku
+     */
+    public Obrazok(DataObrazku dataObrazku) {
+        this(dataObrazku, 100, 100);
     }
 
     /**
@@ -33,8 +40,19 @@ public class Obrazok {
      */
     @SuppressWarnings("unused")
     public Obrazok(String suborSObrazkom, int x, int y) {
-        var image = Game.getGame().getParser().parseImage(suborSObrazkom);
-        this.drawable = new ImageDrawable(x, y, 0, image);
+        this(new DataObrazku(suborSObrazkom), x, y);
+    }
+
+    /**
+     * Vytvor nový obrázok s danou cestou na danej pozícii.
+     * @param dataObrazku dáta obrázku
+     * @param x x-ová súradnica obrázku
+     *          (vzdialenosť od ľavého okraja plátna)
+     * @param y y-ová súradnica obrázku
+     *          (vzdialenosť od horného okraja plátna)
+     */
+    public Obrazok(DataObrazku dataObrazku, int x, int y) {
+        this.drawable = new ImageDrawable(x, y, 0, dataObrazku.getImage());
     }
 
     /**
@@ -110,7 +128,15 @@ public class Obrazok {
      */
     @SuppressWarnings("unused")
     public void zmenObrazok(String suborSObrazkom) {
-        this.drawable.changeImage(suborSObrazkom);
+        this.zmenObrazok(new DataObrazku(suborSObrazkom));
+    }
+
+    /**
+     * Zmeň obrázok.
+     * @param dataObrazku dáta obrázku
+     */
+    public void zmenObrazok(DataObrazku dataObrazku) {
+        this.drawable.changeImage(dataObrazku.getImage());
     }
 
     /**
