@@ -26,6 +26,7 @@ public class ImageData {
      * Returns width of the image.
      * @return width of the image
      */
+    @SuppressWarnings("unused")
     public int getWidth() {
         return this.image.getWidth();
     }
@@ -34,6 +35,7 @@ public class ImageData {
      * Returns height of the image.
      * @return height of the image
      */
+    @SuppressWarnings("unused")
     public int getHeight() {
         return this.image.getHeight();
     }

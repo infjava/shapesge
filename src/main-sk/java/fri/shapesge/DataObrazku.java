@@ -25,6 +25,7 @@ public class DataObrazku {
      * Vráti šírku obrázku.
      * @return šírka obrázku
      */
+    @SuppressWarnings("unused")
     public int getSirka() {
         return this.image.getWidth();
     }
@@ -33,6 +34,7 @@ public class DataObrazku {
      * Vráti výšku obrázku.
      * @return výška obrázku
      */
+    @SuppressWarnings("unused")
     public int getVyska() {
         return this.image.getHeight();
     }
