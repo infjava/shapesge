@@ -18,13 +18,22 @@ public class BlokTextu {
     private final TextDrawable drawable;
 
     /**
-     * Vytvor nový text preddefinovanej farby na preddefinovanej pozícii.
+     * Vytvor nový text preddefinovanej farby na danej pozícii.
+     * @param text text, ktorý sa má zobraziť
+     * @param x x-ová súradnica textu
+     *          (vzdialenosť od ľavého okraja plátna)
+     * @param y y-ová súradnica textu
+     *          (vzdialenosť od horného okraja plátna)
      */
     @SuppressWarnings("unused")
     public BlokTextu(String text, int x, int y) {
         this.drawable = new TextDrawable(x, y, Color.black, text, new Font(Font.SERIF, Font.PLAIN, 12));
     }
 
+    /**
+     * Vytvor nový text preddefinovanej farby na preddefinovanej pozícii.
+     * @param text text, ktorý sa má zobraziť
+     */
     @SuppressWarnings("unused")
     public BlokTextu(String text) {
         this(text, 0, 20);
@@ -80,6 +89,7 @@ public class BlokTextu {
 
     /**
      * Posuň sa vodorovne o dĺžku danú parametrom.
+     * @param vzdialenost vzdialenosť v pixeloch
      */
     @SuppressWarnings("unused")
     public void posunVodorovne(int vzdialenost) {
@@ -88,6 +98,7 @@ public class BlokTextu {
 
     /**
      * Posuň sa zvisle o dĺžku danú parametrom.
+     * @param vzdialenost vzdialenosť v pixeloch
      */
     @SuppressWarnings("unused")
     public void posunZvisle(int vzdialenost) {
@@ -96,6 +107,11 @@ public class BlokTextu {
 
     /**
      * Zmeň font textu podľa požiadaviek.
+     * @param font    názov fontu
+     *                (napr. "Arial", "Times New Roman", "Courier New")
+     * @param styl    štýl fontu
+     *                (napr. {@link StylFontu#BOLD}, {@link StylFontu#ITALIC}, {@link StylFontu#UNDERLINE})
+     * @param velkost veľkosť fontu v pixeloch
      */
     @SuppressWarnings("unused")
     public void zmenFont(String font, StylFontu styl, int velkost) {
@@ -104,6 +120,11 @@ public class BlokTextu {
 
     /**
      * Zmeň font textu podľa požiadaviek.
+     * @param font    názov fontu
+     *                (napr. "Arial", "Times New Roman", "Courier New")
+     * @param styl    štýl fontu
+     *                (napr. {@code EnumSet.of(StylFontu.BOLD, StylFontu.ITALIC)})
+     * @param velkost veľkosť fontu v pixeloch
      */
     @SuppressWarnings("unused")
     public void zmenFont(String font, EnumSet<StylFontu> styl, int velkost) {
@@ -112,6 +133,7 @@ public class BlokTextu {
 
     /**
      * Zmeň farbu na hodnotu danú parametrom.
+     * @param farba nová farba z palety alebo v tvare #rrggbb
      */
     @SuppressWarnings("unused")
     public void zmenFarbu(String farba) {
@@ -120,6 +142,7 @@ public class BlokTextu {
 
     /**
      * Zmeň text.
+     * @param text nový text
      */
     @SuppressWarnings("unused")
     public void zmenText(String text) {

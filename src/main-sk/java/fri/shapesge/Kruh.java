@@ -24,6 +24,13 @@ public class Kruh {
         this(20, 60);
     }
 
+    /**
+     * Vytvor nový kruh preddefinovanej farby na danej pozícii.
+     * @param x x-ová súradnica kruhu
+     *          (vzdialenosť od ľavého okraja plátna)
+     * @param y y-ová súradnica kruhu
+     *          (vzdialenosť od horného okraja plátna)
+     */
     @SuppressWarnings("unused")
     public Kruh(int x, int y) {
         this.drawable = new EllipticalDrawable(x, y, 30, 30, Color.blue);
@@ -79,6 +86,7 @@ public class Kruh {
 
     /**
      * Posuň sa vodorovne o dĺžku danú parametrom.
+     * @param vzdialenost vzdialenosť v pixeloch
      */
     @SuppressWarnings("unused")
     public void posunVodorovne(int vzdialenost) {
@@ -87,6 +95,7 @@ public class Kruh {
 
     /**
      * Posuň sa zvisle o dĺžku danú parametrom.
+     * @param vzdialenost vzdialenosť v pixeloch
      */
     @SuppressWarnings("unused")
     public void posunZvisle(int vzdialenost) {
@@ -96,6 +105,7 @@ public class Kruh {
     /**
      * Zmeň priemer na hodnotu danú parametrom.
      * Priemer musí byť nezáporné celé číslo.
+     * @param priemer nový priemer v pixeloch
      */
     @SuppressWarnings("unused")
     public void zmenPriemer(int priemer) {
@@ -104,6 +114,7 @@ public class Kruh {
 
     /**
      * Zmeň farbu na hodnotu danú parametrom.
+     * @param farba nová farba z palety alebo v tvare #rrggbb
      */
     @SuppressWarnings("unused")
     public void zmenFarbu(String farba) {

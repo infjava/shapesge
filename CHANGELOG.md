@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - big refactoring to decouple public API from actual implementation.
   This allows us to merge both slovak and english APIs to the one
   branch.
+- fixed javadoc documentation
 
 ## [1.2.0] - 2023-03-13
 

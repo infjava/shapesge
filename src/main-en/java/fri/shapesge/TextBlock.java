@@ -18,13 +18,22 @@ public class TextBlock {
     private final TextDrawable drawable;
 
     /**
-     * Create a new text at default position with default color.
+     * Create a new text at a given position with default color.
+     * @param text text to be displayed
+     * @param x x-coordinate of the text
+     *          (distance from left border of the canvas)
+     * @param y y-coordinate of the text
+     *          (distance from top border of the canvas)
      */
     @SuppressWarnings("unused")
     public TextBlock(String text, int x, int y) {
         this.drawable = new TextDrawable(x, y, Color.black, text, new Font(Font.SERIF, Font.PLAIN, 12));
     }
 
+    /**
+     * Create a new text at default position with default color.
+     * @param text text to be displayed
+     */
     @SuppressWarnings("unused")
     public TextBlock(String text) {
         this(text, 0, 20);
@@ -80,6 +89,7 @@ public class TextBlock {
 
     /**
      * Move the text horizontally by 'distance' pixels.
+     * @param distance distance in pixels
      */
     @SuppressWarnings("unused")
     public void moveHorizontal(int distance) {
@@ -88,6 +98,7 @@ public class TextBlock {
 
     /**
      * Move the text vertically by 'distance' pixels.
+     * @param distance distance in pixels
      */
     @SuppressWarnings("unused")
     public void moveVertical(int distance) {
@@ -96,6 +107,11 @@ public class TextBlock {
 
     /**
      * Change the font according to the new specification.
+     * @param fontFamily name of the font family
+     *                   (e.g. "Arial", "Times New Roman", "Courier New")
+     * @param style      style of the font
+     *                   (e.g. {@link FontStyle#BOLD}, {@link FontStyle#ITALIC}, {@link FontStyle#UNDERLINE})
+     * @param size       size of the font in pixels
      */
     @SuppressWarnings("unused")
     public void changeFont(String fontFamily, FontStyle style, int size) {
@@ -104,6 +120,11 @@ public class TextBlock {
 
     /**
      * Change the font according to the new specification.
+     * @param fontFamily name of the font family
+     *                   (e.g. "Arial", "Times New Roman", "Courier New")
+     * @param style      style of the font
+     *                   (e.g. {@code EnumSet.of(FontStyle.BOLD, FontStyle.ITALIC)})
+     * @param size       size of the font in pixels
      */
     @SuppressWarnings("unused")
     public void changeFont(String fontFamily, EnumSet<FontStyle> style, int size) {
@@ -112,6 +133,7 @@ public class TextBlock {
 
     /**
      * Change the color.
+     * @param newColor new color from palette or in #rrggbb format
      */
     @SuppressWarnings("unused")
     public void changeColor(String newColor) {
@@ -120,6 +142,7 @@ public class TextBlock {
 
     /**
      * Change the text.
+     * @param text new text
      */
     @SuppressWarnings("unused")
     public void changeText(String text) {

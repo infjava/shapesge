@@ -24,6 +24,13 @@ public class Triangle {
         this(50, 15);
     }
 
+    /**
+     * Create a new triangle at a given position with default color.
+     * @param x x-coordinate of the triangle
+     *          (distance from left border of the canvas)
+     * @param y y-coordinate of the triangle
+     *          (distance from top border of the canvas)
+     */
     @SuppressWarnings("unused")
     public Triangle(int x, int y) {
         this.drawable = new TriangularDrawable(x, y, 40, 30, Color.green);
@@ -79,6 +86,7 @@ public class Triangle {
 
     /**
      * Move the triangle horizontally by 'distance' pixels.
+     * @param distance distance in pixels
      */
     @SuppressWarnings("unused")
     public void moveHorizontal(int distance) {
@@ -87,6 +95,7 @@ public class Triangle {
 
     /**
      * Move the triangle vertically by 'distance' pixels.
+     * @param distance distance in pixels
      */
     @SuppressWarnings("unused")
     public void moveVertical(int distance) {
@@ -95,6 +104,8 @@ public class Triangle {
 
     /**
      * Change the size to the new size (in pixels). Size must be greater or equal 0.
+     * @param newHeight new height in pixels
+     * @param newWidth new width in pixels
      */
     @SuppressWarnings("unused")
     public void changeSize(int newHeight, int newWidth) {
@@ -103,6 +114,7 @@ public class Triangle {
 
     /**
      * Change the color.
+     * @param newColor new color from palette or in #rrggbb format
      */
     @SuppressWarnings("unused")
     public void changeColor(String newColor) {

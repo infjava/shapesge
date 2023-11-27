@@ -18,6 +18,7 @@ public class Manager {
 
     /**
      * Set `object` to be managed by the manager.
+     * @param object object to be managed
      */
     public void manageObject(Object object) {
         Game.getGame().registerEventTarget(object);
@@ -25,6 +26,7 @@ public class Manager {
 
     /**
      * Set `object` to be managed by the manager.
+     * @param object managed object
      */
     public void stopManagingObject(Object object) {
         Game.getGame().deregisterEventTarget(object);

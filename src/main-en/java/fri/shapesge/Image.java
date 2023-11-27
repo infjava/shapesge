@@ -15,13 +15,23 @@ public class Image {
     private final ImageDrawable drawable;
 
     /**
-     * Create a new image at default position with default color.
+     * Create a new image at default position.
+     * @param imagePath path to the image
      */
     @SuppressWarnings("unused")
     public Image(String imagePath) {
         this(imagePath, 100, 100);
     }
 
+    /**
+     * Create a new image at a given position.
+     *
+     * @param imagePath path to the image
+     * @param x x-coordinate of the image
+     *          (distance from left border of the canvas)
+     * @param y y-coordinate of the image
+     *          (distance from top border of the canvas)
+     */
     @SuppressWarnings("unused")
     public Image(String imagePath, int x, int y) {
         var image = Game.getGame().getParser().parseImage(imagePath);
@@ -78,6 +88,7 @@ public class Image {
 
     /**
      * Move the image horizontally by 'distance' pixels.
+     * @param distance distance in pixels
      */
     @SuppressWarnings("unused")
     public void moveHorizontal(int distance) {
@@ -86,6 +97,7 @@ public class Image {
 
     /**
      * Move the image vertically by 'distance' pixels.
+     * @param distance distance in pixels
      */
     @SuppressWarnings("unused")
     public void moveVertical(int distance) {
@@ -94,6 +106,7 @@ public class Image {
 
     /**
      * Change the drawn image. Image must exist.
+     * @param imagePath path to the image
      */
     @SuppressWarnings("unused")
     public void changeImage(String imagePath) {
@@ -102,6 +115,7 @@ public class Image {
 
     /**
      * Change the image rotation angle according to the parameter. North = 0.
+     * @param angle angle in degrees
      */
     @SuppressWarnings("unused")
     public void changeAngle(int angle) {

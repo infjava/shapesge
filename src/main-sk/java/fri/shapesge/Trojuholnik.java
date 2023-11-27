@@ -24,6 +24,13 @@ public class Trojuholnik {
         this(50, 15);
     }
 
+    /**
+     * Vytvor nový rovnoramenný trojuholník preddefinovanej farby na danej pozícii.
+     * @param x x-ová súradnica trojuholníka
+     *          (vzdialenosť od ľavého okraja plátna)
+     * @param y y-ová súradnica trojuholníka
+     *          (vzdialenosť od horného okraja plátna)
+     */
     @SuppressWarnings("unused")
     public Trojuholnik(int x, int y) {
         this.drawable = new TriangularDrawable(x, y, 40, 30, Color.green);
@@ -79,6 +86,7 @@ public class Trojuholnik {
 
     /**
      * Posuň sa vodorovne o dĺžku danú parametrom.
+     * @param vzdialenost vzdialenosť v pixeloch
      */
     @SuppressWarnings("unused")
     public void posunVodorovne(int vzdialenost) {
@@ -87,6 +95,7 @@ public class Trojuholnik {
 
     /**
      * Posuň sa zvisle o dĺžku danú parametrom.
+     * @param vzdialenost vzdialenosť v pixeloch
      */
     @SuppressWarnings("unused")
     public void posunZvisle(int vzdialenost) {
@@ -96,6 +105,8 @@ public class Trojuholnik {
     /**
      * Zmeň rozmery výšky a základne na hodnoty dané parametrami.
      * Obe hodnoty musia byť nezáporné celé čísla.
+     * @param vyska nová výška v pixeloch
+     * @param zakladna nová základňa trojuholníka v pixeloch
      */
     @SuppressWarnings("unused")
     public void zmenRozmery(int vyska, int zakladna) {
@@ -104,6 +115,7 @@ public class Trojuholnik {
 
     /**
      * Zmeň farbu na hodnotu danú parametrom.
+     * @param farba nová farba z palety alebo v tvare #rrggbb
      */
     @SuppressWarnings("unused")
     public void zmenFarbu(String farba) {

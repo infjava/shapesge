@@ -18,6 +18,7 @@ public class Manazer {
 
     /**
      * Manažér bude spravovať daný objekt.
+     * @param objekt objekt, ktorý sa má spravovať
      */
     public void spravujObjekt(Object objekt) {
         Game.getGame().registerEventTarget(objekt);
@@ -25,6 +26,7 @@ public class Manazer {
 
     /**
      * Manažér prestane spravovať daný objekt.
+     * @param objekt objekt, ktorý sa už nemá spravovať
      */
     public void prestanSpravovatObjekt(Object objekt) {
         Game.getGame().deregisterEventTarget(objekt);

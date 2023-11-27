@@ -24,6 +24,13 @@ public class Elipsa {
         this(20, 60);
     }
 
+/**
+     * Vytvor novú elipsu preddefinovanej farby na danej pozícii.
+     * @param x x-ová súradnica elipsy
+     *          (vzdialenosť od ľavého okraja plátna)
+     * @param y y-ová súradnica elipsy
+     *          (vzdialenosť od horného okraja plátna)
+     */
     @SuppressWarnings("unused")
     public Elipsa(int x, int y) {
         this.drawable = new EllipticalDrawable(x, y, 60, 30, Color.blue);
@@ -79,6 +86,7 @@ public class Elipsa {
 
     /**
      * Posuň sa vodorovne o dĺžku danú parametrom.
+     * @param vzdialenost vzdialenosť v pixeloch
      */
     @SuppressWarnings("unused")
     public void posunVodorovne(int vzdialenost) {
@@ -87,6 +95,7 @@ public class Elipsa {
 
     /**
      * Posuň sa zvisle o dĺžku danú parametrom.
+     * @param vzdialenost vzdialenosť v pixeloch
      */
     @SuppressWarnings("unused")
     public void posunZvisle(int vzdialenost) {
@@ -96,6 +105,8 @@ public class Elipsa {
     /**
      * Zmeň veľkosti osí na hodnoty dané parametrami.
      * Veľkosť musí byť nezáporné celé číslo.
+     * @param osX veľkosť elipsy podľa osi X
+     * @param osY veľkosť elipsy podľa osi Y
      */
     @SuppressWarnings("unused")
     public void zmenOsi(int osX, int osY) {
@@ -104,6 +115,7 @@ public class Elipsa {
 
     /**
      * Zmeň farbu na hodnotu danú parametrom.
+     * @param farba nová farba z palety alebo v tvare #rrggbb
      */
     @SuppressWarnings("unused")
     public void zmenFarbu(String farba) {

@@ -23,6 +23,13 @@ public class Obdlznik {
         this(60, 50);
     }
 
+    /**
+     * Vytvor nový obdĺžnik preddefinovanej farby na danej pozícii.
+     * @param x x-ová súradnica obdĺžnika
+     *          (vzdialenosť od ľavého okraja plátna)
+     * @param y y-ová súradnica obdĺžnika
+     *          (vzdialenosť od horného okraja plátna)
+     */
     @SuppressWarnings("unused")
     public Obdlznik(int x, int y) {
         this.drawable = new RectangularDrawable(x, y, 30, 60, Color.red);
@@ -78,6 +85,7 @@ public class Obdlznik {
 
     /**
      * Posuň sa vodorovne o dĺžku danú parametrom.
+     * @param vzdialenost vzdialenosť v pixeloch
      */
     @SuppressWarnings("unused")
     public void posunVodorovne(int vzdialenost) {
@@ -86,6 +94,7 @@ public class Obdlznik {
 
     /**
      * Posuň sa zvisle o dĺžku danú parametrom.
+     * @param vzdialenost vzdialenosť v pixeloch
      */
     @SuppressWarnings("unused")
     public void posunZvisle(int vzdialenost) {
@@ -95,6 +104,8 @@ public class Obdlznik {
     /**
      * Zmeň dĺžky strán na hodnoty dané parametrami.
      * Dĺžka strany musí byť nezáporné celé číslo.
+     * @param stranaA dĺžka prvej strany
+     * @param stranaB dĺžka druhej strany
      */
     @SuppressWarnings("unused")
     public void zmenStrany(int stranaA, int stranaB) {
@@ -103,6 +114,7 @@ public class Obdlznik {
 
     /**
      * Zmeň farbu na hodnotu danú parametrom.
+     * @param farba nová farba z palety alebo v tvare #rrggbb
      */
     @SuppressWarnings("unused")
     public void zmenFarbu(String farba) {

@@ -24,6 +24,13 @@ public class Circle {
         this(20, 60);
     }
 
+    /**
+     * Create a new circle at a given position with default color.
+     * @param x x-coordinate of the circle
+     *          (distance from left border of the canvas)
+     * @param y y-coordinate of the circle
+     *          (distance from top border of the canvas)
+     */
     @SuppressWarnings("unused")
     public Circle(int x, int y) {
         this.drawable = new EllipticalDrawable(x, y, 30, 30, Color.blue);
@@ -79,6 +86,7 @@ public class Circle {
 
     /**
      * Move the circle horizontally by 'distance' pixels.
+     * @param distance distance in pixels
      */
     @SuppressWarnings("unused")
     public void moveHorizontal(int distance) {
@@ -87,6 +95,7 @@ public class Circle {
 
     /**
      * Move the circle vertically by 'distance' pixels.
+     * @param distance distance in pixels
      */
     @SuppressWarnings("unused")
     public void moveVertical(int distance) {
@@ -95,6 +104,7 @@ public class Circle {
 
     /**
      * Change the size to the new size (in pixels). Size must be greater or equal 0.
+     * @param newDiameter new diameter in pixels
      */
     @SuppressWarnings("unused")
     public void changeSize(int newDiameter) {
@@ -103,6 +113,7 @@ public class Circle {
 
     /**
      * Change the color.
+     * @param newColor new color from palette or in #rrggbb format
      */
     @SuppressWarnings("unused")
     public void changeColor(String newColor) {

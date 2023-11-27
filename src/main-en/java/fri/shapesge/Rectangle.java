@@ -23,6 +23,13 @@ public class Rectangle {
         this(60, 50);
     }
 
+    /**
+     * Create a new rectangle at a given position with default color.
+     * @param x x-coordinate of the rectangle
+     *          (distance from left border of the canvas)
+     * @param y y-coordinate of the rectangle
+     *          (distance from top border of the canvas)
+     */
     @SuppressWarnings("unused")
     public Rectangle(int x, int y) {
         this.drawable = new RectangularDrawable(x, y, 30, 60, Color.red);
@@ -78,6 +85,7 @@ public class Rectangle {
 
     /**
      * Move the rectangle horizontally by 'distance' pixels.
+     * @param distance distance in pixels
      */
     @SuppressWarnings("unused")
     public void moveHorizontal(int distance) {
@@ -86,6 +94,7 @@ public class Rectangle {
 
     /**
      * Move the rectangle vertically by 'distance' pixels.
+     * @param distance distance in pixels
      */
     @SuppressWarnings("unused")
     public void moveVertical(int distance) {
@@ -94,6 +103,8 @@ public class Rectangle {
 
     /**
      * Change the size to the new size (in pixels). Size must be greater or equal 0.
+     * @param newWidth new width in pixels
+     * @param newHeight new height in pixels
      */
     @SuppressWarnings("unused")
     public void changeSize(int newWidth, int newHeight) {
@@ -102,6 +113,7 @@ public class Rectangle {
 
     /**
      * Change the color.
+     * @param newColor new color from palette or in #rrggbb format
      */
     @SuppressWarnings("unused")
     public void changeColor(String newColor) {

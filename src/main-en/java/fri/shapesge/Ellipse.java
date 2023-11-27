@@ -24,6 +24,13 @@ public class Ellipse {
         this(20, 60);
     }
 
+    /**
+     * Create a new ellipse at a given position with default color.
+     * @param x x-coordinate of the ellipse
+     *          (distance from left border of the canvas)
+     * @param y y-coordinate of the ellipse
+     *          (distance from top border of the canvas)
+     */
     @SuppressWarnings("unused")
     public Ellipse(int x, int y) {
         this.drawable = new EllipticalDrawable(x, y, 60, 30, Color.blue);
@@ -79,6 +86,7 @@ public class Ellipse {
 
     /**
      * Move the ellipse horizontally by 'distance' pixels.
+     * @param distance distance in pixels
      */
     @SuppressWarnings("unused")
     public void moveHorizontal(int distance) {
@@ -87,6 +95,7 @@ public class Ellipse {
 
     /**
      * Move the ellipse vertically by 'distance' pixels.
+     * @param distance distance in pixels
      */
     @SuppressWarnings("unused")
     public void moveVertical(int distance) {
@@ -95,6 +104,8 @@ public class Ellipse {
 
     /**
      * Change the size to the new size (in pixels). Size must be greater or equal 0.
+     * @param newDiameterX new diameter in x-axis
+     * @param newDiameterY new diameter in y-axis
      */
     @SuppressWarnings("unused")
     public void changeSize(int newDiameterX, int newDiameterY) {
@@ -103,6 +114,7 @@ public class Ellipse {
 
     /**
      * Change the color.
+     * @param newColor new color from palette or in #rrggbb format
      */
     @SuppressWarnings("unused")
     public void changeColor(String newColor) {

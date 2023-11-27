@@ -23,6 +23,13 @@ public class Stvorec {
         this(60, 50);
     }
 
+    /**
+     * Vytvor nový štvorec preddefinovanej farby na danej pozícii.
+     * @param x x-ová súradnica štvorca
+     *          (vzdialenosť od ľavého okraja plátna)
+     * @param y y-ová súradnica štvorca
+     *          (vzdialenosť od horného okraja plátna)
+     */
     @SuppressWarnings("unused")
     public Stvorec(int x, int y) {
         this.drawable = new RectangularDrawable(x, y, 30, 60, Color.red);
@@ -78,6 +85,7 @@ public class Stvorec {
 
     /**
      * Posuň sa vodorovne o dĺžku danú parametrom.
+     * @param vzdialenost vzdialenosť v pixeloch
      */
     @SuppressWarnings("unused")
     public void posunVodorovne(int vzdialenost) {
@@ -86,6 +94,7 @@ public class Stvorec {
 
     /**
      * Posuň sa zvisle o dĺžku danú parametrom.
+     * @param vzdialenost vzdialenosť v pixeloch
      */
     @SuppressWarnings("unused")
     public void posunZvisle(int vzdialenost) {
@@ -95,6 +104,7 @@ public class Stvorec {
     /**
      * Zmeň dĺžku strany na hodnotu danú parametrom.
      * Dĺžka strany musí byť nezáporné celé číslo.
+     * @param dlzka nová dĺžka v pixeloch
      */
     @SuppressWarnings("unused")
     public void zmenStranu(int dlzka) {
@@ -103,6 +113,7 @@ public class Stvorec {
 
     /**
      * Zmeň farbu na hodnotu danú parametrom.
+     * @param farba nová farba z palety alebo v tvare #rrggbb
      */
     @SuppressWarnings("unused")
     public void zmenFarbu(String farba) {

@@ -23,6 +23,13 @@ public class Square {
         this(60, 50);
     }
 
+    /**
+     * Create a new square at a given position with default color.
+     * @param x x-coordinate of the square
+     *          (distance from left border of the canvas)
+     * @param y y-coordinate of the square
+     *          (distance from top border of the canvas)
+     */
     @SuppressWarnings("unused")
     public Square(int x, int y) {
         this.drawable = new RectangularDrawable(x, y, 30, 30, Color.red);
@@ -78,6 +85,7 @@ public class Square {
 
     /**
      * Move the square horizontally by 'distance' pixels.
+     * @param distance distance in pixels
      */
     @SuppressWarnings("unused")
     public void moveHorizontal(int distance) {
@@ -86,6 +94,7 @@ public class Square {
 
     /**
      * Move the square vertically by 'distance' pixels.
+     * @param distance distance in pixels
      */
     @SuppressWarnings("unused")
     public void moveVertical(int distance) {
@@ -94,6 +103,7 @@ public class Square {
 
     /**
      * Change the size to the new size (in pixels). Size must be greater or equal 0.
+     * @param newSize new size in pixels
      */
     @SuppressWarnings("unused")
     public void changeSize(int newSize) {
@@ -102,6 +112,7 @@ public class Square {
 
     /**
      * Change the color.
+     * @param newColor new color from palette or in #rrggbb format
      */
     @SuppressWarnings("unused")
     public void changeColor(String newColor) {

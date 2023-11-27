@@ -16,12 +16,21 @@ public class Obrazok {
 
     /**
      * Vytvor nový obrázok s danou cestou na preddefinovanej pozícii.
+     * @param suborSObrazkom cesta k súboru s obrázkom
      */
     @SuppressWarnings("unused")
     public Obrazok(String suborSObrazkom) {
         this(suborSObrazkom, 100, 100);
     }
 
+    /**
+     * Vytvor nový obrázok s danou cestou na danej pozícii.
+     * @param suborSObrazkom cesta k súboru s obrázkom
+     * @param x x-ová súradnica obrázku
+     *          (vzdialenosť od ľavého okraja plátna)
+     * @param y y-ová súradnica obrázku
+     *          (vzdialenosť od horného okraja plátna)
+     */
     @SuppressWarnings("unused")
     public Obrazok(String suborSObrazkom, int x, int y) {
         var image = Game.getGame().getParser().parseImage(suborSObrazkom);
@@ -78,6 +87,7 @@ public class Obrazok {
 
     /**
      * Posuň sa zvisle o dĺžku danú parametrom.
+     * @param vzdialenost vzdialenosť v pixeloch
      */
     @SuppressWarnings("unused")
     public void posunVodorovne(int vzdialenost) {
@@ -86,6 +96,7 @@ public class Obrazok {
 
     /**
      * Posuň sa pomaly vodorovne o dĺžku danú parametrom.
+     * @param vzdialenost vzdialenosť v pixeloch
      */
     @SuppressWarnings("unused")
     public void posunZvisle(int vzdialenost) {
@@ -95,6 +106,7 @@ public class Obrazok {
     /**
      * Zmeň obrázok.
      * Súbor s obrázkom musí existovať.
+     * @param suborSObrazkom cesta k súboru s obrázkom
      */
     @SuppressWarnings("unused")
     public void zmenObrazok(String suborSObrazkom) {
@@ -103,6 +115,7 @@ public class Obrazok {
 
     /**
      * Zmeň uhol natočenia obrázku podľa parametra. Sever = 0.
+     * @param uhol uhol natočenia v stupňoch
      */
     @SuppressWarnings("unused")
     public void zmenUhol(int uhol) {
