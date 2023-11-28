@@ -119,4 +119,16 @@ public class Circle {
     public void changeColor(String newColor) {
         this.drawable.changeColor(newColor);
     }
+
+    /**
+     * Change the position according to the parameters.
+     * @param x x-coordinate of the circle
+     *          (distance from left border of the canvas)
+     * @param y y-coordinate of the circle
+     *          (distance from top border of the canvas)
+     */
+    @SuppressWarnings("unused")
+    public void changePosition(int x, int y) {
+        this.drawable.moveTo(x, y);
+    }
 }

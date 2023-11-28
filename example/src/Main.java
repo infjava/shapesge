@@ -7,6 +7,8 @@ import fri.shapesge.Square;
 import fri.shapesge.TextBlock;
 import fri.shapesge.Triangle;
 
+import java.util.Random;
+
 public class Main {
     public static void main(String[] args) {
         Square square = new Square();
@@ -28,17 +30,23 @@ public class Main {
         Image i = new Image(id);
         i.makeVisible();
 
+        Circle randomCircle = new Circle(100, 100);
+        randomCircle.changeColor("red");
+        randomCircle.makeVisible();
+
         Manager manager = new Manager();
         manager.manageObject(triangle);
-        manager.manageObject(new ManagedTest(circle));
+        manager.manageObject(new ManagedTest(circle, randomCircle));
     }
 
     @SuppressWarnings("unused")
     public static class ManagedTest {
         private final Circle circle;
+        private final Circle randomCircle;
 
-        public ManagedTest(Circle circle) {
+        public ManagedTest(Circle circle, Circle randomCircle) {
             this.circle = circle;
+            this.randomCircle = randomCircle;
         }
 
         public void moveRight() {
@@ -58,8 +66,10 @@ public class Main {
         }
 
         public void tick() {
+            Random r = new Random();
             System.out.println("Tick - tack");
             this.circle.moveRight();
+            this.randomCircle.changePosition(r.nextInt(1000), r.nextInt(1000));
         }
     }
 }

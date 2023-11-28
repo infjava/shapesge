@@ -120,4 +120,16 @@ public class Obdlznik {
     public void zmenFarbu(String farba) {
         this.drawable.changeColor(farba);
     }
+
+    /**
+     * Zmeň polohu obdĺžnika na hodnoty dané parametrami.
+     * @param x x-ová súradnica obdĺžnika
+     *          (vzdialenosť od ľavého okraja plátna)
+     * @param y y-ová súradnica obdĺžnika
+     *          (vzdialenosť od horného okraja plátna)
+     */
+    @SuppressWarnings("unused")
+    public void zmenPolohu(int x, int y) {
+        this.drawable.moveTo(x, y);
+    }
 }

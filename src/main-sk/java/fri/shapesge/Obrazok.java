@@ -147,4 +147,16 @@ public class Obrazok {
     public void zmenUhol(int uhol) {
         this.drawable.changeAngle(uhol);
     }
+
+    /**
+     * Zmeň polohu obrázka na hodnoty dané parametrami.
+     * @param x x-ová súradnica obrázku
+     *          (vzdialenosť od ľavého okraja plátna)
+     * @param y y-ová súradnica obrázku
+     *          (vzdialenosť od horného okraja plátna)
+     */
+    @SuppressWarnings("unused")
+    public void zmenPolohu(int x, int y) {
+        this.drawable.moveTo(x, y);
+    }
 }

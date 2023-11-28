@@ -21,12 +21,17 @@ public abstract class TranslatableDrawable extends GameDrawable {
     }
 
     @Override
+    public void moveTo(int newX, int newY) {
+        super.moveTo(newX, newY);
+
+        this.computeTransformation();
+    }
+
+    @Override
     public void moveBy(int dx, int dy) {
         super.moveBy(dx, dy);
 
         this.computeTransformation();
-
-        Game.getGame().somethingHasChanged();
     }
 
     public void changeAngle(int angle) {

@@ -148,4 +148,16 @@ public class TextBlock {
     public void changeText(String text) {
         this.drawable.changeText(text);
     }
+
+    /**
+     * Change the position according to the parameters.
+     * @param x x-coordinate of the text
+     *          (distance from left border of the canvas)
+     * @param y y-coordinate of the text
+     *          (distance from top border of the canvas)
+     */
+    @SuppressWarnings("unused")
+    public void changePosition(int x, int y) {
+        this.drawable.moveTo(x, y);
+    }
 }

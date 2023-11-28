@@ -119,4 +119,16 @@ public class Stvorec {
     public void zmenFarbu(String farba) {
         this.drawable.changeColor(farba);
     }
+
+    /**
+     * Zmeň polohu štvorca na hodnoty dané parametrami.
+     * @param x x-ová súradnica štvorca
+     *          (vzdialenosť od ľavého okraja plátna)
+     * @param y y-ová súradnica štvorca
+     *          (vzdialenosť od horného okraja plátna)
+     */
+    @SuppressWarnings("unused")
+    public void zmenPolohu(int x, int y) {
+        this.drawable.moveTo(x, y);
+    }
 }

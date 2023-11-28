@@ -150,4 +150,16 @@ public class Image {
     public void changeAngle(int angle) {
         this.drawable.changeAngle(angle);
     }
+
+    /**
+     * Change the image position according to the parameters.
+     * @param x x-coordinate of the image
+     *          (distance from left border of the canvas)
+     * @param y y-coordinate of the image
+     *          (distance from top border of the canvas)
+     */
+    @SuppressWarnings("unused")
+    public void changePosition(int x, int y) {
+        this.drawable.moveTo(x, y);
+    }
 }

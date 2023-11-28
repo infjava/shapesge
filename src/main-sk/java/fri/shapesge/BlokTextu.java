@@ -148,4 +148,16 @@ public class BlokTextu {
     public void zmenText(String text) {
         this.drawable.changeText(text);
     }
+
+    /**
+     * Zmeň polohu textu na hodnoty dané parametrami.
+     * @param x x-ová súradnica textu
+     *          (vzdialenosť od ľavého okraja plátna)
+     * @param y y-ová súradnica textu
+     *          (vzdialenosť od horného okraja plátna)
+     */
+    @SuppressWarnings("unused")
+    public void zmenPolohu(int x, int y) {
+        this.drawable.moveTo(x, y);
+    }
 }

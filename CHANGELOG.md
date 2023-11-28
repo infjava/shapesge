@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Disabling hiding the ShapesGE window, as the window cannot be shown again.
 - image resource can be loaded once and used in multiple Image/Obrazok instances
   using ImageData/DataObrazku classes
+- Every shape can be moved to specific position by using changePosition/zmenPolohu.
+  Important: this method specifies the position of anchor point the same way
+  as using the constructor does instead of specifying the position of the center
+  as it does for Obrazok class in the original tvary project.
 
 ### Changed
 - Text class renamed to TextBlock (english API) and BlokTextu (slovak API) to 

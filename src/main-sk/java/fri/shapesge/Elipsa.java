@@ -121,4 +121,16 @@ public class Elipsa {
     public void zmenFarbu(String farba) {
         this.drawable.changeColor(farba);
     }
+
+    /**
+     * Zmeň polohu elipsy na hodnoty dané parametrami.
+     * @param x x-ová súradnica elipsy
+     *          (vzdialenosť od ľavého okraja plátna)
+     * @param y y-ová súradnica elipsy
+     *          (vzdialenosť od horného okraja plátna)
+     */
+    @SuppressWarnings("unused")
+    public void zmenPolohu(int x, int y) {
+        this.drawable.moveTo(x, y);
+    }
 }

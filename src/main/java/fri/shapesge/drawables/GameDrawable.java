@@ -37,6 +37,13 @@ public abstract class GameDrawable {
         Game.getGame().somethingHasChanged();
     }
 
+    public void moveTo(int newX, int newY) {
+        this.xPosition = newX;
+        this.yPosition = newY;
+
+        Game.getGame().somethingHasChanged();
+    }
+
     public void moveBy(int dx, int dy) {
         this.xPosition = this.xPosition + dx;
         this.yPosition = this.yPosition + dy;
