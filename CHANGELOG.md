@@ -24,7 +24,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - key events with key modifiers are parsed correctly
-- some comment fixes 
+- some comment fixes
+- timer work correctly even when its frequency is lower than FPS
 
 ### Other changes
 - big refactoring to decouple public API from actual implementation.

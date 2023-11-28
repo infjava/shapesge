@@ -27,7 +27,7 @@ class GameTimerProcessor {
         var currentTime = System.nanoTime();
 
         for (var timer : this.timers) {
-            if (timer.match(currentTime)) {
+            while (timer.match(currentTime)) {
                 timer.advance();
                 this.eventDispatcher.dispatchStandard(timer.getMessage());
             }
