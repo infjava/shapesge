@@ -8,8 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Disabling hiding the ShapesGE window, as the window cannot be shown again.
-- image resource can be loaded once and used in multiple `Image`/`Obrazok` instances
+- Image resource can be loaded once and used in multiple `Image`/`Obrazok` instances
   using `ImageData`/`DataObrazku` classes
 - Every shape can be moved to specific position by using `changePosition`/`zmenPolohu`.
   Important: this method specifies the position of anchor point the same way
@@ -23,15 +22,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `ExitOnClose` configuration option replaced by `OnClose` = `hide`/`exit`/`nothing`/`send` message.
 
 ### Fixed
-- key events with key modifiers are parsed correctly
-- some comment fixes
-- timer work correctly even when its frequency is lower than FPS
+- Key events with key modifiers are parsed correctly
+- Timer work correctly even when its frequency is lower than FPS
 
 ### Other changes
-- big refactoring to decouple public API from actual implementation.
+- Big refactoring to decouple public API from actual implementation.
   This allows us to merge both slovak and english APIs to the one
   branch.
-- fixed javadoc documentation
+- Fixed javadoc documentation
 
 ## [1.2.0] - 2023-03-13
 
