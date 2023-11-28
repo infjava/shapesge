@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2023-11-28
+
 ### Added
 - Image resource can be loaded once and used in multiple `Image`/`Obrazok` instances
   using `ImageData`/`DataObrazku` classes
