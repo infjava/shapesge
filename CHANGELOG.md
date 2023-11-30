@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.1] - 2023-11-30
+
+### Fixed
+- Fixed exception while rotating `Image`/`Obrazok`
+
 ## [2.0.0] - 2023-11-28
 
 ### Added
