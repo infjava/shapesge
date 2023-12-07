@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.2] - 2023-12-07
+
 ### Changed
 - Rendering is now done using double buffer strategy instead of standard
   repaining of the canvas. This should improve performance and make
