@@ -22,8 +22,8 @@ public class ImageDrawable extends TranslatableDrawable {
 
     @Override
     protected Point2D.Double getCenter() {
-        double centerX = image.getWidth() / 2.0;
-        double centerY = image.getHeight() / 2.0;
+        double centerX = this.image.getWidth() / 2.0;
+        double centerY = this.image.getHeight() / 2.0;
         return new Point2D.Double(centerX, centerY);
     }
 
