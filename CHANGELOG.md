@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Rendering is now done using double buffer strategy instead of standard
+  repaining of the canvas. This should improve performance and make
+  fullscreen more reliable.
+
 ### Fixed
 
 - Correct screen marked as default for a fullscreen rendering when multiple screens
