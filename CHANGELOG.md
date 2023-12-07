@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Correct screen marked as default for a fullscreen rendering when multiple screens
+  are available
+
 ## [2.0.1] - 2023-11-30
 
 ### Fixed
