@@ -214,7 +214,7 @@ class GameWindow {
         public synchronized void redraw() {
             var bufferStrategy = this.getBufferStrategy();
             if (bufferStrategy == null) {
-                this.createBufferStrategy(3);
+                this.createBufferStrategy(2);
                 bufferStrategy = this.getBufferStrategy();
             }
 
