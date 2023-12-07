@@ -1,13 +1,12 @@
 package fri.shapesge.engine;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import java.awt.AWTEvent;
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -104,7 +103,7 @@ class GameWindow {
     }
 
     public void redraw() {
-        this.gamePanel.repaint();
+        this.gamePanel.redraw();
     }
 
     private void windowClosing() {
@@ -123,7 +122,7 @@ class GameWindow {
         }
     }
 
-    private class GamePanel extends JPanel {
+    private class GamePanel extends Canvas {
         private AffineTransform canvasTransform;
         private AffineTransform invertedCanvasTransform;
         private boolean covered;
@@ -177,10 +176,7 @@ class GameWindow {
             }
         }
 
-        @Override
-        public void paint(Graphics g) {
-            final var canvas = (Graphics2D)g;
-
+        private void draw(final Graphics2D canvas) {
             if (!this.covered) {
                 canvas.setBackground(Color.black);
                 canvas.clearRect(0, 0, this.getWidth(), this.getHeight());
@@ -213,6 +209,27 @@ class GameWindow {
 
                 canvas.setPaintMode();
             }
+        }
+
+        public synchronized void redraw() {
+            var bufferStrategy = this.getBufferStrategy();
+            if (bufferStrategy == null) {
+                this.createBufferStrategy(3);
+                bufferStrategy = this.getBufferStrategy();
+            }
+
+            do {
+                do {
+                    final var canvas = (Graphics2D)bufferStrategy.getDrawGraphics();
+                    try {
+                        this.draw(canvas);
+                    } finally {
+                        canvas.dispose();
+                    }
+                } while (bufferStrategy.contentsRestored());
+
+                bufferStrategy.show();
+            } while (bufferStrategy.contentsLost());
         }
 
         @Override
