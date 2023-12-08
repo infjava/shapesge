@@ -130,7 +130,7 @@ class GameWindow {
         GamePanel() {
             this.setPreferredSize(new Dimension(GameWindow.this.width, GameWindow.this.height));
             this.setFocusable(true);
-            this.enableEvents(AWTEvent.MOUSE_EVENT_MASK | AWTEvent.MOUSE_MOTION_EVENT_MASK);
+            this.enableEvents(AWTEvent.MOUSE_EVENT_MASK | AWTEvent.MOUSE_MOTION_EVENT_MASK | AWTEvent.KEY_EVENT_MASK);
 
             this.addComponentListener(new ComponentAdapter() {
                 @Override
