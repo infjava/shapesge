@@ -143,8 +143,8 @@ public class Image {
     }
 
     /**
-     * Change the image rotation angle according to the parameter. North = 0.
-     * @param angle angle in degrees
+     * Change the image rotation angle according to the parameter.
+     * @param angle angle in degrees clockwise
      */
     @SuppressWarnings("unused")
     public void changeAngle(int angle) {

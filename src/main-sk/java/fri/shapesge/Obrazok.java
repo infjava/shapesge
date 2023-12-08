@@ -140,8 +140,8 @@ public class Obrazok {
     }
 
     /**
-     * Zmeň uhol natočenia obrázku podľa parametra. Sever = 0.
-     * @param uhol uhol natočenia v stupňoch
+     * Zmeň uhol natočenia obrázku podľa parametra.
+     * @param uhol uhol natočenia v stupňoch v smere hodinových ručičiek
      */
     @SuppressWarnings("unused")
     public void zmenUhol(int uhol) {
