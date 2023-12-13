@@ -32,7 +32,7 @@ public class Stvorec {
      */
     @SuppressWarnings("unused")
     public Stvorec(int x, int y) {
-        this.drawable = new RectangularDrawable(x, y, 30, 60, Color.red);
+        this.drawable = new RectangularDrawable(x, y, 30, 30, Color.red);
     }
 
     /**
