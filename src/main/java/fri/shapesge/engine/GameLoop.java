@@ -17,6 +17,7 @@ class GameLoop implements Runnable {
     }
 
     @Override
+    @SuppressWarnings("InfiniteLoopStatement")
     public void run() {
         for (;;) {
             this.fpsCounter.countFrame();
