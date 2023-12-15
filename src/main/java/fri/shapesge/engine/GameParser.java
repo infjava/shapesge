@@ -136,8 +136,7 @@ public class GameParser {
         }
 
         if (loadedImage == null) {
-            javax.swing.JOptionPane.showMessageDialog(null, "File " + imagePath + " was not found.");
-            return null;
+            throw new ShapesGEException("File " + imagePath + " was not found.");
         } else {
             return GameParser.toCompatibleImage(loadedImage);
         }

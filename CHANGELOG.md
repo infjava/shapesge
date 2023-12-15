@@ -8,7 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
-- changing bitmap color model to optimize performance
+- Changing bitmap color model to optimize performance
+- Exception is thrown when trying to load image from non-existing resource or file
 
 ## [2.0.4] - 2023-12-14
 
