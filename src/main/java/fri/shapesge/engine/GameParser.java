@@ -2,9 +2,12 @@ package fri.shapesge.engine;
 
 import javax.imageio.ImageIO;
 import java.awt.Color;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,6 +22,13 @@ public class GameParser {
         FILE,
         RESOURCE
     }
+
+    private static final GraphicsConfiguration DEFAULT_GRAPHICS_CONFIGURATION = GraphicsEnvironment
+            .getLocalGraphicsEnvironment()
+            .getDefaultScreenDevice()
+            .getDefaultConfiguration();
+
+    private static final ColorModel DEFAULT_COLOR_MODEL = DEFAULT_GRAPHICS_CONFIGURATION.getColorModel();
 
     private static final Map<String, Integer> KEY_MAP = Arrays.stream(KeyEvent.class
             .getDeclaredFields())
@@ -127,9 +137,31 @@ public class GameParser {
 
         if (loadedImage == null) {
             javax.swing.JOptionPane.showMessageDialog(null, "File " + imagePath + " was not found.");
+            return null;
+        } else {
+            return GameParser.toCompatibleImage(loadedImage);
+        }
+    }
+
+    /**
+     * Converts the image to a compatible image,
+     * inspired by https://stackoverflow.com/a/19659301
+     */
+    private static BufferedImage toCompatibleImage(BufferedImage image) {
+        if (image.getColorModel().equals(DEFAULT_COLOR_MODEL)) {
+            return image;
         }
 
-        return loadedImage;
+        var compatibleImage = DEFAULT_GRAPHICS_CONFIGURATION.createCompatibleImage(image.getWidth(), image.getHeight(), image.getTransparency());
+
+        var g2d = compatibleImage.createGraphics();
+        try {
+            g2d.drawImage(image, 0, 0, null);
+        } finally {
+            g2d.dispose();
+        }
+
+        return compatibleImage;
     }
 
     GameKeyEvent parseKeyEvent(String keyEvent, String message) {
