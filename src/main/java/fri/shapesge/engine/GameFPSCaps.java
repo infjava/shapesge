@@ -8,7 +8,7 @@ class GameFPSCaps {
     private long inaccuracy;
     private long lastNanoseconds;
 
-    public GameFPSCaps(int fpsCaps) {
+    GameFPSCaps(int fpsCaps) {
         this.fpsCaps = fpsCaps;
         this.inaccuracy = 0;
         this.lastNanoseconds = System.nanoTime();
