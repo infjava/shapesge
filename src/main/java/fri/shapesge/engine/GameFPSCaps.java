@@ -1,6 +1,6 @@
 package fri.shapesge.engine;
 
-public class GameFPSCaps {
+class GameFPSCaps {
     private static final long SECOND = 1_000_000_000; // in nanoseconds
     private static final long MILLISECOND = 1_000_000; // in nanoseconds
 
