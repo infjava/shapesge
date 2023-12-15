@@ -1,10 +1,7 @@
 package fri.shapesge.engine;
 
 class GameLoop implements Runnable {
-    private static final long SECOND = 1_000_000_000; // in nanoseconds
-    private static final long MILLISECOND = 1_000_000; // in nanoseconds
-
-    private final int fpsCaps;
+    private final GameFPSCaps fpsCaps;
     private final GameFPSCounter fpsCounter;
     private final GameWindow gameWindow;
     private final GameTimerProcessor timerProcessor;
@@ -16,15 +13,11 @@ class GameLoop implements Runnable {
         this.eventDispatcher = eventDispatcher;
         this.fpsCounter = fpsCounter;
 
-        this.fpsCaps = gameConfig.getInt(GameConfig.WINDOW_SECTION, GameConfig.FPS);
+        this.fpsCaps = new GameFPSCaps(gameConfig.getInt(GameConfig.WINDOW_SECTION, GameConfig.FPS));
     }
 
     @Override
     public void run() {
-        long inaccuracy = 0;
-
-        var lastNanoseconds = System.nanoTime();
-
         for (;;) {
             this.fpsCounter.countFrame();
 
@@ -38,22 +31,7 @@ class GameLoop implements Runnable {
                 e.printStackTrace();
             }
 
-            var endNanoseconds = System.nanoTime();
-
-            var sleepTime = SECOND / this.fpsCaps - (endNanoseconds - lastNanoseconds) - inaccuracy;
-            if (sleepTime < MILLISECOND) {
-                sleepTime = MILLISECOND;
-            }
-
-            try {
-                //noinspection BusyWait
-                Thread.sleep(sleepTime / MILLISECOND, (int)(sleepTime % MILLISECOND));
-            } catch (InterruptedException e) {
-                return;
-            }
-
-            lastNanoseconds = System.nanoTime();
-            inaccuracy = lastNanoseconds - endNanoseconds - sleepTime;
+            this.fpsCaps.doWait();
         }
     }
 
