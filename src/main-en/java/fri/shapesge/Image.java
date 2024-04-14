@@ -162,4 +162,12 @@ public class Image {
     public void changePosition(int x, int y) {
         this.drawable.moveTo(x, y);
     }
+
+    /**
+     * Flip the image horizontally (along its y-axis)
+     */
+    @SuppressWarnings("unused")
+    public void flipHorizontally() {
+        this.drawable.flip();
+    }
 }

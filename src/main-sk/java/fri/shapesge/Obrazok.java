@@ -159,4 +159,12 @@ public class Obrazok {
     public void zmenPolohu(int x, int y) {
         this.drawable.moveTo(x, y);
     }
+
+    /**
+     * Zrkadlovito otoč obrázok v horizontálnom smere (v smere jeho y-ovej osi).
+     */
+    @SuppressWarnings("unused")
+    public void otocHorizontalne() {
+        this.drawable.flip();
+    }
 }
