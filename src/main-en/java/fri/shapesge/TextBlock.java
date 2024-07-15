@@ -160,4 +160,18 @@ public class TextBlock {
     public void changePosition(int x, int y) {
         this.drawable.moveTo(x, y);
     }
+
+    /**
+     * @return the x-coordinate (offset from left border) of the shape.
+     */
+    public int getPositionX() {
+        return this.drawable.getXPosition();
+    }
+
+    /**
+     * @return the y-coordinate (offset from left border) of the shape.
+     */
+    public int getPositionY() {
+        return this.drawable.getYPosition();
+    }
 }
