@@ -22,7 +22,7 @@ public class TextDrawable extends FilledDrawable {
         this.lineSpacing = 0;
     }
 
-    public void changeFont(String fontFamily, boolean bold, boolean italic, boolean underline, int size) {
+    public void changeFont(String fontFamily, boolean bold, boolean italic, boolean underline, int size, int lineSpacing) {
         var intStyle = Font.PLAIN;
 
         if (bold) {
@@ -71,5 +71,9 @@ public class TextDrawable extends FilledDrawable {
 
     public FontMetrics getLastUsedFontMetrics() {
         return this.lastUsedMetrics;
+    }
+
+    public int getLineSpacing() {
+        return this.lineSpacing;
     }
 }

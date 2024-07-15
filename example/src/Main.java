@@ -21,7 +21,7 @@ public class Main {
         triangle.makeVisible();
 
         TextBlock t = new TextBlock("Boo from\nSBGE", 0, 0);
-        t.changeFont("Serif", FontStyle.BOLD, 30);
+        t.changeFont("Serif", FontStyle.BOLD, 30, -50);
         t.changeColor("blue");
         t.makeVisible();
 

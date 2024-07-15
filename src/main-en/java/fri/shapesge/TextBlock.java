@@ -115,7 +115,20 @@ public class TextBlock {
      */
     @SuppressWarnings("unused")
     public void changeFont(String fontFamily, FontStyle style, int size) {
-        this.drawable.changeFont(fontFamily, style == FontStyle.BOLD, style == FontStyle.ITALIC, style == FontStyle.UNDERLINE, size);
+        this.drawable.changeFont(fontFamily, style == FontStyle.BOLD, style == FontStyle.ITALIC, style == FontStyle.UNDERLINE, size, this.drawable.getLineSpacing());
+    }
+
+    /**
+     * Change the font according to the new specification.
+     * @param fontFamily name of the font family
+     *                   (e.g. "Arial", "Times New Roman", "Courier New")
+     * @param style      style of the font
+     *                   (e.g. {@link FontStyle#BOLD}, {@link FontStyle#ITALIC}, {@link FontStyle#UNDERLINE})
+     * @param size       size of the font in pixels
+     * @param lineSpacing spacing between the lines of this Text Block
+     */
+    public void changeFont(String fontFamily, FontStyle style, int size, int lineSpacing) {
+        this.drawable.changeFont(fontFamily, style == FontStyle.BOLD, style == FontStyle.ITALIC, style == FontStyle.UNDERLINE, size, lineSpacing);
     }
 
     /**
@@ -128,7 +141,20 @@ public class TextBlock {
      */
     @SuppressWarnings("unused")
     public void changeFont(String fontFamily, EnumSet<FontStyle> style, int size) {
-        this.drawable.changeFont(fontFamily, style.contains(FontStyle.BOLD), style.contains(FontStyle.ITALIC), style.contains(FontStyle.UNDERLINE), size);
+        this.drawable.changeFont(fontFamily, style.contains(FontStyle.BOLD), style.contains(FontStyle.ITALIC), style.contains(FontStyle.UNDERLINE), size, this.drawable.getLineSpacing());
+    }
+
+    /**
+     * Change the font according to the new specification.
+     * @param fontFamily name of the font family
+     *                   (e.g. "Arial", "Times New Roman", "Courier New")
+     * @param style      style of the font
+     *                   (e.g. {@code EnumSet.of(FontStyle.BOLD, FontStyle.ITALIC)})
+     * @param size       size of the font in pixels
+     * @param lineSpacing spacing between the lines of this Text Block
+     */
+    public void changeFont(String fontFamily, EnumSet<FontStyle> style, int size, int lineSpacing) {
+        this.drawable.changeFont(fontFamily, style.contains(FontStyle.BOLD), style.contains(FontStyle.ITALIC), style.contains(FontStyle.UNDERLINE), size, lineSpacing);
     }
 
     /**
