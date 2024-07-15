@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="lib_ShapesGE_Getters:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/lib_ShapesGE_Getters_jar</output-path>
+    <root id="archive" name="lib_ShapesGE_Additions.jar">
+      <element id="module-output" name="lib_ShapesGE_Additions" />
+    </root>
+  </artifact>
+</component>
