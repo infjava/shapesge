@@ -35,4 +35,12 @@ public class ImageDrawable extends TranslatableDrawable {
 
         canvas.drawImage(this.image, this.getTransform(), null);
     }
+
+    public int getWidth() {
+        return this.image.getWidth();
+    }
+
+    public int getHeight() {
+        return this.image.getHeight();
+    }
 }

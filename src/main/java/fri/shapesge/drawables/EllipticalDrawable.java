@@ -34,4 +34,12 @@ public class EllipticalDrawable extends FilledDrawable {
         canvas.setColor(this.getColor());
         canvas.fill(shape);
     }
+
+    public int getDiameterX() {
+        return this.diameterX;
+    }
+
+    public int getDiameterY() {
+        return this.diameterY;
+    }
 }

@@ -12,5 +12,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="shapesGE" exported="" />
+    <orderEntry type="module" module-name="lib_ShapesGE_Additions" />
   </component>
 </module>

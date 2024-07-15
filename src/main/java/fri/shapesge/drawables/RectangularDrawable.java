@@ -34,4 +34,12 @@ public class RectangularDrawable extends FilledDrawable {
         canvas.setColor(this.getColor());
         canvas.fill(shape);
     }
+
+    public int getWidth() {
+        return this.width;
+    }
+
+    public int getHeight() {
+        return this.height;
+    }
 }

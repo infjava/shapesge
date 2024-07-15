@@ -51,11 +51,11 @@ public abstract class GameDrawable {
         Game.getGame().somethingHasChanged();
     }
 
-    protected int getXPosition() {
+    public int getXPosition() {
         return this.xPosition;
     }
 
-    protected int getYPosition() {
+    public int getYPosition() {
         return this.yPosition;
     }
 

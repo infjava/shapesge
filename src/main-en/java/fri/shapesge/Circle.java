@@ -13,7 +13,7 @@ import java.awt.Color;
  */
 
 @SuppressWarnings("unused")
-public class Circle {
+public class Circle implements AShape {
     private final EllipticalDrawable drawable;
 
     /**
@@ -130,5 +130,25 @@ public class Circle {
     @SuppressWarnings("unused")
     public void changePosition(int x, int y) {
         this.drawable.moveTo(x, y);
+    }
+
+    @Override
+    public int getPositionX() {
+        return this.drawable.getXPosition();
+    }
+
+    @Override
+    public int getPositionY() {
+        return this.drawable.getYPosition();
+    }
+
+    @Override
+    public int getWidth() {
+        return this.drawable.getDiameterX();
+    }
+
+    @Override
+    public int getHeight() {
+        return this.drawable.getDiameterY();
     }
 }
