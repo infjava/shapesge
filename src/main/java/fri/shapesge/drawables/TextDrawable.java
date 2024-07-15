@@ -2,9 +2,7 @@ package fri.shapesge.drawables;
 
 import fri.shapesge.engine.Game;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.font.TextAttribute;
 import java.util.HashMap;
 
@@ -12,11 +10,16 @@ public class TextDrawable extends FilledDrawable {
     private String[] text;
     private Font font;
 
+    private FontMetrics lastUsedMetrics;
+    private int lineSpacing;
+
     public TextDrawable(int x, int y, Color color, String text, Font font) {
         super(x, y, color);
 
         this.text = text.split("\n");
         this.font = font;
+
+        this.lineSpacing = 0;
     }
 
     public void changeFont(String fontFamily, boolean bold, boolean italic, boolean underline, int size) {
@@ -40,6 +43,8 @@ public class TextDrawable extends FilledDrawable {
             this.font = newFont;
         }
 
+        this.lineSpacing = lineSpacing;
+
         Game.getGame().somethingHasChanged();
     }
 
@@ -54,12 +59,17 @@ public class TextDrawable extends FilledDrawable {
         canvas.setColor(this.getColor());
 
         canvas.setFont(this.font);
-        var y = this.getYPosition();
-        final var lineHeight = canvas.getFontMetrics().getHeight();
+        this.lastUsedMetrics = canvas.getFontMetrics();
+        var y = this.getYPosition() + this.lastUsedMetrics.getAscent();
+        final var lineHeight = this.lastUsedMetrics.getHeight();
 
         for (String line : this.text) {
             canvas.drawString(line, this.getXPosition(), y);
-            y += lineHeight;
+            y += lineHeight + this.lineSpacing;
         }
+    }
+
+    public FontMetrics getLastUsedFontMetrics() {
+        return this.lastUsedMetrics;
     }
 }
