@@ -159,4 +159,39 @@ public class Obrazok {
     public void zmenPolohu(int x, int y) {
         this.drawable.moveTo(x, y);
     }
+
+    /**
+     * @return x-ová súradnica (vzdialenosť od ľavého okraja) tvaru
+     */
+    public int getPoziciaX() {
+        return this.drawable.getXPosition();
+    }
+
+    /**
+     * @return y-ová súradnica (vzdialenosť od horného okraja) tvaru
+     */
+    public int getPoziciaY() {
+        return this.drawable.getYPosition();
+    }
+
+    /**
+     * @return šírka tvaru
+     */
+    public int getSirka() {
+        return this.drawable.getWidth();
+    }
+
+    /**
+     * @return výška tvaru
+     */
+    public int getVyska() {
+        return this.drawable.getHeight();
+    }
+
+    /**
+     * @return uhol tvaru
+     */
+    public int getUhol() {
+        return this.drawable.getAngle();
+    }
 }

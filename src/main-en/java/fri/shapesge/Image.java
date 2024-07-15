@@ -190,4 +190,11 @@ public class Image {
     public int getHeight() {
         return this.drawable.getHeight();
     }
+
+    /**
+     * @return the angle of the shape.
+     */
+    public int getAngle() {
+        return this.drawable.getAngle();
+    }
 }

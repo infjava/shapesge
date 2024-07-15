@@ -133,4 +133,32 @@ public class Elipsa {
     public void zmenPolohu(int x, int y) {
         this.drawable.moveTo(x, y);
     }
+
+    /**
+     * @return x-ová súradnica (vzdialenosť od ľavého okraja) tvaru
+     */
+    public int getPoziciaX() {
+        return this.drawable.getXPosition();
+    }
+
+    /**
+     * @return y-ová súradnica (vzdialenosť od horného okraja) tvaru
+     */
+    public int getPoziciaY() {
+        return this.drawable.getYPosition();
+    }
+
+    /**
+     * @return šírka (priemer) tvaru
+     */
+    public int getSirka() {
+        return this.drawable.getDiameterX();
+    }
+
+    /**
+     * @return výška (priemer) tvaru
+     */
+    public int getVyska() {
+        return this.drawable.getDiameterY();
+    }
 }
