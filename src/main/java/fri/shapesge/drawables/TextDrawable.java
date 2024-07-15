@@ -73,16 +73,10 @@ public class TextDrawable extends FilledDrawable {
     }
 
     public int getWidth() {
-//        int maxWidth = 0;
-//        for (String line : this.text) {
-//                maxWidth = Math.max(maxWidth, this.lastUsedMetrics.stringWidth(line));
-//            }
-//            return maxWidth;
         return 0;
     }
 
     public int getHeight() {
-//        return ((this.lastUsedMetrics.getHeight() + this.lineSpacing) * this.text.length) - this.lineSpacing;
         return 0;
     }
 }
