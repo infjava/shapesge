@@ -10,7 +10,6 @@ public class TextDrawable extends FilledDrawable {
     private String[] text;
     private Font font;
 
-    private FontMetrics lastUsedMetrics;
     private int lineSpacing;
 
     public TextDrawable(int x, int y, Color color, String text, Font font) {
@@ -59,9 +58,9 @@ public class TextDrawable extends FilledDrawable {
         canvas.setColor(this.getColor());
 
         canvas.setFont(this.font);
-        this.lastUsedMetrics = canvas.getFontMetrics();
-        var y = this.getYPosition() + this.lastUsedMetrics.getAscent();
-        final var lineHeight = this.lastUsedMetrics.getHeight();
+        var metrics = canvas.getFontMetrics();
+        var y = this.getYPosition() + metrics.getAscent();
+        final var lineHeight = metrics.getHeight();
 
         for (String line : this.text) {
             canvas.drawString(line, this.getXPosition(), y);
@@ -69,11 +68,21 @@ public class TextDrawable extends FilledDrawable {
         }
     }
 
-    public FontMetrics getLastUsedFontMetrics() {
-        return this.lastUsedMetrics;
-    }
-
     public int getLineSpacing() {
         return this.lineSpacing;
+    }
+
+    public int getWidth() {
+//        int maxWidth = 0;
+//        for (String line : this.text) {
+//                maxWidth = Math.max(maxWidth, this.lastUsedMetrics.stringWidth(line));
+//            }
+//            return maxWidth;
+        return 0;
+    }
+
+    public int getHeight() {
+//        return ((this.lastUsedMetrics.getHeight() + this.lineSpacing) * this.text.length) - this.lineSpacing;
+        return 0;
     }
 }

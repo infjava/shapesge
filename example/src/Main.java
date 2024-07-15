@@ -25,7 +25,7 @@ public class Main {
         t.changeColor("blue");
         t.makeVisible();
 
-        TextBlock t2 = new TextBlock("Foo Bar!!!", 60, 60);
+        TextBlock t2 = new TextBlock("Foo Bar!!!", 0, t.getHeight());
         t2.changeFont("Sans", FontStyle.BOLD, 30);
         t2.changeColor("red");
         t2.makeVisible();

@@ -200,4 +200,18 @@ public class TextBlock {
     public int getPositionY() {
         return this.drawable.getYPosition();
     }
+
+    /**
+     * @return the width of the shape.
+     */
+    public int getWidth() {
+        return this.drawable.getWidth();
+    }
+
+    /**
+     * @return the height of the shape.
+     */
+    public int getHeight() {
+        return this.drawable.getHeight();
+    }
 }

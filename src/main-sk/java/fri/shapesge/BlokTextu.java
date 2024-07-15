@@ -202,4 +202,18 @@ public class BlokTextu {
     public int getPoziciaY() {
         return this.drawable.getYPosition();
     }
+
+    /**
+     * @return šírka tvaru.
+     */
+    public int getWidth() {
+        return this.drawable.getWidth();
+    }
+
+    /**
+     * @return výška tvaru.
+     */
+    public int getHeight() {
+        return this.drawable.getHeight();
+    }
 }
