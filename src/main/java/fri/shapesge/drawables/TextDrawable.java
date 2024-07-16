@@ -3,10 +3,7 @@ package fri.shapesge.drawables;
 import fri.shapesge.engine.Game;
 
 import java.awt.*;
-import java.awt.font.FontRenderContext;
 import java.awt.font.TextAttribute;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,87 +66,96 @@ public class TextDrawable extends FilledDrawable {
         var y = this.getYPosition() + metrics.getAscent();
         final var lineHeight = metrics.getHeight();
 
-        for (String line : this.text) {
+        for (String line : this.wrap(this.text)) {
             canvas.drawString(line, this.getXPosition(), y);
             y += lineHeight + this.lineSpacing;
         }
     }
-    
-//        // In my humble opinion, this code looks too wordy and might be slow.
-//        // Somebody more skilled than me, could you please take a look and fix it? -- trailblazercombi
-//        if (this.maxWidth <= 0) {
-//            // If the maximum width is not set, TextDrawable works as normal.
-//            for (String line : this.text) {
-//                // Draw the line.
-//                canvas.drawString(line, this.getXPosition(), y);
-//                y += lineHeight + this.lineSpacing;
-//            }
-//        } else {
-//            // If the maximum width is set, TextDrawable splits all lines into shorter ones.
-//            for (String line : this.text) {
-//                String[] words = line.split(" ");
-//                // Create a new line builder.
-//                var newLine = new StringBuilder();
-//                var lenLine = 0;
-//                // Parse all words. If the entire line fits, it SHOULD yield the same result as if the limit did not exist.
-//                for (String word : words) {
-//                    int newLenLine = lenLine + metrics.stringWidth(word);
-//                    if (newLenLine > this.maxWidth) {
-//                        // Once the limit is reached...
-//                        // Check if the word we're processing will fit into a line on its own.
-//                        if (metrics.stringWidth(word) > this.maxWidth) {
-//                            // If it doesn't, split it further.
-//                            char[] chars = word.toCharArray();
-//                            // And assemble characters up to the limit.
-//                            var wordMaker = new StringBuilder();
-//                            int lenWord = metrics.charWidth('-');
-//                            for (char aChar : chars) {
-//                                if (lenWord + metrics.charWidth(aChar) > this.maxWidth) {
-//                                    // If the limit is reached, hyphenate the word, draw it and reset the builder.
-//                                    wordMaker.append('-');
-//                                    canvas.drawString(wordMaker.toString(), this.getXPosition(), y);
-//                                    y += lineHeight + this.lineSpacing;
-//                                    wordMaker = new StringBuilder();
-//                                    lenWord = metrics.charWidth('-');
-//                                } else {
-//                                    wordMaker.append(aChar);
-//                                    lenWord += metrics.charWidth(aChar);
-//                                }
-//                            }
-//                        } else {
-//                            // Draw the line and reset the line builder.
-//                            canvas.drawString(newLine.toString(), this.getXPosition(), y);
-//                            y += lineHeight + this.lineSpacing;
-//                            newLine = new StringBuilder();
-//                            lenLine = 0;
-//                        }
-//                    } else {
-//                        newLine.append(word).append(" ");
-//                        lenLine = newLenLine;
-//                    }
-//                }
-//                // Once we're done processing all words in the line, draw the leftovers.
-//                canvas.drawString(newLine.toString(), this.getXPosition(), y);
-//                y += lineHeight + this.lineSpacing;
-//            }
-//            // The wordy code ends here. -- trailblazercombi
 
     public int getLineSpacing() {
         return this.lineSpacing;
     }
 
+    /**
+     * @author trailblazercombi, with help from OpenAI ChatGPT
+     */
     private FontMetrics generateFontMetrics() {
         Graphics2D g2d;
         g2d = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB).createGraphics();
         g2d.setFont(this.font);
-
+        g2d.dispose();
         return g2d.getFontMetrics();
+    }
+
+    /**
+     * @author trailblazercombi, with help from OpenAI ChatGPT
+     */
+    private int findBreakPoint(String line) {
+        var breakPoint = -1;
+        var lastSpaceIndex = -1;
+        var metrics = this.generateFontMetrics();
+        for (int i = 0; i < line.length(); i++) {
+            if (line.charAt(i) == ' ') {
+                lastSpaceIndex = i;
+            }
+            if (metrics.stringWidth(line.substring(0, i + 1)) > this.maxWidth) {
+                breakPoint = lastSpaceIndex;
+                break;
+            }
+        }
+        return breakPoint;
+    }
+
+    /**
+     * @author trailblazercombi, with help from OpenAI ChatGPT
+     */
+    private String hyphenate(String word) {
+        var metrics = this.generateFontMetrics();
+        for (int i = 0; i < word.length(); i++) {
+            if (metrics.stringWidth(word.substring(0, i + 1) + "-") > this.maxWidth) {
+                return word.substring(0, i) + "-";
+            }
+        } return word;
+    }
+
+    /**
+     * @author trailblazercombi, with help from OpenAI ChatGPT
+     */
+    private String[] wrap(String[] text) {
+        if (this.maxWidth <= 0) {
+            return text;
+        }
+
+        var wrapped = new ArrayList<String>();
+        var metrics = this.generateFontMetrics();
+
+        for (String line : text) {
+            while (!line.isEmpty()) {
+                int lineWidth = metrics.stringWidth(line);
+                if (lineWidth <= this.maxWidth) {
+                    wrapped.add(line);
+                    break;
+                } else {
+                    var breakPoint = this.findBreakPoint(line);
+                    if (breakPoint != -1) {
+                        wrapped.add(line.substring(0, breakPoint));
+                        line = line.substring(breakPoint).trim();
+                    } else {
+                        var halfWord = this.hyphenate(line);
+                        wrapped.add(halfWord);
+                        line = line.substring(halfWord.length() - 1).trim();
+                    }
+                }
+            }
+        }
+        return wrapped.toArray(new String[0]);
     }
 
     public int getWidth() {
         var fontMetrics = this.generateFontMetrics();
         int maxWidth = 0;
-        for (String line : this.text) {
+
+        for (String line : this.wrap(this.text)) {
             maxWidth = Math.max(maxWidth, fontMetrics.stringWidth(line));
         }
         return maxWidth;
