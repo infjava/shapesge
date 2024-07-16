@@ -3,7 +3,11 @@ package fri.shapesge.drawables;
 import fri.shapesge.engine.Game;
 
 import java.awt.*;
+import java.awt.font.FontRenderContext;
 import java.awt.font.TextAttribute;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 public class TextDrawable extends FilledDrawable {
@@ -72,11 +76,25 @@ public class TextDrawable extends FilledDrawable {
         return this.lineSpacing;
     }
 
+    private FontMetrics generateFontMetrics() {
+        Graphics2D g2d;
+        g2d = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB).createGraphics();
+        g2d.setFont(this.font);
+
+        return g2d.getFontMetrics();
+    }
+
     public int getWidth() {
-        return 0;
+        var fontMetrics = this.generateFontMetrics();
+        int maxWidth = 0;
+        for (String line : this.text) {
+            maxWidth = Math.max(maxWidth, fontMetrics.stringWidth(line));
+        }
+        return maxWidth;
     }
 
     public int getHeight() {
-        return 0;
+        var fontMetrics = this.generateFontMetrics();
+        return ((fontMetrics.getHeight() + this.lineSpacing) * this.text.length) - this.lineSpacing;
     }
 }

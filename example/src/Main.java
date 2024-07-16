@@ -20,12 +20,12 @@ public class Main {
         Triangle triangle = new Triangle();
         triangle.makeVisible();
 
-        TextBlock t = new TextBlock("Boo from\nSBGE", 0, 0);
-        t.changeFont("Serif", FontStyle.BOLD, 30, -50);
+        TextBlock t = new TextBlock("Say hello to\nthis finely spaced out", 0, 0);
+        t.changeFont("Serif", FontStyle.BOLD, 30, -10);
         t.changeColor("blue");
         t.makeVisible();
 
-        TextBlock t2 = new TextBlock("Foo Bar!!!", 0, t.getHeight());
+        TextBlock t2 = new TextBlock("Foo Bar!!!", t.getWidth(), t.getHeight());
         t2.changeFont("Sans", FontStyle.BOLD, 30);
         t2.changeColor("red");
         t2.makeVisible();
