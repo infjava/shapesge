@@ -206,14 +206,28 @@ public class BlokTextu {
     /**
      * @return šírka tvaru.
      */
-    public int getWidth() {
+    public int getSirka() {
         return this.drawable.getWidth();
     }
 
     /**
      * @return výška tvaru.
      */
-    public int getHeight() {
+    public int getVyska() {
         return this.drawable.getHeight();
+    }
+
+    /**
+     * Ovládanie automatického zalamovania textu.
+     * Príliš dlhý text bude automaticky zalomený do ďalšieho riadku.
+     * Manuálne zalamovanie pomocou '\n' funguje vždy.
+     * @param maxSirka maximálna šírka textu v pixeloch. Ak maxSirka = 0 (alebo menej), zalamovanie bude vypnuté.
+     */
+    public void zalomText(int maxSirka) {
+        if (maxSirka <= 0) {
+            this.drawable.disableTextWrapping();
+        } else {
+            this.drawable.enableTextWrapping(maxSirka);
+        }
     }
 }

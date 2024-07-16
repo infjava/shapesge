@@ -217,8 +217,9 @@ public class TextBlock {
 
     /**
      * Controls automatic text wrapping mechanism.
-     * Manual text wrapping is uneffected.
-     * @param maxWidth maximum width in pixels. Set to 0 (or lower) to disable text wrapping.
+     * Lines that are too long get automatically wrapped into the next line.
+     * Manual text wrapping using '\n' is uneffected.
+     * @param maxWidth maximum width in pixels before the line will be wrapped. Set to 0 (or lower) to disable text wrapping.
      */
     public void wrapText(int maxWidth) {
         if (maxWidth <= 0) {
