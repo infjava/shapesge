@@ -214,4 +214,17 @@ public class TextBlock {
     public int getHeight() {
         return this.drawable.getHeight();
     }
+
+    /**
+     * Controls automatic text wrapping mechanism.
+     * Manual text wrapping is uneffected.
+     * @param maxWidth maximum width in pixels. Set to 0 (or lower) to disable text wrapping.
+     */
+    public void wrapText(int maxWidth) {
+        if (maxWidth <= 0) {
+            this.drawable.disableTextWrapping();
+        } else {
+            this.drawable.enableTextWrapping(maxWidth);
+        }
+    }
 }
