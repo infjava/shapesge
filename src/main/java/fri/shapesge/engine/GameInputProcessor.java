@@ -31,15 +31,15 @@ class GameInputProcessor {
         }
     }
 
-    public synchronized void registerKeyEvent(GameKeyEvent keyEvent) {
+    public void registerKeyEvent(GameKeyEvent keyEvent) {
         this.keyEvents.add(keyEvent);
     }
 
-    public synchronized void registerMouseEvent(GameMouseEvent mouseEvent) {
+    public void registerMouseEvent(GameMouseEvent mouseEvent) {
         this.mouseEvents.add(mouseEvent);
     }
 
-    public synchronized void processKeyEvent(KeyEvent awtEvent) {
+    public void processKeyEvent(KeyEvent awtEvent) {
         for (GameKeyEvent event : this.keyEvents) {
             if (event.matches(awtEvent)) {
                 this.eventDispatcher.dispatchStandard(event.getMessage());
@@ -47,7 +47,7 @@ class GameInputProcessor {
         }
     }
 
-    public synchronized void processMouseEvent(MouseEvent awtEvent) {
+    public void processMouseEvent(MouseEvent awtEvent) {
         for (GameMouseEvent event : this.mouseEvents) {
             if (event.matches(awtEvent)) {
                 this.eventDispatcher.dispatchMouse(event.getMessage(), awtEvent.getX(), awtEvent.getY());
