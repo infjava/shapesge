@@ -14,7 +14,7 @@ class GameEventDispatcher {
         this.eventQueue = new ArrayDeque<>();
     }
 
-    public synchronized void registerTarget(Object target) {
+    public void registerTarget(Object target) {
         this.targets.add(target);
     }
 
@@ -30,7 +30,7 @@ class GameEventDispatcher {
         this.eventQueue.add(new QueuedEvent(message, new Class[] {Integer.TYPE, Integer.TYPE}, new Object[] {x, y}));
     }
 
-    public synchronized void doEvents() {
+    public void doEvents() {
         while (!this.eventQueue.isEmpty()) {
             var event = this.eventQueue.pop();
             this.sendMessage(event);
