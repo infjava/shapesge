@@ -23,16 +23,32 @@ class GameEventDispatcher {
     }
 
     public void dispatchStandard(String message) {
-        this.eventQueue.add(new QueuedEvent(message));
+        var event = new QueuedEvent(message);
+
+        synchronized (this.eventQueue) {
+            this.eventQueue.add(event);
+        }
     }
 
     public void dispatchMouse(String message, int x, int y) {
-        this.eventQueue.add(new QueuedEvent(message, new Class[] {Integer.TYPE, Integer.TYPE}, new Object[] {x, y}));
+        var event = new QueuedEvent(message, new Class[] {Integer.TYPE, Integer.TYPE}, new Object[] {x, y});
+
+        synchronized (this.eventQueue) {
+            this.eventQueue.add(event);
+        }
     }
 
     public void doEvents() {
-        while (!this.eventQueue.isEmpty()) {
-            var event = this.eventQueue.pop();
+        for (;;) {
+            QueuedEvent event;
+
+            synchronized (this.eventQueue) {
+                if (this.eventQueue.isEmpty()) {
+                    return;
+                }
+                event = this.eventQueue.pop();
+            }
+
             this.sendMessage(event);
         }
     }
