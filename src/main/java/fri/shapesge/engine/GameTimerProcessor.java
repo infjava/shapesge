@@ -13,9 +13,8 @@ class GameTimerProcessor {
         this.timers = new ArrayList<>();
 
         var currentTime = System.nanoTime();
-        for (String message : gameConfig.getOptions(GameConfig.TIMER_SECTION)) {
-            var msInterval = gameConfig.getInt(GameConfig.TIMER_SECTION, message);
-            this.registerTimer(currentTime, msInterval, message);
+        for (var message : gameConfig.getOptions(GameConfig.TIMER_SECTION)) {
+            this.registerTimer(currentTime, message.getIntValue(), message.getOption());
         }
     }
 

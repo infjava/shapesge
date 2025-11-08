@@ -14,18 +14,20 @@ class GameInputProcessor {
         this.keyEvents = new ArrayList<>();
         this.mouseEvents = new ArrayList<>();
 
-        for (String message : gameConfig.getOptions(GameConfig.KEYBOARD_SECTION)) {
-            var eventDefinitions = gameConfig.get(GameConfig.KEYBOARD_SECTION, message).split(",");
+        for (var message : gameConfig.getOptions(GameConfig.KEYBOARD_SECTION)) {
+            var messageName = message.getOption();
+            var eventDefinitions = message.getValue().split(",");
             for (String eventDefinition : eventDefinitions) {
-                var keyEvent = gameParser.parseKeyEvent(eventDefinition, message);
+                var keyEvent = gameParser.parseKeyEvent(eventDefinition, messageName);
                 this.registerKeyEvent(keyEvent);
             }
         }
 
-        for (String message : gameConfig.getOptions(GameConfig.MOUSE_SECTION)) {
-            var eventDefinitions = gameConfig.get(GameConfig.MOUSE_SECTION, message).split(",");
+        for (var message : gameConfig.getOptions(GameConfig.MOUSE_SECTION)) {
+            var messageName = message.getOption();
+            var eventDefinitions = message.getValue().split(",");
             for (String eventDefinition : eventDefinitions) {
-                var mouseEvent = gameParser.parseMouseEvent(eventDefinition, message);
+                var mouseEvent = gameParser.parseMouseEvent(eventDefinition, messageName);
                 this.registerMouseEvent(mouseEvent);
             }
         }

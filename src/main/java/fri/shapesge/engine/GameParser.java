@@ -58,9 +58,8 @@ public class GameParser {
 
     GameParser(GameConfig gameConfig) {
         this.colorMap = new HashMap<>();
-        for (var colorName : gameConfig.getOptions(GameConfig.COLORS_SECTION)) {
-            var color = Color.decode(gameConfig.get(GameConfig.COLORS_SECTION, colorName));
-            this.colorMap.put(colorName, color);
+        for (var color : gameConfig.getOptions(GameConfig.COLORS_SECTION)) {
+            this.colorMap.put(color.getOption(), Color.decode(color.getValue()));
         }
 
         switch (gameConfig.get(GameConfig.SHAPES_SECTION, GameConfig.IMAGE_SOURCE).toLowerCase()) {

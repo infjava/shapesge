@@ -63,9 +63,13 @@ class GameConfigFile {
         return this.values.containsKey(section);
     }
 
-    public Iterable<String> getOptions(String section) {
+    public Iterable<GameConfigOption> getOptions(String section) {
         if (this.values.containsKey(section)) {
-            return this.values.get(section).keySet();
+            return this.values.get(section)
+                    .entrySet()
+                    .stream()
+                    .map(e -> new GameConfigOption(e.getKey(), e.getValue()))
+                    ::iterator; // creates iterable out of stream
         } else {
             return Collections.emptyList();
         }

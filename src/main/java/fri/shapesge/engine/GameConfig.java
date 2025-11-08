@@ -94,7 +94,7 @@ class GameConfig {
         throw new RuntimeException(String.format("Config %s/%s missing", section, option));
     }
 
-    public Iterable<String> getOptions(String section) {
+    public Iterable<GameConfigOption> getOptions(String section) {
         for (GameConfigFile configFile : this.configFiles) {
             if (configFile.contains(section)) {
                 return configFile.getOptions(section);
