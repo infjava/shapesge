@@ -143,7 +143,7 @@ public class GameParser {
 
     /**
      * Converts the image to a compatible image,
-     * inspired by https://stackoverflow.com/a/19659301
+     * inspired by <a href="https://stackoverflow.com/a/19659301">https://stackoverflow.com/a/19659301</a>
      */
     private static BufferedImage toCompatibleImage(BufferedImage image) {
         if (image.getColorModel().equals(DEFAULT_COLOR_MODEL)) {
