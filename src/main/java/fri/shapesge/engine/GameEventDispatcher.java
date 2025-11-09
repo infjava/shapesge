@@ -60,10 +60,14 @@ class GameEventDispatcher {
                 method.invoke(target, event.getParameterValues());
             } catch (NoSuchMethodException e) {
                 // do nothing here
-            } catch (SecurityException | IllegalArgumentException | IllegalAccessException |
-                     InvocationTargetException e) {
+            } catch (InvocationTargetException e) {
                 //noinspection CallToPrintStackTrace
-                e.printStackTrace();
+                e.getTargetException().printStackTrace();
+                System.exit(1);
+            } catch (Throwable t) {
+                //noinspection CallToPrintStackTrace
+                t.printStackTrace();
+                System.exit(1);
             }
         }
     }
