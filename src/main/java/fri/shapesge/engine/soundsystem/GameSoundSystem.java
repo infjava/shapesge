@@ -111,6 +111,21 @@ public final class GameSoundSystem implements AutoCloseable {
         this.effects.clear();
     }
 
+    void changeActiveMusic(AbstractMusic music) {
+        if (this.activeMusic != null && this.activeMusic != music) {
+            this.activeMusic.stop();
+        }
+
+        this.activeMusic = music;
+    }
+
+    void clearActiveMusic(AbstractMusic music) {
+        if (this.activeMusic != music) {
+            return;
+        }
+
+        this.activeMusic = null;
+    }
 
     private static int clamp127(int v) {
         return Math.max(0, Math.min(127, v));
@@ -136,12 +151,8 @@ public final class GameSoundSystem implements AutoCloseable {
 
         @Override
         public final synchronized void play() {
-            // stop previous
-            if (GameSoundSystem.this.activeMusic != null && GameSoundSystem.this.activeMusic != this) {
-                GameSoundSystem.this.activeMusic.stop();
-            }
+            GameSoundSystem.this.changeActiveMusic(this);
 
-            GameSoundSystem.this.activeMusic = this;
             this.startImpl();
             this.applyVolume();
         }
@@ -236,9 +247,8 @@ public final class GameSoundSystem implements AutoCloseable {
                     // do nothing here
                 }
             }
-            if (GameSoundSystem.this.activeMusic == this) {
-                GameSoundSystem.this.activeMusic = null;
-            }
+
+            GameSoundSystem.this.clearActiveMusic(this);
         }
 
         @Override
@@ -307,9 +317,8 @@ public final class GameSoundSystem implements AutoCloseable {
                     this.running.set(false);
                 }
             }
-            if (GameSoundSystem.this.activeMusic == this) {
-                GameSoundSystem.this.activeMusic = null;
-            }
+
+            GameSoundSystem.this.clearActiveMusic(this);
         }
 
         @Override
