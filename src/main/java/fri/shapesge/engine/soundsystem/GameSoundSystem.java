@@ -204,7 +204,7 @@ public final class GameSoundSystem implements AutoCloseable {
                 return;
             }
 
-            int volume = GameSoundSystem.this.musicVolume;
+            var volume = GameSoundSystem.this.getMusicVolume();
             for (var ch : currentSynthesizer.getChannels()) {
                 if (ch != null) {
                     ch.controlChange(7, volume);  // channel volume
@@ -321,7 +321,7 @@ public final class GameSoundSystem implements AutoCloseable {
 
             if (line.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
                 FloatControl c = (FloatControl)line.getControl(FloatControl.Type.MASTER_GAIN);
-                c.setValue(dbFor127(c, GameSoundSystem.this.musicVolume));
+                c.setValue(dbFor127(c, GameSoundSystem.this.getMusicVolume()));
             }
         }
 
@@ -515,7 +515,7 @@ public final class GameSoundSystem implements AutoCloseable {
         private void applyVolume(Clip c) {
             if (c.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
                 FloatControl fc = (FloatControl)c.getControl(FloatControl.Type.MASTER_GAIN);
-                fc.setValue(dbFor127(fc, GameSoundSystem.this.effectsVolume));
+                fc.setValue(dbFor127(fc, GameSoundSystem.this.getSoundEffectsVolume()));
             }
         }
 
