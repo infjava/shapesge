@@ -7,7 +7,7 @@ import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequencer;
 import javax.sound.midi.Synthesizer;
 
-class MidiMusic implements Music {
+class MidiMusic implements MusicHandle {
     private final GameParser gameParser;
     private final String path;
     private final GameSoundSystem gameSoundSystem;

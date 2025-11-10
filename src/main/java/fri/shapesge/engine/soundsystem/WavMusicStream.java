@@ -8,7 +8,7 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.SourceDataLine;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-class WavMusicStream implements Music {
+class WavMusicStream implements MusicHandle {
     private final GameParser gameParser;
     private final String path;
     private final GameSoundSystem gameSoundSystem;

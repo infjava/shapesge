@@ -14,7 +14,7 @@ public final class GameSoundSystem implements AutoCloseable {
     private volatile int musicVolume;
     private volatile int effectsVolume;
 
-    private Music activeMusic;
+    private MusicHandle activeMusic;
 
     public GameSoundSystem(GameParser gameParser) {
         this.gameParser = gameParser;
@@ -24,8 +24,8 @@ public final class GameSoundSystem implements AutoCloseable {
     }
 
     // 0..127
-    public synchronized void setMusicVolume(int v) {
-        this.musicVolume = clamp127(v);
+    public synchronized void setMusicVolume(int volume) {
+        this.musicVolume = clamp127(volume);
         if (this.activeMusic != null) {
             this.activeMusic.applyVolume();
         }
@@ -35,8 +35,8 @@ public final class GameSoundSystem implements AutoCloseable {
         return this.musicVolume;
     }
 
-    public synchronized void setSoundEffectsVolume(int v) {
-        this.effectsVolume = clamp127(v);
+    public synchronized void setSoundEffectsVolume(int volume) {
+        this.effectsVolume = clamp127(volume);
         for (var effect : this.effects) {
             effect.applyVolumeAllVoices();
         }
@@ -46,7 +46,7 @@ public final class GameSoundSystem implements AutoCloseable {
         return this.effectsVolume;
     }
 
-    public synchronized Music createMusic(String path) {
+    public synchronized MusicHandle createMusic(String path) {
         var normalizedPath = path.toLowerCase(Locale.ROOT);
 
         if (normalizedPath.endsWith(".mid") || normalizedPath.endsWith(".midi")) {
@@ -58,7 +58,7 @@ public final class GameSoundSystem implements AutoCloseable {
         }
     }
 
-    public synchronized SoundEffect createSoundEffect(String path) {
+    public synchronized SoundEffectHandle createSoundEffect(String path) {
         var normalizedPath = path.toLowerCase(Locale.ROOT);
 
         if (!(normalizedPath.endsWith(".wav") || normalizedPath.endsWith(".aiff") || normalizedPath.endsWith(".au"))) {
@@ -87,7 +87,7 @@ public final class GameSoundSystem implements AutoCloseable {
         this.effects.clear();
     }
 
-    void changeActiveMusic(Music music) {
+    void changeActiveMusic(MusicHandle music) {
         if (this.activeMusic != null && this.activeMusic != music) {
             this.activeMusic.stop();
         }
@@ -95,7 +95,7 @@ public final class GameSoundSystem implements AutoCloseable {
         this.activeMusic = music;
     }
 
-    void clearActiveMusic(Music music) {
+    void clearActiveMusic(MusicHandle music) {
         if (this.activeMusic != music) {
             return;
         }

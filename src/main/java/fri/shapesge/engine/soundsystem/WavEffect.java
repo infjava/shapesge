@@ -9,7 +9,7 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineEvent;
 import java.io.ByteArrayOutputStream;
 
-class WavEffect implements SoundEffect, AutoCloseable {
+class WavEffect implements SoundEffectHandle, AutoCloseable {
     private final boolean[] runningFlags;
     private final Clip[] pool;
     private final GameSoundSystem gameSoundSystem;
