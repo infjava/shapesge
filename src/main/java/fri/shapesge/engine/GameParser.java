@@ -68,7 +68,7 @@ public class GameParser {
             this.colorMap.put(color.getOption(), Color.decode(color.getValue()));
         }
 
-        String assetSource;
+        String assetSourceValue;
 
         if (gameConfig.contains(GameConfig.SHAPES_SECTION, GameConfig.IMAGE_SOURCE)) {
             System.out.format(
@@ -79,12 +79,12 @@ public class GameParser {
                     GameConfig.ASSET_SOURCE
             );
 
-            assetSource = gameConfig.get(GameConfig.SHAPES_SECTION, GameConfig.IMAGE_SOURCE);
+            assetSourceValue = gameConfig.get(GameConfig.SHAPES_SECTION, GameConfig.IMAGE_SOURCE);
         } else {
-            assetSource = gameConfig.get(GameConfig.ASSETS_SECTION, GameConfig.ASSET_SOURCE);
+            assetSourceValue = gameConfig.get(GameConfig.ASSETS_SECTION, GameConfig.ASSET_SOURCE);
         }
 
-        switch (assetSource.toLowerCase()) {
+        switch (assetSourceValue.toLowerCase()) {
             case GameConfig.ASSET_SOURCE_RESOURCE:
                 this.assetSource = AssetSource.RESOURCE;
                 break;

@@ -2,7 +2,6 @@ package fri.shapesge.engine.soundsystem;
 
 import fri.shapesge.engine.GameParser;
 
-import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.SourceDataLine;
@@ -18,7 +17,6 @@ class WavMusicStream implements MusicHandle {
     private Thread worker;
     private final AtomicBoolean running;
     private volatile SourceDataLine currentLine;
-    private volatile AudioFormat pcmFormat;
 
     WavMusicStream(GameParser gameParser, String path, GameSoundSystem gameSoundSystem) {
         this.gameParser = gameParser;
@@ -57,7 +55,6 @@ class WavMusicStream implements MusicHandle {
             try (var src = this.gameParser.parseWaveAudio(this.path)) {
                 var base = src.getFormat();
                 var pcm = WavUtils.ensurePcm(base);
-                this.pcmFormat = pcm;
 
                 try (var ais = AudioSystem.getAudioInputStream(pcm, src)) {
                     DataLine.Info info = new DataLine.Info(SourceDataLine.class, pcm);
