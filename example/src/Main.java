@@ -3,6 +3,9 @@ import fri.shapesge.FontStyle;
 import fri.shapesge.Image;
 import fri.shapesge.ImageData;
 import fri.shapesge.Manager;
+import fri.shapesge.Music;
+import fri.shapesge.SoundEffect;
+import fri.shapesge.SoundMixer;
 import fri.shapesge.Square;
 import fri.shapesge.TextBlock;
 import fri.shapesge.Triangle;
@@ -11,6 +14,13 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
+        new SoundMixer().changeMusicVolume(32);
+
+        var music = new Music("music.midi");
+        music.play();
+
+        var sfx = new SoundEffect("boom.wav");
+
         Square square = new Square();
         square.makeVisible();
 
@@ -37,6 +47,7 @@ public class Main {
         Manager manager = new Manager();
         manager.manageObject(triangle);
         manager.manageObject(new ManagedTest(circle, randomCircle));
+        manager.manageObject(sfx);
     }
 
     @SuppressWarnings("unused")
