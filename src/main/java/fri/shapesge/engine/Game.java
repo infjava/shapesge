@@ -1,6 +1,7 @@
 package fri.shapesge.engine;
 
 import fri.shapesge.drawables.GameDrawable;
+import fri.shapesge.engine.soundsystem.GameSoundSystem;
 
 public class Game {
     private static final Game INSTANCE = new Game();
@@ -24,6 +25,7 @@ public class Game {
     private final GameTimerProcessor gameTimerProcessor;
     private final GameObjects gameObjects;
     private final GameWindow gameWindow;
+    private final GameSoundSystem gameSoundSystem;
 
     private Game() {
         var gameConfig = new GameConfig();
@@ -49,6 +51,7 @@ public class Game {
                 this.gameParser,
                 this.gameEventDispatcher
         );
+        this.gameSoundSystem = new GameSoundSystem(this.gameParser);
         this.gameLoop = new GameLoop(
                 this.gameWindow,
                 this.gameTimerProcessor,
@@ -85,5 +88,9 @@ public class Game {
 
     public void deregisterEventTarget(Object target) {
         this.gameEventDispatcher.deregisterTarget(target);
+    }
+
+    public GameSoundSystem getGameSoundSystem() {
+        return this.gameSoundSystem;
     }
 }

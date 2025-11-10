@@ -1,14 +1,16 @@
 package fri.shapesge.engine.soundsystem;
 
+import fri.shapesge.engine.GameParser;
+
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.SourceDataLine;
-import java.io.File;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 class WavMusicStream implements Music {
-    private final File file;
+    private final GameParser gameParser;
+    private final String path;
     private final GameSoundSystem gameSoundSystem;
 
     private volatile boolean repeating;
@@ -18,10 +20,11 @@ class WavMusicStream implements Music {
     private volatile SourceDataLine currentLine;
     private volatile AudioFormat pcmFormat;
 
-    WavMusicStream(File file, GameSoundSystem gameSoundSystem) {
+    WavMusicStream(GameParser gameParser, String path, GameSoundSystem gameSoundSystem) {
+        this.gameParser = gameParser;
+        this.path = path;
         this.gameSoundSystem = gameSoundSystem;
         this.repeating = true;
-        this.file = file;
         this.running = new AtomicBoolean(false);
     }
 
@@ -51,7 +54,7 @@ class WavMusicStream implements Music {
 
     private void runLoop() {
         while (this.running.get()) {
-            try (var src = AudioSystem.getAudioInputStream(this.file)) {
+            try (var src = this.gameParser.parseWaveAudio(this.path)) {
                 var base = src.getFormat();
                 var pcm = WavUtils.ensurePcm(base);
                 this.pcmFormat = pcm;

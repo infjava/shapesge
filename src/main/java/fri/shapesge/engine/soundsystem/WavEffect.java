@@ -1,12 +1,13 @@
 package fri.shapesge.engine.soundsystem;
 
-import javax.sound.sampled.AudioInputStream;
+import fri.shapesge.engine.GameParser;
+import fri.shapesge.engine.ShapesGEException;
+
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineEvent;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 
 class WavEffect implements SoundEffect, AutoCloseable {
     private final boolean[] runningFlags;
@@ -14,9 +15,9 @@ class WavEffect implements SoundEffect, AutoCloseable {
     private final GameSoundSystem gameSoundSystem;
     private volatile boolean repeating;
 
-    WavEffect(File file, int voices, GameSoundSystem gameSoundSystem) {
+    WavEffect(GameParser gameParser, String path, int voices, GameSoundSystem gameSoundSystem) {
         this.gameSoundSystem = gameSoundSystem;
-        try (AudioInputStream src = AudioSystem.getAudioInputStream(file)) {
+        try (var src = gameParser.parseWaveAudio(path)) {
             var base = src.getFormat();
             var pcm = WavUtils.ensurePcm(base);
 
@@ -61,7 +62,7 @@ class WavEffect implements SoundEffect, AutoCloseable {
                 this.applyVolumeAllVoices();
             }
         } catch (Exception e) {
-            throw new SoundSystemException("SFX load failed: " + file, e);
+            throw new ShapesGEException("SFX load failed: " + path, e);
         }
 
         this.repeating = false;

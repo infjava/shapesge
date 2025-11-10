@@ -1,20 +1,23 @@
 package fri.shapesge.engine.soundsystem;
 
-import java.io.File;
+import fri.shapesge.engine.GameParser;
+import fri.shapesge.engine.ShapesGEException;
+
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.Objects;
 
 public final class GameSoundSystem implements AutoCloseable {
     private static final int SFX_VOICES = 8;
 
     private final ArrayList<WavEffect> effects;
+    private final GameParser gameParser;
     private volatile int musicVolume;
     private volatile int effectsVolume;
 
     private Music activeMusic;
 
-    public GameSoundSystem() {
+    public GameSoundSystem(GameParser gameParser) {
+        this.gameParser = gameParser;
         this.effects = new ArrayList<>();
         this.musicVolume = 127;
         this.effectsVolume = 127;
@@ -44,39 +47,25 @@ public final class GameSoundSystem implements AutoCloseable {
     }
 
     public synchronized Music createMusic(String path) {
-        Objects.requireNonNull(path, "path");
-
-        var file = new File(path);
-        if (!file.isFile()) {
-            throw new SoundSystemException("file not found: " + path);
-        }
-
         var normalizedPath = path.toLowerCase(Locale.ROOT);
 
         if (normalizedPath.endsWith(".mid") || normalizedPath.endsWith(".midi")) {
-            return new MidiMusic(file, this);
+            return new MidiMusic(this.gameParser, path, this);
         } else if (normalizedPath.endsWith(".wav") || normalizedPath.endsWith(".aiff") || normalizedPath.endsWith(".au")) {
-            return new WavMusicStream(file, this);
+            return new WavMusicStream(this.gameParser, path, this);
         } else {
-            throw new SoundSystemException("unsupported music format: " + path);
+            throw new ShapesGEException("unsupported music format: " + path);
         }
     }
 
     public synchronized SoundEffect createSoundEffect(String path) {
-        Objects.requireNonNull(path, "path");
-
-        var file = new File(path);
-        if (!file.isFile()) {
-            throw new SoundSystemException("file not found: " + path);
-        }
-
         var normalizedPath = path.toLowerCase(Locale.ROOT);
 
         if (!(normalizedPath.endsWith(".wav") || normalizedPath.endsWith(".aiff") || normalizedPath.endsWith(".au"))) {
-            throw new SoundSystemException("unsupported SFX format (use WAV/AIFF/AU): " + path);
+            throw new ShapesGEException("unsupported SFX format (use WAV/AIFF/AU): " + path);
         }
 
-        var effect = new WavEffect(file, SFX_VOICES, this);
+        var effect = new WavEffect(this.gameParser, path, SFX_VOICES, this);
         this.effects.add(effect);
         return effect;
     }

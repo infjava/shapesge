@@ -1,6 +1,12 @@
 package fri.shapesge.engine;
 
 import javax.imageio.ImageIO;
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.Sequence;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.Color;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
@@ -18,7 +24,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class GameParser {
-    private enum ImageSource {
+    private enum AssetSource {
         FILE,
         RESOURCE
     }
@@ -54,7 +60,7 @@ public class GameParser {
     );
 
     private final HashMap<String, Color> colorMap;
-    private final ImageSource imageSource;
+    private final AssetSource assetSource;
 
     GameParser(GameConfig gameConfig) {
         this.colorMap = new HashMap<>();
@@ -62,12 +68,28 @@ public class GameParser {
             this.colorMap.put(color.getOption(), Color.decode(color.getValue()));
         }
 
-        switch (gameConfig.get(GameConfig.SHAPES_SECTION, GameConfig.IMAGE_SOURCE).toLowerCase()) {
-            case GameConfig.IMAGE_SOURCE_RESOURCE:
-                this.imageSource = ImageSource.RESOURCE;
+        String assetSource;
+
+        if (gameConfig.contains(GameConfig.SHAPES_SECTION, GameConfig.IMAGE_SOURCE)) {
+            System.out.format(
+                "ShapesGE: Using deprecated [%s]/%s setting, use [%s]/%s instead",
+                    GameConfig.SHAPES_SECTION,
+                    GameConfig.IMAGE_SOURCE,
+                    GameConfig.ASSETS_SECTION,
+                    GameConfig.ASSET_SOURCE
+            );
+
+            assetSource = gameConfig.get(GameConfig.SHAPES_SECTION, GameConfig.IMAGE_SOURCE);
+        } else {
+            assetSource = gameConfig.get(GameConfig.ASSETS_SECTION, GameConfig.ASSET_SOURCE);
+        }
+
+        switch (assetSource.toLowerCase()) {
+            case GameConfig.ASSET_SOURCE_RESOURCE:
+                this.assetSource = AssetSource.RESOURCE;
                 break;
-            case GameConfig.IMAGE_SOURCE_FILE:
-                this.imageSource = ImageSource.FILE;
+            case GameConfig.ASSET_SOURCE_FILE:
+                this.assetSource = AssetSource.FILE;
                 break;
             default:
                 throw new RuntimeException("Invalid image source");
@@ -120,7 +142,7 @@ public class GameParser {
         BufferedImage loadedImage = null;
 
         try {
-            switch (this.imageSource) {
+            switch (this.assetSource) {
                 case FILE:
                     loadedImage = ImageIO.read(new File(imagePath));
                     break;
@@ -160,6 +182,56 @@ public class GameParser {
         }
 
         return compatibleImage;
+    }
+
+    public AudioInputStream parseWaveAudio(String audioPath) {
+        AudioInputStream loadedAudio = null;
+
+        try {
+            switch (this.assetSource) {
+                case FILE:
+                    loadedAudio = AudioSystem.getAudioInputStream(new File(audioPath));
+                    break;
+                case RESOURCE:
+                    InputStream resource = ClassLoader.getSystemResourceAsStream(audioPath);
+                    if (resource != null) {
+                        loadedAudio = AudioSystem.getAudioInputStream(resource);
+                    }
+                    break;
+            }
+        } catch (IOException | UnsupportedAudioFileException ignored) {
+        }
+
+        if (loadedAudio == null) {
+            throw new ShapesGEException("File " + audioPath + " was not found.");
+        } else {
+            return loadedAudio;
+        }
+    }
+
+    public Sequence parseMidiAudio(String audioPath) {
+        Sequence loadedAudio = null;
+
+        try {
+            switch (this.assetSource) {
+                case FILE:
+                    loadedAudio = MidiSystem.getSequence(new File(audioPath));
+                    break;
+                case RESOURCE:
+                    InputStream resource = ClassLoader.getSystemResourceAsStream(audioPath);
+                    if (resource != null) {
+                        loadedAudio = MidiSystem.getSequence(resource);
+                    }
+                    break;
+            }
+        } catch (IOException | InvalidMidiDataException ignored) {
+        }
+
+        if (loadedAudio == null) {
+            throw new ShapesGEException("File " + audioPath + " was not found.");
+        } else {
+            return loadedAudio;
+        }
     }
 
     GameKeyEvent parseKeyEvent(String keyEvent, String message) {

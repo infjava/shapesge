@@ -19,8 +19,6 @@ class GameConfig {
 
     public static final String SHAPES_SECTION = "Shapes";
     public static final String IMAGE_SOURCE = "ImageSource";
-    public static final String IMAGE_SOURCE_RESOURCE = "resource";
-    public static final String IMAGE_SOURCE_FILE = "file";
 
     public static final String KEYBOARD_SECTION = "Keyboard";
 
@@ -28,6 +26,11 @@ class GameConfig {
 
     public static final String TIMER_SECTION = "Timers";
     public static final String COLORS_SECTION = "Colors";
+
+    public static final String ASSETS_SECTION = "Assets";
+    public static final String ASSET_SOURCE = "AssetSource";
+    public static final String ASSET_SOURCE_RESOURCE = "resource";
+    public static final String ASSET_SOURCE_FILE = "file";
 
     private final ArrayList<GameConfigFile> configFiles;
 

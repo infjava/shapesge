@@ -1,12 +1,15 @@
 package fri.shapesge.engine.soundsystem;
 
+import fri.shapesge.engine.GameParser;
+import fri.shapesge.engine.ShapesGEException;
+
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequencer;
 import javax.sound.midi.Synthesizer;
-import java.io.File;
 
 class MidiMusic implements Music {
-    private final File file;
+    private final GameParser gameParser;
+    private final String path;
     private final GameSoundSystem gameSoundSystem;
 
     private volatile boolean repeating;
@@ -14,10 +17,11 @@ class MidiMusic implements Music {
     private Sequencer sequencer;
     private Synthesizer synthesizer;
 
-    MidiMusic(File file, GameSoundSystem gameSoundSystem) {
+    MidiMusic(GameParser gameParser, String path, GameSoundSystem gameSoundSystem) {
+        this.gameParser = gameParser;
+        this.path = path;
         this.gameSoundSystem = gameSoundSystem;
         this.repeating = true;
-        this.file = file;
     }
 
     @Override
@@ -47,13 +51,13 @@ class MidiMusic implements Music {
             this.sequencer.open();
             this.synthesizer.open();
             this.sequencer.getTransmitter().setReceiver(this.synthesizer.getReceiver());
-            var sequence = MidiSystem.getSequence(this.file);
+            var sequence = this.gameParser.parseMidiAudio(this.path);
             this.sequencer.setSequence(sequence);
             this.sequencer.setLoopCount(this.getRepeating() ? Sequencer.LOOP_CONTINUOUSLY : 0);
             this.sequencer.start();
         } catch (Exception e) {
             this.stop();
-            throw new SoundSystemException("MIDI start failed: " + this.file, e);
+            throw new ShapesGEException("MIDI start failed: " + this.path, e);
         }
 
         this.applyVolume();
