@@ -212,6 +212,12 @@ class GameWindow {
         }
 
         public synchronized void redraw() {
+            // Check if component is displayable (has a valid peer) before creating buffer strategy
+            // This prevents IllegalStateException on macOS where component may not be ready yet
+            if (!this.isDisplayable()) {
+                return;
+            }
+
             var bufferStrategy = this.getBufferStrategy();
             if (bufferStrategy == null) {
                 this.createBufferStrategy(2);
