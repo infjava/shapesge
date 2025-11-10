@@ -6,4 +6,6 @@ public interface Music {
     void play();
     void stop();
     boolean isPlaying();
+
+    void applyVolume();
 }

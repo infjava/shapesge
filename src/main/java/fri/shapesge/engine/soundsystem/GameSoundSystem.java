@@ -13,7 +13,7 @@ public final class GameSoundSystem implements AutoCloseable {
     private volatile int musicVolume;
     private volatile int effectsVolume;
 
-    private AbstractMusic activeMusic;
+    private Music activeMusic;
 
     public GameSoundSystem() {
         this.effects = new ArrayList<>();
@@ -99,7 +99,7 @@ public final class GameSoundSystem implements AutoCloseable {
         this.effects.clear();
     }
 
-    void changeActiveMusic(AbstractMusic music) {
+    void changeActiveMusic(Music music) {
         if (this.activeMusic != null && this.activeMusic != music) {
             this.activeMusic.stop();
         }
@@ -107,7 +107,7 @@ public final class GameSoundSystem implements AutoCloseable {
         this.activeMusic = music;
     }
 
-    void clearActiveMusic(AbstractMusic music) {
+    void clearActiveMusic(Music music) {
         if (this.activeMusic != music) {
             return;
         }

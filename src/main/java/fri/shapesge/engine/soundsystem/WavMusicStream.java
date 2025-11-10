@@ -8,26 +8,46 @@ import javax.sound.sampled.SourceDataLine;
 import java.io.File;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-class WavMusicStream extends AbstractMusic {
+class WavMusicStream implements Music {
     private final File file;
+    private final GameSoundSystem gameSoundSystem;
+
+    private volatile boolean repeating;
+
     private Thread worker;
     private final AtomicBoolean running;
     private volatile SourceDataLine currentLine;
     private volatile AudioFormat pcmFormat;
 
     WavMusicStream(File file, GameSoundSystem gameSoundSystem) {
-        super(gameSoundSystem);
+        this.gameSoundSystem = gameSoundSystem;
+        this.repeating = true;
         this.file = file;
         this.running = new AtomicBoolean(false);
     }
 
     @Override
-    protected void startImpl() {
+    public final void setRepeating(boolean repeating) {
+        this.repeating = repeating;
+    }
+
+    @Override
+    public final boolean getRepeating() {
+        return this.repeating;
+    }
+
+
+    @Override
+    public final synchronized void play() {
+        this.gameSoundSystem.changeActiveMusic(this);
+
         this.stop();
         this.running.set(true);
         this.worker = new Thread(this::runLoop, "music-wav");
         this.worker.setDaemon(true);
         this.worker.start();
+
+        this.applyVolume();
     }
 
     private void runLoop() {
@@ -69,11 +89,11 @@ class WavMusicStream extends AbstractMusic {
             }
         }
 
-        this.getGameSoundSystem().clearActiveMusic(this);
+        this.gameSoundSystem.clearActiveMusic(this);
     }
 
     @Override
-    protected void applyVolume() {
+    public void applyVolume() {
         var line = this.currentLine;
         if (line == null) {
             return;
@@ -81,7 +101,7 @@ class WavMusicStream extends AbstractMusic {
 
         if (line.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
             FloatControl c = (FloatControl)line.getControl(FloatControl.Type.MASTER_GAIN);
-            c.setValue(GameSoundSystem.dbFor127(c, this.getGameSoundSystem().getMusicVolume()));
+            c.setValue(GameSoundSystem.dbFor127(c, this.gameSoundSystem.getMusicVolume()));
         }
     }
 
@@ -107,7 +127,7 @@ class WavMusicStream extends AbstractMusic {
             }
         }
 
-        this.getGameSoundSystem().clearActiveMusic(this);
+        this.gameSoundSystem.clearActiveMusic(this);
     }
 
     @Override

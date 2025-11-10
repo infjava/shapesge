@@ -5,19 +5,42 @@ import javax.sound.midi.Sequencer;
 import javax.sound.midi.Synthesizer;
 import java.io.File;
 
-class MidiMusic extends AbstractMusic {
+class MidiMusic implements Music {
     private final File file;
+    private final GameSoundSystem gameSoundSystem;
+
+    private volatile boolean repeating;
+
     private Sequencer sequencer;
     private Synthesizer synthesizer;
 
     MidiMusic(File file, GameSoundSystem gameSoundSystem) {
-        super(gameSoundSystem);
+        this.gameSoundSystem = gameSoundSystem;
+        this.repeating = true;
         this.file = file;
     }
 
     @Override
-    protected void startImpl() {
+    public final void setRepeating(boolean repeating) {
+        this.repeating = repeating;
+
+        var currentSequencer = this.sequencer;
+        if (currentSequencer != null && currentSequencer.isOpen()) {
+            currentSequencer.setLoopCount(this.getRepeating() ? Sequencer.LOOP_CONTINUOUSLY : 0);
+        }
+    }
+
+    @Override
+    public final boolean getRepeating() {
+        return this.repeating;
+    }
+
+    @Override
+    public final synchronized void play() {
+        this.gameSoundSystem.changeActiveMusic(this);
+
         this.stop(); // ensure clean state
+
         try {
             this.sequencer = MidiSystem.getSequencer(false);
             this.synthesizer = MidiSystem.getSynthesizer();
@@ -32,24 +55,18 @@ class MidiMusic extends AbstractMusic {
             this.stop();
             throw new SoundSystemException("MIDI start failed: " + this.file, e);
         }
+
+        this.applyVolume();
     }
 
     @Override
-    protected void onRepeatChanged() {
-        var currentSequencer = this.sequencer;
-        if (currentSequencer != null && currentSequencer.isOpen()) {
-            currentSequencer.setLoopCount(this.getRepeating() ? Sequencer.LOOP_CONTINUOUSLY : 0);
-        }
-    }
-
-    @Override
-    protected void applyVolume() {
+    public void applyVolume() {
         var currentSynthesizer = this.synthesizer;
         if (currentSynthesizer == null) {
             return;
         }
 
-        var volume = this.getGameSoundSystem().getMusicVolume();
+        var volume = this.gameSoundSystem.getMusicVolume();
         for (var ch : currentSynthesizer.getChannels()) {
             if (ch != null) {
                 ch.controlChange(7, volume);  // channel volume
@@ -82,7 +99,7 @@ class MidiMusic extends AbstractMusic {
             }
         }
 
-        this.getGameSoundSystem().clearActiveMusic(this);
+        this.gameSoundSystem.clearActiveMusic(this);
     }
 
     @Override
