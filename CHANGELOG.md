@@ -7,9 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Classes `Music`, `SoundEffect`, and `SoundMixer` makes it possible
+to use sounds in a ShapesGE game.
+
 ### Changed
 - Changing bitmap color model to optimize performance
 - Exception is thrown when trying to load image from non-existing resource or file
+- Some minor performance optimizations
+- Better multithreading support
+- Better exception report in terminal
+- Unhandled exception causes program to crash
+
+### Fixed
+- MacOs X deployment should no longer crash if rendering is started too soon
 
 ## [2.0.4] - 2023-12-14
 
