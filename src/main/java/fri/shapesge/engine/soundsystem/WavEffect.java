@@ -1,11 +1,9 @@
 package fri.shapesge.engine.soundsystem;
 
-import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
-import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineEvent;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -20,7 +18,7 @@ class WavEffect implements SoundEffect, AutoCloseable {
         this.gameSoundSystem = gameSoundSystem;
         try (AudioInputStream src = AudioSystem.getAudioInputStream(file)) {
             var base = src.getFormat();
-            var pcm = this.ensurePcm(base);
+            var pcm = WavUtils.ensurePcm(base);
 
             try (var ais = AudioSystem.getAudioInputStream(pcm, src); var baos = new ByteArrayOutputStream(64 * 1024)) {
                 var buffer = new byte[8192];
@@ -87,7 +85,7 @@ class WavEffect implements SoundEffect, AutoCloseable {
             return;
         }
 
-        this.applyVolume(clip);
+        WavUtils.applyVolume(clip, this.gameSoundSystem.getSoundEffectsVolume());
 
         if (clip.isRunning()) {
             clip.stop();
@@ -146,30 +144,7 @@ class WavEffect implements SoundEffect, AutoCloseable {
 
     public void applyVolumeAllVoices() {
         for (var clip : this.pool) {
-            this.applyVolume(clip);
+            WavUtils.applyVolume(clip, this.gameSoundSystem.getSoundEffectsVolume());
         }
-    }
-
-    private void applyVolume(Clip c) {
-        if (c.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
-            FloatControl fc = (FloatControl)c.getControl(FloatControl.Type.MASTER_GAIN);
-            fc.setValue(GameSoundSystem.dbFor127(fc, this.gameSoundSystem.getSoundEffectsVolume()));
-        }
-    }
-
-    private AudioFormat ensurePcm(AudioFormat base) {
-        if (AudioFormat.Encoding.PCM_SIGNED.equals(base.getEncoding()) && base.getSampleSizeInBits() == 16) {
-            return base;
-        }
-
-        return new AudioFormat(
-                AudioFormat.Encoding.PCM_SIGNED,
-                base.getSampleRate(),
-                16,
-                base.getChannels(),
-                base.getChannels() * 2,
-                base.getSampleRate(),
-                false
-        );
     }
 }

@@ -1,6 +1,5 @@
 package fri.shapesge.engine.soundsystem;
 
-import javax.sound.sampled.FloatControl;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -117,18 +116,5 @@ public final class GameSoundSystem implements AutoCloseable {
 
     static int clamp127(int v) {
         return Math.max(0, Math.min(127, v));
-    }
-
-    static float dbFor127(FloatControl ctrl, int volume) {
-        if (volume <= 0) {
-            return ctrl.getMinimum();
-        }
-
-        var lin = volume / 127f;                 // 0..1
-        var db = (float)(20.0 * Math.log10(lin)); // 0 -> -inf, 1 -> 0 dB
-        db = Math.max(ctrl.getMinimum(), Math.min(0f, db));
-        db = Math.max(ctrl.getMinimum(), Math.min(ctrl.getMaximum(), db));
-
-        return db;
     }
 }

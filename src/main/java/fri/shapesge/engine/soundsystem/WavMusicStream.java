@@ -3,7 +3,6 @@ package fri.shapesge.engine.soundsystem;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
-import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.SourceDataLine;
 import java.io.File;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -54,7 +53,7 @@ class WavMusicStream implements Music {
         while (this.running.get()) {
             try (var src = AudioSystem.getAudioInputStream(this.file)) {
                 var base = src.getFormat();
-                var pcm = this.ensurePcm(base);
+                var pcm = WavUtils.ensurePcm(base);
                 this.pcmFormat = pcm;
 
                 try (var ais = AudioSystem.getAudioInputStream(pcm, src)) {
@@ -99,10 +98,7 @@ class WavMusicStream implements Music {
             return;
         }
 
-        if (line.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
-            FloatControl c = (FloatControl)line.getControl(FloatControl.Type.MASTER_GAIN);
-            c.setValue(GameSoundSystem.dbFor127(c, this.gameSoundSystem.getMusicVolume()));
-        }
+        WavUtils.applyVolume(line, this.gameSoundSystem.getMusicVolume());
     }
 
     @Override
@@ -134,21 +130,5 @@ class WavMusicStream implements Music {
     public boolean isPlaying() {
         var workerThread = this.worker;
         return workerThread != null && workerThread.isAlive();
-    }
-
-    private AudioFormat ensurePcm(AudioFormat base) {
-        if (AudioFormat.Encoding.PCM_SIGNED.equals(base.getEncoding()) && base.getSampleSizeInBits() == 16) {
-            return base;
-        }
-
-        return new AudioFormat(
-                AudioFormat.Encoding.PCM_SIGNED,
-                base.getSampleRate(),
-                16,
-                base.getChannels(),
-                base.getChannels() * 2,
-                base.getSampleRate(),
-                false
-        );
     }
 }
