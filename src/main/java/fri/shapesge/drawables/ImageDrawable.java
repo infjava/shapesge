@@ -8,10 +8,12 @@ import java.awt.image.BufferedImage;
 
 public class ImageDrawable extends TranslatableDrawable {
     private BufferedImage image;
+    private boolean isFlipped;
 
     public ImageDrawable(int x, int y, int angle, BufferedImage image) {
         super(x, y, angle);
         this.image = image;
+        this.isFlipped = false;
     }
 
     public void changeImage(BufferedImage image) {
@@ -32,7 +34,15 @@ public class ImageDrawable extends TranslatableDrawable {
         if (!this.isVisible()) {
             return;
         }
+        if (this.isFlipped) {
+            canvas.drawImage(this.image, this.getXPosition() + this.image.getWidth(), this.getYPosition(),
+                    -this.image.getWidth(), this.image.getHeight(), null);
+        } else {
+            canvas.drawImage(this.image, this.getTransform(), null);
+        }
+    }
 
-        canvas.drawImage(this.image, this.getTransform(), null);
+    public void flip() {
+        this.isFlipped = !this.isFlipped;
     }
 }
