@@ -94,7 +94,7 @@ public class Game {
         return this.gameSoundSystem;
     }
 
-    public void updateFullscreenResolution(int width, int height) {
-        this.gameWindow.resizeFullscreenResolution(width, height);
+    public void adjustFullscreenScaling(int width, int height) {
+        this.gameWindow.resizeFullscreenScaling(width, height);
     }
 }
