@@ -2,15 +2,7 @@ package fri.shapesge.engine;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
-import java.awt.AWTEvent;
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
@@ -119,6 +111,16 @@ class GameWindow {
             if (!this.frame.isVisible()) {
                 this.frame.setVisible(true);
             }
+        }
+    }
+
+    public void resizeFullscreenResolution(int width, int height) {
+        if (this.isFullscreen) {
+            Dimension dimension = new Dimension(width, height);
+            DEVICE.getFullScreenWindow().setSize(dimension);
+            this.frame.setSize(dimension);
+            this.gamePanel.setSize(dimension);
+
         }
     }
 
