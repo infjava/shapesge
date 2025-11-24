@@ -29,8 +29,8 @@ class GameWindow {
     private final GameObjects gameObjects;
     private final GameInputProcessor gameInputProcessor;
     private final GameFPSCounter fpsCounter;
-    private final int width;
-    private final int height;
+    private int width;
+    private int height;
     private final GameEventDispatcher gameEventDispatcher;
     private final Color backgroundColor;
     private final boolean showInfo;
@@ -119,6 +119,22 @@ class GameWindow {
             if (!this.frame.isVisible()) {
                 this.frame.setVisible(true);
             }
+        }
+    }
+
+    public void resizeFullscreenScaling(int width, int height) {
+        if (this.isFullscreen) {
+            DEVICE.setFullScreenWindow(null);
+
+            this.width = width;
+            this.height = height;
+
+            Dimension dimension = new Dimension(width, height);
+            this.frame.setSize(dimension);
+            this.gamePanel.setPreferredSize(dimension);
+
+            DEVICE.setFullScreenWindow(this.frame);
+            this.gamePanel.resized();
         }
     }
 

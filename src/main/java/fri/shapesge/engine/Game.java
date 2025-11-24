@@ -93,4 +93,8 @@ public class Game {
     public GameSoundSystem getGameSoundSystem() {
         return this.gameSoundSystem;
     }
+
+    public void adjustFullscreenScaling(int width, int height) {
+        this.gameWindow.resizeFullscreenScaling(width, height);
+    }
 }
