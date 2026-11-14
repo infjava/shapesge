@@ -9,6 +9,7 @@ import fri.shapesge.SoundMixer;
 import fri.shapesge.Square;
 import fri.shapesge.TextBlock;
 import fri.shapesge.Triangle;
+import fri.shapesge.TextAlign;
 
 import java.util.Random;
 
@@ -34,6 +35,24 @@ public class Main {
         t.changeFont("Serif", FontStyle.BOLD, 30);
         t.changeColor("blue");
         t.makeVisible();
+
+        TextBlock tl = new TextBlock("Left", 200, 25);
+        tl.changeFont("Serif", FontStyle.BOLD, 25);
+        tl.changeColor("blue");
+        tl.changeAlign(TextAlign.LEFT);
+        tl.makeVisible();
+
+        TextBlock tc = new TextBlock("Center", 200, 50);
+        tc.changeFont("Serif", FontStyle.BOLD, 25);
+        tc.changeColor("blue");
+        tc.changeAlign(TextAlign.CENTER);
+        tc.makeVisible();
+
+        TextBlock tr = new TextBlock("Right", 200, 75);
+        tr.changeFont("Serif", FontStyle.BOLD, 25);
+        tr.changeColor("blue");
+        tr.changeAlign(TextAlign.RIGHT);
+        tr.makeVisible();
 
         ImageData id = new ImageData("test.jpg");
         System.out.format("%d x %d%n", id.getWidth(), id.getHeight());

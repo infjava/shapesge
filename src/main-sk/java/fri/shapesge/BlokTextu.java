@@ -160,4 +160,15 @@ public class BlokTextu {
     public void zmenPolohu(int x, int y) {
         this.drawable.moveTo(x, y);
     }
+
+    /**
+     * Zmeň zarovnanie textu
+     *
+     * @param align zarovnanie textu
+     *              (miesto kde sa, vzhľadom na text, nachádza nami určený bod)
+     */
+    @SuppressWarnings("unused")
+    public void zmenZarovnanie(TextAlign align) {
+        this.drawable.changeAlign(align);
+    }
 }

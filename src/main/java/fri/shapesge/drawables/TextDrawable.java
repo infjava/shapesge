@@ -1,5 +1,6 @@
 package fri.shapesge.drawables;
 
+import fri.shapesge.TextAlign;
 import fri.shapesge.engine.Game;
 
 import java.awt.Color;
@@ -7,16 +8,19 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.font.TextAttribute;
 import java.util.HashMap;
+import java.awt.FontMetrics;
 
 public class TextDrawable extends FilledDrawable {
     private String[] text;
     private Font font;
+    private TextAlign align;
 
-    public TextDrawable(int x, int y, Color color, String text, Font font) {
+    public TextDrawable(int x, int y, Color color, String text, Font font, TextAlign align) {
         super(x, y, color);
 
         this.text = text.split("\n");
         this.font = font;
+        this.align = align;
     }
 
     public void changeFont(String fontFamily, boolean bold, boolean italic, boolean underline, int size) {
@@ -49,6 +53,12 @@ public class TextDrawable extends FilledDrawable {
         Game.getGame().somethingHasChanged();
     }
 
+    public void changeAlign(TextAlign align) {
+        this.align = align;
+
+        Game.getGame().somethingHasChanged();
+    }
+
     @Override
     public void draw(Graphics2D canvas) {
         canvas.setColor(this.getColor());
@@ -57,8 +67,30 @@ public class TextDrawable extends FilledDrawable {
         var y = this.getYPosition();
         final var lineHeight = canvas.getFontMetrics().getHeight();
 
+        FontMetrics fm = canvas.getFontMetrics(font);
+
+        int textWidth = 0;
+        var x = 0;
+
         for (String line : this.text) {
-            canvas.drawString(line, this.getXPosition(), y);
+            textWidth = fm.stringWidth(line);
+
+            switch (this.align) {
+                case LEFT:
+                    x = getXPosition();
+                    break;
+                case CENTER:
+                    x = getXPosition() - textWidth/2;
+                    break;
+                case RIGHT:
+                    x = getXPosition() - textWidth;
+                    break;
+                default:
+                    x = 0;
+                    break;
+            }
+
+            canvas.drawString(line, x, y);
             y += lineHeight;
         }
     }

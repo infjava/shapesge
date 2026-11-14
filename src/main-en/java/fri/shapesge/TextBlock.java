@@ -27,7 +27,7 @@ public class TextBlock {
      */
     @SuppressWarnings("unused")
     public TextBlock(String text, int x, int y) {
-        this.drawable = new TextDrawable(x, y, Color.black, text, new Font(Font.SERIF, Font.PLAIN, 12));
+        this.drawable = new TextDrawable(x, y, Color.black, text, new Font(Font.SERIF, Font.PLAIN, 12), TextAlign.LEFT);
     }
 
     /**
@@ -159,5 +159,16 @@ public class TextBlock {
     @SuppressWarnings("unused")
     public void changePosition(int x, int y) {
         this.drawable.moveTo(x, y);
+    }
+
+    /**
+     * Change the alignment of the text.
+     *
+     * @param align alignment of the text
+     *              (the location, relative to the text, of the point we have identified)
+     */
+    @SuppressWarnings("unused")
+    public void changeAlign(TextAlign align) {
+        this.drawable.changeAlign(align);
     }
 }
